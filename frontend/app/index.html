@@ -21,8 +21,33 @@
   </head>
   <body>
 
+  <div class="header">
+    <teaser>
+      <span class="container">
+        <span class="flip"><span class="launcher"><span class="arm"><span class="right-arm">╯</span></span><span class="body">{<span class="face">°□°</span>}</span><span class="arm"><span class="left-arm">╯</span></span></span></span><span class="swoosh">彡</span><span class="cloud">{益}</span>
+      </span>
+    </teaser>
 
-  <teaser center></teaser>
+    <span class="fork-it grow"><a href="https://github.com/cloud-launcher"><span class="fork">fork</span> cloud-launcher <span class="github">on github</span></a></span>
+  </div>
+
+  <launcher-ui class="grow"></launcher-ui>
+
+  <div class="global-install grow">
+    <div class="method git">
+      <span>$ git clone https://github.com/cloud-launcher/launch-cloud</span>
+      <span>$ cd launch-cloud && ./launch-cloud ~/your_cloud.json</span>
+    </div>
+    <div class="method docker">
+      <span>$ docker run cloud-launcher/launch-cloud your_cloud.json</span>
+    </div>
+    <div class="method npm">
+      <span>$ npm install -g cloud-launcher</span>
+      <span>$ launch-cloud your_cloud.json</span>
+    </div>
+  </div>
+
+  <span class="alpha-preview">Alpha Marketing Preview [functional alpha to follow]</span>
 
 
     <!--[if lt IE 9]>
@@ -34,6 +59,7 @@
     <!-- build:js vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -42,6 +68,23 @@
 
 
     <script src="app.js"></script>
+
+    <script>
+    // This is supposed to hide Android/iOS address bars, but in my experience: doesn't
+    function hideAddressBar(){
+      console.log('hiding');
+      if(document.documentElement.scrollHeight <
+          (window.outerHeight / window.devicePixelRatio)) {
+
+        document.documentElement.style.height=(window.outerHeight/window.devicePixelRatio)+'px';
+
+        console.log(document.documentElement.style.height);
+      }
+      setTimeout(window.scrollTo(1,1),0);
+    }
+    window.addEventListener("load",function(){hideAddressBar();});
+    window.addEventListener("orientationchange",function(){hideAddressBar();});
+    </script>
 
 
   </body>

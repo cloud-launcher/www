@@ -1,7 +1,9 @@
 {
   "name": "base-angular",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^3.2.0"
+  },
   "devDependencies": {
     "6to5ify": "^4.0.0",
     "browserify-shim": "^3.8.2",
@@ -58,7 +60,8 @@
     ]
   },
   "browserify-shim": {
-    "angular": "global:angular"
+    "angular": "global:angular",
+    "_": "global:lodash"
   },
   "engines": {
     "node": ">=0.8.0"

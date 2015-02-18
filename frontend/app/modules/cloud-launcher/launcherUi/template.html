@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="description">
+    <textarea class="description" spellcheck="false">
+{
+  domain: 'cloud-launcher.io',
+  root: 'https://github.com/blakelapierre/launch-cloud',
+  root: 'https://github.com/cloud-launcher_io',
+  authorizations: ['ssh keys'],
+  locations: {
+    digitalocean: ['sfo1']
+  },
+  configuration: {
+    bridge: 1,
+    www: 1,
+    api: 1,
+    influxdb: 1
+  },
+  roles: {
+    all: ['cadvisor']
+  },
+  containers: {
+    'google/cadvisor': {
+      container: 'google/cadvisor',
+      linkTo: 'influxdb'
+    },
+    bridge: {
+      container: 'cloud-launcher/bridge',
+      linkTo: 'api'
+    },
+    www: {
+      container: 'cloud-launcher/www',
+      linkTo: 'api'
+    },
+    influxdb: {
+      container
+    }
+  }
+}
+    </textarea>
+  </div>
+  <div class="cost">
+    <div class="header">Estimated Costs*</div>
+    <div class="items">
+      <div>Provider1: $0.5 / hr</div>
+      <div>Provider2: $0.25 / hr</div>
+    </div>
+    <div class="total">Total: $0.75 / hr</div>
+  </div>
+</div>
+<div class="containers">
+  <docker-search></docker-search>
+</div>
+<div class="providers">
+  <div ng-repeat="(name, provider) in providers" class="provider {{name}}">
+    <div class="name">{{provider.name}} <span ng-if="provider.brand" class="brand">| {{provider.brand}}</span></div>
+    <div class="selections">
+      <div class="locations">
+        <div ng-repeat="location in provider.locations" class="location"><label><input type="checkbox"><span class="location-name">{{location}}</span></label></div>
+      </div>
+      <div ng-if="provider.comingsoon" class="comingsoon"><span>Coming Soon!</span></div>
+    </div>
+  </div>
+</div>

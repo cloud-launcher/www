@@ -1,18 +1,56 @@
-@keyframes spin-launcher {
+@initial-bg-color: #666;
+
+@flip-duration: 4s;
+@flip-curve: cubic-bezier(0.7, 0, 0, 1);
+
+@arm-offset: 90deg;
+
+@swoosh-duration: 0.2s;
+@swoosh-delay: @flip-duration - 0.15s;
+
+@launch-duration: 2s;
+@launch-delay: @flip-duration - 0.75s;
+@launch-curve: @flip-curve;
+
+@receed-duration: 1s;
+@receed-delay: @flip-duration + @launch-duration - 0.25s;
+@receed-curve: @flip-curve;
+
+
+@keyframes fade-to-black {
   0% {
-    transform: rotateY(0deg);
+    background-color: @initial-bg-color;
   }
   100% {
-    transform: rotateY(360deg);
+    background-color: #000;
   }
 }
 
-@keyframes counter-spin-body {
+@keyframes grow {
   0% {
-    transform: rotateY(0deg);
+    opacity: 0;
+    transform: scale(0);
   }
   100% {
-    transform: rotateY(-360deg);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes receed {
+  0% {
+    width: 100%;
+    height: 100%;
+
+    font-size: 10vw;
+    margin-left: 0vw;
+  }
+  100% {
+    width: 20vw;
+    height: 2vw;
+
+    font-size: 1.5vw;
+    margin-left: -6.5vw;
   }
 }
 
@@ -34,13 +72,13 @@
 
 @keyframes teaser-zoom {
   0% {
-    perspective: 0px;
+    perspective: 1px;
   }
   90% {
-    perspective: 300px;
+    perspective: 500px;
   }
   100% {
-    perspective: 700px;
+    perspective: 1000px;
   }
 }
 
@@ -49,85 +87,124 @@
     transform: translateZ(-500px) translateX(-80px) translateY(100%) rotateZ(0deg) rotateY(-180deg) rotateX(0deg);
   }
   90% {
-    transform: translateZ(-250px) translateX(-20px) translateY(-250%) rotateZ(0deg) rotateY(40deg)  rotateX(-720deg);
+    transform: translateZ(-250px) translateX(-20px) translateY(-200%) rotateZ(-15deg) rotateY(10deg)  rotateX(-720deg);
   }
   100% {
-    transform: translateZ(0px)   translateX(20%)   translateY(15%)    rotateZ(-1080deg) rotateY(390deg)  rotateX(-1080deg);
+    transform: translateZ(0px)   translateX(20%)   translateY(15%)    rotateZ(-1070deg) rotateY(340deg)  rotateX(-1100deg);
+  }
+}
+
+@keyframes swoosh {
+  0% {
+    transform: scale(0) translateX(-300%) translateY(100%) translateZ(-500px);
+  }
+  100% {
+    transform: scale(0.5) translateX(-75%) translateY(50%) translateZ(250px);
   }
 }
 
 @keyframes launch {
   0% {
-    transform: translateZ(0%) translateX(0%) scale(0);
+    transform: scale(0) translateX(-500%) translateY(100%) translateZ(200px) rotateZ(0deg) rotateX(0deg);
+  }
+  5% {
+    transform: scale(0.1) translateX(-400%) translateY(0%) translateZ(350px) rotateZ(360deg) rotateX(0deg);
+  }
+  95% {
+    transform: scale(1) translateX(-100%) translateY(0%) translateZ(750px) rotateZ(1080deg) rotateX(0deg);
   }
   100% {
-    transform: translateZ(100%) translateX(-50%) scale(1);
+    transform: scale(1) translateX(25%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
   }
 }
 
-@flip-duration: 4s;
-@flip-curve: cubic-bezier(0.8, 0, 0, 1);
-@arm-offset: 90deg;
+body {
+  animation: fade-to-black @receed-duration @receed-delay @receed-curve;
+  animation-fill-mode: both;
+}
 
+.grow {
+  animation: grow @receed-duration @receed-delay @receed-curve;
+  animation-fill-mode: backwards;
+}
 
 teaser {
-  font-size: 10vw;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 20vw;
+  height: 2vw;
+
+  font-size: 1.5vw;
+  margin-left: -6.5vw;
+
   font-family: monospace;
 
-  color: #fff;
-  text-shadow: 0px 0px 1px #000;
-
-  perspective: 0px;
-
-  animation: teaser-zoom @flip-duration @flip-curve;
-  animation-fill-mode: both;
+  text-shadow: 0px 0px 2px #666;
 
   transform-style: preserve-3d;
 
-  span {
+  display: flex;
+
+  align-items: center;
+
+  animation: receed @receed-duration @receed-delay @receed-curve;
+  animation-fill-mode: backwards;
+
+  * {
     display: inline-block;
     transform-style: preserve-3d;
   }
 
-  .flip {
-    animation: flip @flip-duration @flip-curve;
+  .container {
+    display: flex;
+    justify-content: center;
+
+    perspective: 1px;
+
+    animation: teaser-zoom @flip-duration @flip-curve;
     animation-fill-mode: both;
-  }
 
-  .launcher {
-    transform: rotateY(@arm-offset);
+    flex: 1;
 
-    // animation: spin-launcher 10s linear infinite;
-
-    .arm {
-      transform-origin: 50% 75%;
-      animation: arm-animation @flip-duration @flip-curve;
+    .flip {
+      animation: flip @flip-duration @flip-curve;
       animation-fill-mode: both;
+    }
 
-      .right-arm {
-        transform: translateX(1.5em) translateY(0px) rotateY(-90deg);
-        transform-origin: 0% 100%;
+    .launcher {
+      transform: rotateY(@arm-offset);
+
+      .arm {
+        transform-origin: 50% 75%;
+        animation: arm-animation @flip-duration @flip-curve;
+        animation-fill-mode: both;
+
+        .right-arm {
+          transform: translateX(1.5em) translateY(0.5em) rotateY(-90deg);
+          transform-origin: 0% 100%;
+        }
+
+        .left-arm {
+          transform: translateX(-1em) translateY(0.5em) translateZ(1em) rotateY(-90deg);
+          transform-origin: 0% 100%;
+        }
       }
 
-      .left-arm {
-        transform: translateX(-1em) translateY(0px) rotateY(-90deg);
-        transform-origin: 0% 100%;
+      .body {
+        transform: rotateY(-@arm-offset);
       }
     }
 
-    .body {
-      transform: rotateY(-@arm-offset);
-      // animation: counter-spin-body 10s linear infinite;
+    .swoosh {
+      animation: swoosh @swoosh-duration @swoosh-delay linear;
+      animation-fill-mode: both;
     }
-  }
 
-  .swoosh {
-    animation: launch 0.1s (@flip-duration - 0.25s) linear;
-    animation-fill-mode: both;
-  }
-
-  .cloud {
-    animation: launch 0.1s @flip-duration linear;
-    animation-fill-mode: both;
+    .cloud {
+      animation: launch @launch-duration @launch-delay @launch-curve;
+      animation-fill-mode: both;
+    }
   }
 }

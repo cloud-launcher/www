@@ -1,0 +1,5 @@
+<input type="text" placeholder="Search Docker Hub For Containers..." ng-model="docker.query" autofocus>{{docker.querying}}
+
+<div ng-repeat="result in docker.results track by $index">
+  {{result.name}} - {{result.star_count}}
+</div>

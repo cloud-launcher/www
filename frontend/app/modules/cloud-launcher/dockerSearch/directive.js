@@ -24,7 +24,7 @@ module.exports = ['$resource', $resource => {
         });
 
         $scope.$apply(() => {$scope.docker.querying = true;});
-      }, 250);
+      }, 500);
 
       $scope.docker = {};
     },

@@ -19,6 +19,7 @@ launcher-ui {
   align-items: stretch;
 
   overflow-y: auto;
+  overflow-x: hidden;
 
   .description {
     display: flex;
@@ -80,25 +81,8 @@ launcher-ui {
     }
   }
 
-  .container-search {
-    flex: 0 0 auto;
-
-    input {
-      background: transparent;
-      border: none;
-
-      text-align: center;
-
-      outline: 0;
-
-      font-size: 1.5em;
-
-      color: #fff;
-
-      text-shadow: 0px 0px 1px #fff;
-
-      width: 100%;
-    }
+  docker-search {
+    flex: 0 1 auto;
   }
 
   .providers {
@@ -153,7 +137,7 @@ launcher-ui {
 
         display: flex;
 
-        flex: 0 1 auto;
+        flex: 0 0 auto;
 
         overflow-y: auto;
 

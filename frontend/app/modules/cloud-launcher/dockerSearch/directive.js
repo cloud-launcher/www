@@ -1,17 +1,20 @@
 const _ = require('lodash');
 
 module.exports = ['$resource', $resource => {
-  const registry = $resource('https://registry.hub.docker.com/v1/search?q=:query&n=5');
+  const registry = $resource('https://registry.hub.docker.com/v1/search?q=:query&n=10');
   return {
     restrict: 'E',
     template: require('./template.html'),
     link: ($scope, element, attributes) => {
       const input = element.find('input');
 
-      input.on('keydown', $event => {
-        console.log($event, $scope);
-        console.dir(input);
-        debouncedSearch(input.val());
+      input.on('keyup', $event => {
+        const value = input.val();
+        debouncedSearch(value);
+
+        $scope.$apply(() => {
+          $scope.docker.querying = true;
+        });
       });
 
       // Going to have issues with requests returning out-of-order...
@@ -20,10 +23,10 @@ module.exports = ['$resource', $resource => {
           console.log(result);
 
           $scope.docker.querying = false;
-          $scope.docker.results = result.results;
-        });
+          $scope.docker.results = _.sortBy(result.results, 'star_count').reverse();
 
-        $scope.$apply(() => {$scope.docker.querying = true;});
+          $scope.docker.showResults = query !== '';
+        });
       }, 500);
 
       $scope.docker = {};

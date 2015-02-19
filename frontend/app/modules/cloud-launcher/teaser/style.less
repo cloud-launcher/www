@@ -1,6 +1,6 @@
 @initial-bg-color: #666;
 
-@flip-duration: 4s;
+@flip-duration: 1s;
 @flip-curve: cubic-bezier(0.7, 0, 0, 1);
 
 @arm-offset: 90deg;
@@ -9,7 +9,7 @@
 @swoosh-delay: @flip-duration - 0.15s;
 
 @launch-duration: 2s;
-@launch-delay: @flip-duration - 0.75s;
+@launch-delay: @flip-duration - 1s;
 @launch-curve: @flip-curve;
 
 @receed-duration: 1s;
@@ -46,11 +46,11 @@
     margin-left: 0vw;
   }
   100% {
-    width: 20vw;
+    width: 18vw;
     height: 2vw;
 
     font-size: 1.5vw;
-    margin-left: -6.5vw;
+    // margin-left: -6.5vw;
   }
 }
 
@@ -96,7 +96,7 @@
 
 @keyframes swoosh {
   0% {
-    transform: scale(0) translateX(-300%) translateY(100%) translateZ(-500px);
+    transform: scale(0) translateX(-200%) translateY(100%) translateZ(-500px);
   }
   100% {
     transform: scale(0.5) translateX(-75%) translateY(50%) translateZ(250px);
@@ -105,13 +105,13 @@
 
 @keyframes launch {
   0% {
-    transform: scale(0) translateX(-500%) translateY(100%) translateZ(200px) rotateZ(0deg) rotateX(0deg);
+    transform: scale(0) translateX(-300%) translateY(100%) translateZ(-500px) rotateZ(0deg) rotateX(0deg);
   }
   5% {
-    transform: scale(0.1) translateX(-400%) translateY(0%) translateZ(350px) rotateZ(360deg) rotateX(0deg);
+    transform: scale(0.1) translateX(-250%) translateY(0%) translateZ(-250px) rotateZ(360deg) rotateX(0deg);
   }
   95% {
-    transform: scale(1) translateX(-100%) translateY(0%) translateZ(750px) rotateZ(1080deg) rotateX(0deg);
+    transform: scale(1) translateX(-50%) translateY(0%) translateZ(150px) rotateZ(1080deg) rotateX(0deg);
   }
   100% {
     transform: scale(1) translateX(25%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
@@ -129,15 +129,18 @@ body {
 }
 
 teaser {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
 
-  width: 20vw;
+  width: 18vw;
   height: 2vw;
 
+  max-width: 100%;
+  max-height: 100%;
+
   font-size: 1.5vw;
-  margin-left: -6.5vw;
+  margin-left: -4vw;
 
   font-family: monospace;
 
@@ -151,8 +154,6 @@ teaser {
 
   animation: receed @receed-duration @receed-delay @receed-curve;
   animation-fill-mode: backwards;
-
-  overflow: hidden;
 
   z-index: 1;
 
@@ -170,7 +171,9 @@ teaser {
     animation: teaser-zoom @flip-duration @flip-curve;
     animation-fill-mode: both;
 
-    flex: 1;
+    // transform: translateX(-30%);
+
+    flex: 1 1 auto;
 
     .flip {
       animation: flip @flip-duration @flip-curve;

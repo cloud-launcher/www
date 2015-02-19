@@ -83,6 +83,8 @@ launcher-ui {
 
   docker-search {
     flex: 0 1 auto;
+
+    max-height: 30%;
   }
 
   .providers {
@@ -91,9 +93,7 @@ launcher-ui {
     flex-direction: row;
     flex-wrap: wrap;
 
-    flex: 1 1 auto;
-
-    max-height: 33%;
+    flex: 1 1 40%;
 
     overflow-y: auto;
 
@@ -140,6 +140,7 @@ launcher-ui {
         flex: 0 0 auto;
 
         overflow-y: auto;
+        overflow-x: hidden;
 
         .comingsoon {
           position: absolute;

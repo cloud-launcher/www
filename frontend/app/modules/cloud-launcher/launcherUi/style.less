@@ -4,6 +4,8 @@ launcher-ui {
   // bottom: 2.5vw;
   // left: 0;
   // right: 0;
+  position: relative;
+  height: 100%;
 
   flex: 1 1 auto;
 
@@ -16,22 +18,24 @@ launcher-ui {
   flex-direction: column;
   align-items: stretch;
 
-  .container {
+  overflow-y: auto;
+
+  .description {
     display: flex;
 
-    flex: 1 1 auto;
+    flex: 6 0 auto;
 
     flex-direction: row;
 
     justify-content: center;
     align-items: stretch;
 
-    .description {
+    .configuration {
       display: flex;
 
       flex: 1 1 auto;
 
-      textarea.description {
+      textarea {
         flex: 1 1 auto;
 
         background: transparent;
@@ -76,7 +80,7 @@ launcher-ui {
     }
   }
 
-  .containers {
+  .container-search {
     flex: 0 0 auto;
 
     input {
@@ -103,7 +107,7 @@ launcher-ui {
     flex-direction: row;
     flex-wrap: wrap;
 
-    flex: 0 0 auto;
+    flex: 1 1 auto;
 
     max-height: 33%;
 
@@ -149,7 +153,7 @@ launcher-ui {
 
         display: flex;
 
-        flex: 1 0 auto;
+        flex: 0 1 auto;
 
         overflow-y: auto;
 
@@ -179,13 +183,11 @@ launcher-ui {
         .locations {
           display: flex;
 
-          flex: 1 0 auto;
+          flex: 1 1 auto;
 
           flex-direction: column;
 
           align-items: stretch;
-
-          background-color: #111;
 
           .location {
             display: flex;
@@ -200,6 +202,14 @@ launcher-ui {
 
             align-items: center;
             justify-content: flex-start;
+
+            &:hover {
+              background-color: #aa6;
+            }
+
+            &.selected {
+              background-color: #6a6;
+            }
 
             label {
               display: flex;
@@ -221,16 +231,20 @@ launcher-ui {
                 cursor: pointer;
               }
 
-              .location-name {
-                display: inline-bloc;
+              .label {
+                display: flex;
 
-                padding: 0.1em 0;
+                padding: 0.1em 0.2em;
 
                 flex: 1 1 auto;
 
-                text-align: center;
-
                 background-color: #444;
+
+                justify-content: space-between;
+
+                .location-name {
+                  font-size: 0.7em;
+                }
               }
             }
           }

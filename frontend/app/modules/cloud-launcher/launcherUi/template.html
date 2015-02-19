@@ -1,6 +1,6 @@
-<div class="container">
-  <div class="description">
-    <textarea class="description" spellcheck="false">
+<div class="description">
+  <div class="configuration">
+    <textarea spellcheck="false">
 {
   domain: 'cloud-launcher.io',
   root: 'https://github.com/blakelapierre/launch-cloud',
@@ -47,7 +47,7 @@
     <div class="total">Total: $0.75 / hr</div>
   </div>
 </div>
-<div class="containers">
+<div class="container-search">
   <docker-search></docker-search>
 </div>
 <div class="providers">
@@ -55,7 +55,7 @@
     <div class="name">{{provider.name}} <span ng-if="provider.brand" class="brand">| {{provider.brand}}</span></div>
     <div class="selections">
       <div class="locations">
-        <div ng-repeat="location in provider.locations" class="location"><label><input type="checkbox"><span class="location-name">{{location}}</span></label></div>
+        <div ng-repeat="(name, location) in provider.locations" ng-class="{'location': true, 'selected': location.selected}"><label><input type="checkbox" ng-model="location.selected"><span class="label"><span class="location-vicinity">{{location.vicinity}}</span> <span class="location-name">({{name}})</span></span></label></div>
       </div>
       <div ng-if="provider.comingsoon" class="comingsoon"><span>Coming Soon!</span></div>
     </div>

@@ -1,6 +1,6 @@
 @initial-bg-color: #666;
 
-@flip-duration: 1s;
+@flip-duration: 4s;
 @flip-curve: cubic-bezier(0.7, 0, 0, 1);
 
 @arm-offset: 90deg;
@@ -96,10 +96,10 @@
 
 @keyframes swoosh {
   0% {
-    transform: scale(0) translateX(-200%) translateY(100%) translateZ(-500px);
+    transform: scale(0) translateX(-200%) translateY(100%) translateZ(-500px) rotateY(0deg);
   }
   100% {
-    transform: scale(0.5) translateX(-75%) translateY(50%) translateZ(250px);
+    transform: scale(0.5) translateX(-75%) translateY(50%) translateZ(250px) rotateY(0deg);
   }
 }
 
@@ -110,11 +110,14 @@
   5% {
     transform: scale(0.1) translateX(-250%) translateY(0%) translateZ(-250px) rotateZ(360deg) rotateX(0deg);
   }
-  95% {
-    transform: scale(1) translateX(-50%) translateY(0%) translateZ(150px) rotateZ(1080deg) rotateX(0deg);
+  50% {
+    transform: scale(1) translateX(-50%) translateY(0%) translateZ(-150px) rotateZ(1080deg) rotateX(0deg);
+  }
+  60% {
+    transform: scale(2) translateX(-50%) translateY(0%) translateZ(250px) rotateZ(1080deg) rotateX(0deg);
   }
   100% {
-    transform: scale(1) translateX(25%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
+    transform: scale(1) translateX(40%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
   }
 }
 
@@ -205,7 +208,7 @@ teaser {
     }
 
     .swoosh {
-      animation: swoosh @swoosh-duration @swoosh-delay linear;
+      animation: swoosh @swoosh-duration @swoosh-delay @launch-curve;
       animation-fill-mode: both;
     }
 

@@ -3,8 +3,11 @@
 </div>
 <div ng-show="docker.showResults"
      class="display">
-  <span class="header">Docker Hub Results</span>
-  <div class="results">
+  <header>
+     <span>Docker Hub Results</span><span ng-show="!docker.querying">Showing {{docker.start}} to {{docker.end}} of {{docker.total}}</span>
+  </header>
+  <div ng-show="!docker.querying"
+       class="results">
     <div ng-repeat="result in docker.results track by $index"
          class="result">
       <div class="stars">

@@ -72,11 +72,67 @@ launcher-ui {
       }
 
       .items {
+        display: flex;
+        flex-direction: column;
+
         flex: 1 1 auto;
+
+        margin-top: 0.5em;
+        margin-left: 0.25em;
+
+        .provider {
+          display: flex;
+          flex-direction: column;
+
+          flex: 1 1 auto;
+
+          .provider-name {
+            display: flex;
+            flex-direction: column;
+
+            flex: 0 1 auto;
+
+            font-weight: bold;
+          }
+
+          .machine-type {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            margin-left: 1em;
+            margin-top: 0.5em;
+
+            font-size: 0.9em;
+
+            .machine-count {
+              flex: 1;
+
+              align-self: flex-start;
+            }
+
+            .role {
+              flex: 1 1 auto;
+            }
+          }
+
+          .provider-total {
+            margin-top: 0.5em;
+
+            font-size: 0.9em;
+            font-weight: bold;
+          }
+
+        }
       }
 
       .total {
         flex: 0 0 auto;
+
+        align-self: flex-end;
+
+        font-size: 1.1em;
+        font-weight: bold;
       }
     }
   }
@@ -133,14 +189,11 @@ launcher-ui {
       }
 
       .selections {
-        position: relative;
-
         display: flex;
 
-        flex: 0 0 auto;
+        flex-direction: column;
 
-        overflow-y: auto;
-        overflow-x: hidden;
+        flex: 0 0 auto;
 
         .comingsoon {
           position: absolute;
@@ -166,9 +219,10 @@ launcher-ui {
         }
 
         .locations {
+          position: relative;
           display: flex;
 
-          flex: 1 1 auto;
+          flex: 0 1 auto;
 
           flex-direction: column;
 

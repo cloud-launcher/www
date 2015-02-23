@@ -1,0 +1,62 @@
+target {
+  .target {
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    align-items: center;
+
+    background-color: #666;
+
+    li {
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+
+      flex: 1 1 auto;
+
+      padding: 0 0.5em;
+
+      text-align: center;
+    }
+
+    .header {
+    }
+
+    .version {
+      &:hover {
+        background-color: #666;
+
+        cursor: pointer;
+      }
+
+      &:selected {
+        background-color: #6a6;
+      }
+
+      .number {
+        font-size: 0.66em;
+      }
+    }
+
+    .os {
+      background-color: #fff;
+    }
+
+    .stable {
+
+    }
+
+    .beta {
+
+    }
+
+    .alpha {
+
+    }
+  }
+}

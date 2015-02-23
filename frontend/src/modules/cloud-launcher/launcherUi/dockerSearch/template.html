@@ -19,7 +19,7 @@
       </path>
     </svg>
   </span>
-  <span class="close" ng-show="docker.showResults" ng-click="docker.query = ''; queryChanged()">X</span>
+  <span class="close" ng-show="docker.query != ''" ng-click="docker.query = ''; queryChanged()">X</span>
 </div>
 <div ng-show="docker.showResults"
      class="display">

@@ -45,15 +45,21 @@ docker-search {
       height: 100%;
 
       .indicator {
+        display: flex;
+
+        align-items: center;
+
         flex: 1;
 
         margin-right: 0.5em;
       }
 
       .close {
-        color: #f33;
+        color: #f11;
 
+        font-size: 1.25em;
         font-weight: bolder;
+        font-family: sans-serif;
 
         cursor: pointer;
       }
@@ -77,6 +83,7 @@ docker-search {
       flex: 0 0 auto;
 
       justify-content: space-between;
+      align-items: center;
 
       font-size: 1.2em;
       font-weight: bold;

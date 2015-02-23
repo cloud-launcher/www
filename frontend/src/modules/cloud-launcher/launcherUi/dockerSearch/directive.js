@@ -7,7 +7,7 @@ module.exports = ['$resource', $resource => {
     template: require('./template.html'),
     link: ($scope, element, attributes) => {
       const input = element.find('input'),
-            docker = {};
+            docker = {query: ''};
 
       $scope.docker = docker;
       $scope.selectedContainers = {};
@@ -19,12 +19,11 @@ module.exports = ['$resource', $resource => {
         debouncedSearch(value);
 
         docker.querying = true;
-        docker.showResults = value !== '';
       };
 
       // Going to have issues with requests returning out-of-order...
       const debouncedSearch = _.debounce(query => {
-        const result = registry.get({query, count: 5, page: 1} , () => {
+        const result = registry.get({query, count: 100, page: 1} , () => {
           if (result.query != query) {
             console.log('didn\'t match', query, result.query);
             return;

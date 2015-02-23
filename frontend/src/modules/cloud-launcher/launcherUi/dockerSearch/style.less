@@ -35,17 +35,27 @@ docker-search {
 
       display: flex;
 
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+
+      margin-right: 0.25em;
 
       top: 0;
       right: 0;
       height: 100%;
 
-      margin-right: 0.5em;
-
       .indicator {
         flex: 1;
+
+        margin-right: 0.5em;
+      }
+
+      .close {
+        color: #f33;
+
+        font-weight: bolder;
+
+        cursor: pointer;
       }
     }
   }
@@ -88,19 +98,24 @@ docker-search {
         flex: 1 1 auto;
 
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-content: center;
 
         margin: 0.25em;
         padding: 0.25em;
 
-        background: linear-gradient(#000, rgba(136, 136, 153, 0.25), #000);
+        // background: linear-gradient(#000, rgba(136, 136, 153, 0.25), #000);
+        background-color: #666;
         box-shadow: inset 0px 0px 1px 1px #111;
 
         cursor: pointer;
 
         &:hover {
-          background: linear-gradient(#000, rgba(153, 153, 136, 0.5), #000);
+          background-color: #aa6;
+        }
+
+        &.selected {
+          background-color: #6a6;
         }
 
         .stars {
@@ -125,7 +140,7 @@ docker-search {
           display: flex;
           flex-direction: column;
 
-          flex: 0 1 auto;
+          flex: 1 1 auto;
 
           justify-content: flex-start;
           align-items: flex-start;
@@ -136,6 +151,15 @@ docker-search {
             font-size: 1.1em;
             font-weight: bold;
           }
+        }
+
+        .select {
+          display: flex;
+
+          flex: 0 0 auto;
+
+          justify-content: center;
+          align-items: center;
         }
       }
     }

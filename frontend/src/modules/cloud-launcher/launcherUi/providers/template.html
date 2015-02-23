@@ -2,7 +2,7 @@
   <div class="name">{{provider.name}} <span ng-if="provider.brand" class="brand">| {{provider.brand}}</span></div>
   <div class="selections">
     <div class="locations">
-      <div ng-repeat="(name, location) in provider.locations" ng-class="{'location': true, 'selected': location.selected}"><label><input type="checkbox" ng-model="location.selected"><span class="label"><span class="location-vicinity">{{location.vicinity}}</span> <span class="location-name">({{name}})</span></span></label></div>
+      <div ng-repeat="(name, location) in provider.locations" ng-class="{'location': true, 'selected': location.selected}"><label><input type="checkbox" ng-model="location.selected" tabindex="{{provider.comingsoon ? -1 : ''}}"><span class="label"><span class="location-vicinity">{{location.vicinity}}</span> <span class="location-name">({{name}})</span></span></label></div>
       <div ng-if="provider.comingsoon" class="comingsoon"><span>Coming Soon!</span></div>
     </div>
   </div>

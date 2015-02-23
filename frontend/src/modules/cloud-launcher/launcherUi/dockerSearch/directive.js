@@ -10,20 +10,21 @@ module.exports = ['$resource', $resource => {
             docker = {};
 
       $scope.docker = docker;
+      $scope.selectedContainers = {};
 
-      input.on('keyup', $event => {
-        const value = input.val();
+      console.dir($scope.selectedContainers);
+
+      $scope.queryChanged = $event => {
+        const value = docker.query;
         debouncedSearch(value);
 
-        $scope.$apply(() => {
-          docker.querying = true;
-          docker.showResults = value !== '';
-        });
-      });
+        docker.querying = true;
+        docker.showResults = value !== '';
+      };
 
       // Going to have issues with requests returning out-of-order...
       const debouncedSearch = _.debounce(query => {
-        const result = registry.get({query, count: 100, page: 1} , () => {
+        const result = registry.get({query, count: 5, page: 1} , () => {
           if (result.query != query) {
             console.log('didn\'t match', query, result.query);
             return;

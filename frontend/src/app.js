@@ -1,5 +1,5 @@
-var angular = require('angular');
-
+require('angular'); // Don't assign result...angular/browserify doesn't like it...
+require('angular-resource');
 
 module.exports = {
   'cloud-launcher': angular.module('cloud-launcher', ['ngResource'])

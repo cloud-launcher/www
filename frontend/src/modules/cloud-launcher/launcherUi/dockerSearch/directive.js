@@ -12,13 +12,15 @@ module.exports = ['$resource', $resource => {
       $scope.docker = docker;
       $scope.selectedContainers = {};
 
-      console.dir($scope.selectedContainers);
-
       $scope.queryChanged = $event => {
         const value = docker.query;
         debouncedSearch(value);
 
         docker.querying = true;
+      };
+
+      $scope.selectContainer = name => {
+        $scope.$broadcast('containerModified', name, $scope.selectedContainers[name]);
       };
 
       // Going to have issues with requests returning out-of-order...

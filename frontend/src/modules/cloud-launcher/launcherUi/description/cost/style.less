@@ -32,7 +32,7 @@ cost {
       display: flex;
       flex-direction: column;
 
-      flex: 1 1 auto;
+      flex: 1 0 auto;
 
       .provider-name {
         display: flex;
@@ -43,32 +43,51 @@ cost {
         font-weight: bold;
       }
 
-      .machine-type {
+      .location {
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
 
-        margin-left: 1em;
+        flex: 0 0 auto;
+
         margin-top: 0.5em;
 
-        font-size: 0.9em;
+        .machine-type {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
 
-        .machine-count {
-          flex: 1;
+          margin-left: 1em;
+          margin-top: 0.5em;
 
-          align-self: flex-start;
+          font-size: 0.9em;
+
+          .machine-count {
+            flex: 1;
+
+            align-self: flex-start;
+          }
+
+          .role {
+            flex: 1 1 auto;
+          }
         }
 
-        .role {
-          flex: 1 1 auto;
+        .location-total {
+          margin-top: 0.25em;
+
+          font-size: 0.9em;
+          // font-weight: bold;
+          text-align: right;
         }
       }
 
       .provider-total {
-        margin-top: 0.5em;
+        margin-top: 0.75em;
 
         font-size: 0.9em;
         font-weight: bold;
+
+        text-align: right;
       }
 
     }

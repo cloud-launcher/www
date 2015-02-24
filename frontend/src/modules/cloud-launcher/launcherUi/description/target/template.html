@@ -1,5 +1,5 @@
+<span class="header">Select An Operating System</span>
 <ul class="target">
-  <li class="header">Target:</li>
   <li class="os">
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" preserveAspectRatio="xMidYMin" height="30px" viewBox="24.5 40.5 744 224" enable-background="new 24.5 40.5 744 224" xml:space="preserve">
       <g>
@@ -45,16 +45,10 @@
       </g>
       </svg>
   </li>
-  <li class="version stable">
-    <div>Stable</div>
-    <div class="number">5xx</div>
-  </li>
-  <li class="version beta">
-    <div>Beta</div>
-    <div class="number">5xx</div>
-  </li>
-  <li class="version alpha selected">
-    <div>Alpha</div>
-    <div class="number">5xx</div>
+  <li ng-repeat="(name, version) in targets['CoreOS']"
+      ng-class="{'version': true, 'selected': name === selectedTarget['CoreOS']}"
+      ng-click="selectedTarget['CoreOS'] = name">
+      <div>{{::name}}</div>
+      <div class="number">{{::version}}</div>
   </li>
 </ul>

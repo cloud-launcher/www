@@ -19,23 +19,21 @@ launcher-ui {
   overflow-y: auto;
   overflow-x: hidden;
 
+  description {
+    flex: 1 1 auto;
+
+    max-height: 60%;
+  }
+
   docker-search {
     flex: 0 0 auto;
 
     max-height: 40%;
   }
 
-  .lower {
-    display: flex;
+  providers {
+    flex: 1 1 auto;
 
-    justify-content: space-between;
-
-    flex: 0 0 auto;
-
-    overflow-x: auto;
-
-    target {
-      flex: 1 0 auto;
-    }
+    max-height: 40%;
   }
 }

@@ -1,21 +1,31 @@
 target {
   display: flex;
+  flex-direction: column;
 
   justify-content: flex-end;
+
+  .header {
+    font-size: 0.6em;
+    font-family: sans-serif;
+    font-weight: bolder;
+
+    text-shadow: 0px 0px 2px #000;
+  }
 
   .target {
     display: flex;
 
-    flex: 0 1 auto;
+    flex: 1 0 auto;
 
     margin: 0;
     padding: 0;
 
     list-style: none;
 
-    align-items: center;
+    align-items: stretch;
+    justify-content: stretch;
 
-    background-color: #666;
+    border: solid 1px #000;
 
     li {
       display: flex;
@@ -26,20 +36,14 @@ target {
 
       flex: 1 1 auto;
 
-      padding: 0 0.5em;
-
       text-align: center;
-    }
 
-    .header {
-      font-size: 1.25em;
-      font-family: sans-serif;
-      font-weight: bolder;
-
-      text-shadow: 0px 0px 2px #000;
+      padding: 0.1em 0.5em;
     }
 
     .version {
+      background-color: #666;
+
       &:hover {
         background-color: #aa6;
 
@@ -57,18 +61,6 @@ target {
 
     .os {
       background-color: #fff;
-    }
-
-    .stable {
-
-    }
-
-    .beta {
-
-    }
-
-    .alpha {
-
     }
   }
 }

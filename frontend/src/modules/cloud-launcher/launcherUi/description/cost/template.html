@@ -1,17 +1,22 @@
 <div class="header">Estimated Costs*</div>
 <div class="items">
-  <div class="provider">
-    <span class="provider-name">DigitalOcean:</span>
-    <div class="location">
-      <span class="location-name">San Francisco (sfo1)</span>
-      <div class="machine-type">
-        <span class="machine-count">(3) 512MB @ $0.007 / hr</span>
-        <div class="role">     (1) www    $0.007 / hr</div>
-        <div class="role">    (1)  api    $0.007 / hr</div>
-        <div class="role">(1) influxdb    $0.007 / hr</div>
+  <div ng-repeat="provider in cost.providers"
+       class="provider">
+    <span class="provider-name">{{::provider.name}}:</span>
+    <div ng-repeat="location in provider.locations"
+         class="location">
+      <span class="location-name">{{::location.vicinity}} ({{::location.name}})</span>
+      <div ng-repeat="type in location.machineTypes"
+           class="machine-type">
+        <span class="machine-count">({{type.count}}) {{::type.size}} @ ${{::(type.hourlyPrice / 10000)}} / hr</span>
+        <div ng-repeat="role in type.roles"
+             class="role">
+          ({{::role.count}}) {{::role.name}} ${{::(role.cost / 10000)}} / hr
+        </div>
       </div>
-      <div class="provider-total">DigitalOcean Total: $0.021 / hr</div>
+      <div class="location-total">{{::location.vicinity}} ({{::location.name}}) Total: ${{location.total / 10000}} / hr</div>
     </div>
+    <div class="provider-total">{{::provider.name}} Total: ${{provider.total / 10000}} / hr</div>
   </div>
 </div>
-<div class="total">Total: $0.021 / hr</div>
+<div class="total">Total Estimated Cost*: ${{cost.total / 10000}} / hr</div>

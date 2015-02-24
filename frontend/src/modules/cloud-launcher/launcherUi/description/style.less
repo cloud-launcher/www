@@ -11,7 +11,7 @@
   }
   100% {
     background: linear-gradient(225deg, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b);
-    box-shadow: inset 0px 0px 2px 4px #b11;
+    box-shadow: inset 0px 0px 10px 10px #b11;
   }
 }
 
@@ -24,24 +24,12 @@ description {
 
   flex-direction: row;
 
-  justify-content: center;
-  align-items: stretch;
-
-  .configuration-group {
+  configuration {
     display: flex;
-    flex-direction: column;
 
-    flex: 1 1 auto;
+    flex: 10 1 auto;
 
-    target {
-      flex: 0 0 auto;
-    }
-
-    configuration {
-      display: flex;
-
-      flex: 1 1 auto;
-    }
+    align-self: stretch;
   }
 
   .side {
@@ -51,14 +39,20 @@ description {
 
     justify-content: space-between;
 
-    flex: 0 1 auto;
+    flex: 1 1 auto;
 
     cost {
       flex: 1 1 auto;
     }
 
+    target {
+      flex: 0 0 auto;
+
+      margin-top: 0.25em;
+    }
+
     .launch {
-      flex: 0 1 auto;
+      flex: 0 0 auto;
 
       padding: 0.25em 0;
 

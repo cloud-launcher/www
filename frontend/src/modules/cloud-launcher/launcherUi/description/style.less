@@ -27,10 +27,21 @@ description {
   justify-content: center;
   align-items: stretch;
 
-  configuration {
+  .configuration-group {
     display: flex;
+    flex-direction: column;
 
     flex: 1 1 auto;
+
+    target {
+      flex: 0 0 auto;
+    }
+
+    configuration {
+      display: flex;
+
+      flex: 1 1 auto;
+    }
   }
 
   .side {
@@ -40,8 +51,10 @@ description {
 
     justify-content: space-between;
 
+    flex: 0 1 auto;
+
     cost {
-      flex: 1 0 auto;
+      flex: 1 1 auto;
     }
 
     .launch {

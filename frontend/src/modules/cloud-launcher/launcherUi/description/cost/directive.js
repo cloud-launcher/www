@@ -13,6 +13,7 @@ module.exports = () => {
       });
 
       $scope.cost = cost;
+      $scope.expanded = {};
 
       setCost($scope.configuration);
 
@@ -26,6 +27,7 @@ module.exports = () => {
 
           const provider = cost.providers[providerId] = {
             name: sourceProvider.name,
+            brand: sourceProvider.brand,
             locations: {},
             total: 0
           };

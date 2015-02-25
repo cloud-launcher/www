@@ -1,22 +1,37 @@
-<div class="header">Estimated Costs*</div>
 <div class="items">
   <div ng-repeat="provider in cost.providers"
-       class="provider">
-    <span class="provider-name">{{::provider.name}}:</span>
-    <div ng-repeat="location in provider.locations"
-         class="location">
-      <span class="location-name">{{::location.vicinity}} ({{::location.name}})</span>
-      <div ng-repeat="type in location.machineTypes"
-           class="machine-type">
-        <span class="machine-count">({{type.count}}) {{::type.size}} @ ${{::(type.hourlyPrice / 10000)}} / hr</span>
-        <div ng-repeat="role in type.roles"
-             class="role">
-          ({{::role.count}}) {{::role.name}} ${{::(role.cost / 10000)}} / hr
-        </div>
+       class="provider"
+       ng-click="expanded[provider.name] = !expanded[provider.name]">
+    <div class="provider-header"
+         title="Click to {{expanded[provider.name] ? 'expand' : 'collapse'}}">
+      <div class="provider-expand">{{expanded[provider.name] ? '-' : '+'}}</div>
+      <div>
+        <span class="provider-name">{{::provider.name}}</span>
+        <span ng-if="provider.brand" class="provider-brand">| {{::provider.brand}}</span>
       </div>
-      <div class="location-total">{{::location.vicinity}} ({{::location.name}}) Total: ${{location.total / 10000}} / hr</div>
+      <span class="provider-total">Total: ${{provider.total / 10000}} / hr</span>
     </div>
-    <div class="provider-total">{{::provider.name}} Total: ${{provider.total / 10000}} / hr</div>
+    <div class="locations">
+      <div ng-repeat="location in provider.locations"
+           ng-show="expanded[provider.name]"
+           class="location">
+        <span class="location-name">{{::location.vicinity}} ({{::location.name}})</span>
+        <div class="machine-types">
+          <div ng-repeat="type in location.machineTypes"
+               class="machine-type">
+            <span class="machine-count">({{type.count}}) {{::type.size}} @ ${{::(type.hourlyPrice / 10000)}} / hr</span>
+            <div ng-repeat="role in type.roles"
+                 class="role">
+              <span class="count">({{::role.count}})</span>
+              <span class="name">{{::role.name}}</span>
+              <span class="cost">${{::(role.cost / 10000)}} / hr</span>
+            </div>
+          </div>
+        </div>
+        <div class="location-total">{{::location.vicinity}} ({{::location.name}}) Total: ${{location.total / 10000}} / hr</div>
+      </div>
+    </div>
   </div>
 </div>
-<div class="total">Total Estimated Cost*: ${{cost.total / 10000}} / hr</div>
+<div class="total"
+     title="This is only an estimate! Actual cost may vary!">Estimated Running Cost*: ${{cost.total / 10000}} / hr</div>

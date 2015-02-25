@@ -9,7 +9,7 @@ cost {
 
   border: solid 1px #000;
 
-  background: linear-gradient(#333, #666, #333);
+  background: linear-gradient(#111, #333, #111);
 
   overflow-y: auto;
 
@@ -29,15 +29,24 @@ cost {
 
       flex: 0 0 auto;
 
-      background-color: #333;
+      background-color: #666;
 
       cursor: pointer;
 
       &:hover {
-        background-color: #aa6;
+        background-color: #9999aa;
 
         .provider-header {
-          background-color: #663;
+          color: #111;
+          background-color: #999;
+
+          .provider-brand {
+            color: #fff;
+          }
+
+          .provider-total {
+            color: #111;
+          }
         }
       }
 
@@ -50,7 +59,8 @@ cost {
 
         font-weight: bold;
 
-        background-color: #666;
+        color: #fff;
+        background-color: #333;
         border-bottom: solid 1px #000;
 
         padding: 0 0.25em;
@@ -97,9 +107,13 @@ cost {
 
           margin: 0.25em;
 
-          // padding: 0.25em;
+          &:hover {
+            background-color: #99a;
 
-          background-color: #666;
+            .machine-types {
+              background-color: #334;
+            }
+          }
 
           .location-name {
             // border: solid 1px #666;
@@ -111,7 +125,7 @@ cost {
           }
 
           .machine-types {
-            background-color: #111;
+             background-color: #111;
 
             .machine-type {
               display: flex;

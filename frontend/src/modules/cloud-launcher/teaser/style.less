@@ -1,6 +1,6 @@
 @initial-bg-color: #666;
 
-@flip-duration: 0s;
+@flip-duration: 4s;
 @flip-curve: cubic-bezier(0.7, 0, 0, 1);
 
 @arm-offset: 90deg;
@@ -15,6 +15,23 @@
 @receed-duration: 1s;
 @receed-delay: @flip-duration + @launch-duration - 0.25s;
 @receed-curve: @flip-curve;
+
+@flip-reset-duration: @receed-duration;
+@flip-reset-delay: @receed-delay;
+@flip-reset-curve: @receed-curve;
+
+@arm-reset-duration: @receed-duration;
+@arm-reset-delay: @receed-delay;
+@arm-reset-curve: @receed-curve;
+
+@swoosh-reset-duration: @receed-duration;
+@swoosh-reset-delay: @receed-delay;
+@swoosh-reset-curve: @receed-curve;
+
+@launch-reset-duration: @receed-duration;
+@launch-reset-delay: @receed-delay;
+@launch-reset-curve: @receed-curve;
+
 
 
 @keyframes fade-to-black {
@@ -39,34 +56,18 @@
 
 @keyframes receed {
   0% {
-    width: calc(100% - 0em);
-    height: calc(100% - 0em);
+    width: 100%;
+    height: 100%;
 
     font-size: calc(10vw);
     margin-left: calc(0em);
   }
   100% {
-    width: calc(10em);
-    height: calc(1.5em);
+    width: 0%;
+    height: 0%;
 
-    font-size: calc(1.5em);
+    font-size: calc(0em);
     margin-left: calc(-2em);
-  }
-}
-
-@keyframes arm-animation {
-  0% {
-    transform: translateZ(0px) rotateX(0deg);
-  }
-  50% {
-    transform: translateZ(0px) rotateX(-30deg);
-  }
-
-  95% {
-    transform: translateZ(0px) rotateX(-220deg);
-  }
-  100% {
-    transform: translateZ(0px) rotateX(-45deg);
   }
 }
 
@@ -94,12 +95,54 @@
   }
 }
 
+@keyframes flip-reset {
+  0% {
+    transform: translateZ(0px)   translateX(0%)   translateY(0%)    rotateZ(-1070deg) rotateY(340deg)  rotateX(-1100deg);
+  }
+  100% {
+    transform: translateZ(0px)   translateX(0%)   translateY(0%)    rotateZ(0deg) rotateY(0deg)  rotateX(0deg);
+  }
+}
+
+@keyframes arm {
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(-30deg);
+  }
+  95% {
+    transform: rotateX(-220deg);
+  }
+  100% {
+    transform: rotateX(-45deg);
+  }
+}
+
+@keyframes arm-reset {
+  0% {
+    transform: rotateX(-45deg) translateY(0em) ;
+  }
+  100% {
+    transform: rotateX(0deg) translateY(10em) ;
+  }
+}
+
 @keyframes swoosh {
   0% {
     transform: scale(0) translateX(-300%) translateY(100%) translateZ(-500px) rotateY(0deg);
   }
   100% {
     transform: scale(0.5) translateX(-200%) translateY(50%) translateZ(250px) rotateY(0deg);
+  }
+}
+
+@keyframes swoosh-reset {
+  0% {
+    transform: scale(0.5) translateX(-200%) translateY(50%) translateZ(250px) rotateY(0deg);
+  }
+  100% {
+    transform: scale(1) translateX(0%) translateY(0%) translateZ(0px) rotateY(0deg);
   }
 }
 
@@ -121,6 +164,15 @@
   }
 }
 
+@keyframes launch-reset {
+  0% {
+    transform: scale(1) translateX(0%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
+  }
+  100% {
+    transform: scale(1) translateX(0%) translateY(0%) translateZ(0px) rotateZ(0deg) rotateX(0deg);
+  }
+}
+
 body {
   animation: fade-to-black @receed-duration @receed-delay @receed-curve;
   animation-fill-mode: both;
@@ -133,16 +185,16 @@ body {
 
 teaser {
   position: fixed;
-  left: 0;
-  top: 0;
+  // left: 0;
+  // top: 0
 
-  width: calc(10em);
-  height: calc(1.5em);
+  width: calc(0%);
+  height: calc(0%);
 
   max-width: 100%;
   max-height: 100%;
 
-  font-size: calc(1.5em);
+  font-size: calc(0em);
   margin-left: -2em;
 
   font-family: monospace;
@@ -163,6 +215,8 @@ teaser {
   * {
     display: inline-block;
     transform-style: preserve-3d;
+
+    overflow: visible;
   }
 
   .container {
@@ -179,17 +233,16 @@ teaser {
     flex: 1 1 auto;
 
     .flip {
-      animation: flip @flip-duration @flip-curve;
-      animation-fill-mode: both;
+      animation: flip @flip-duration @flip-curve 0s, flip-reset @flip-reset-duration @flip-reset-curve @flip-reset-delay;
+      animation-fill-mode: forwards;
     }
 
     .launcher {
       transform: rotateY(@arm-offset);
 
       .arm {
-        transform-origin: 50% 75%;
-        animation: arm-animation @flip-duration @flip-curve;
-        animation-fill-mode: both;
+        animation: arm @flip-duration @flip-curve 0s, arm-reset @arm-reset-duration @arm-reset-curve @arm-reset-delay;
+        animation-fill-mode: forwards;
 
         .right-arm {
           transform: translateX(1.5em) translateY(0.5em) rotateY(-90deg);
@@ -208,13 +261,17 @@ teaser {
     }
 
     .swoosh {
-      animation: swoosh @swoosh-duration @swoosh-delay @launch-curve;
-      animation-fill-mode: both;
+      transform: scale(0);
+
+      animation: swoosh @swoosh-duration @launch-curve @swoosh-delay, swoosh-reset @swoosh-reset-duration @swoosh-reset-curve @swoosh-reset-delay;
+      animation-fill-mode: forwards;
     }
 
     .cloud {
-      animation: launch @launch-duration @launch-delay @launch-curve;
-      animation-fill-mode: both;
+      transform: scale(0);
+
+      animation: launch @launch-duration @launch-curve @launch-delay, launch-reset @launch-reset-duration @launch-reset-curve @launch-reset-delay;
+      animation-fill-mode: forwards;
     }
   }
 }

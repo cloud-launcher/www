@@ -20,11 +20,13 @@
           <div ng-repeat="type in location.machineTypes"
                class="machine-type">
             <span class="machine-count">({{type.count}}) {{::type.size}} @ ${{::(type.hourlyPrice / 10000)}} / hr</span>
-            <div ng-repeat="role in type.roles"
-                 class="role">
-              <span class="count">({{::role.count}})</span>
-              <span class="name">{{::role.name}}</span>
-              <span class="cost">${{::(role.cost / 10000)}} / hr</span>
+            <div class="roles">
+              <div ng-repeat="role in type.roles"
+                   class="role">
+                <span class="count">({{::role.count}})</span>
+                <span class="name">{{::role.name}}</span> @
+                <span class="cost">${{::(role.cost / 10000)}} / hr</span>
+              </div>
             </div>
           </div>
         </div>

@@ -110,13 +110,16 @@ cost {
           &:hover {
             background-color: #99a;
 
+            .location-name {
+              background-color: #222;
+            }
+
             .machine-types {
               background-color: #334;
             }
           }
 
           .location-name {
-            // border: solid 1px #666;
             background-color: #000;
 
             font-weight: bold;
@@ -130,7 +133,7 @@ cost {
             .machine-type {
               display: flex;
               flex-direction: column;
-              align-items: flex-end;
+              align-items: stretch;
 
               padding: 0.25em;
 
@@ -139,28 +142,35 @@ cost {
               .machine-count {
                 flex: 0 0 auto;
 
-                align-self: stretch;
-
                 padding: 0 0.25em;
 
                 background-color: #333;
               }
 
-              .role {
-                flex: 1 1 auto;
+              .roles {
+                flex: 0 0 auto;
 
-                .count {
-                  font-weight: bold;
-                }
+                display: flex;
+                flex-direction: column;
 
-                .name {
-                  padding: 0 0.25em;
+                align-items: flex-end;
 
-                  background-color: #666;
-                }
+                .role {
+                  flex: 1 0 auto;
 
-                .cost {
-                  padding: 0 0.25em;
+                  .count {
+                    font-weight: bold;
+                  }
+
+                  .name {
+                    padding: 0 0.25em;
+
+                    background-color: #333;
+                  }
+
+                  .cost {
+                    padding: 0 0.25em;
+                  }
                 }
               }
             }
@@ -187,13 +197,13 @@ cost {
   .total {
     flex: 0 0 auto;
 
-    align-self: stretch;
+    align-self: cent;
 
     padding: 0 0.25em;
 
-    background-color: #666;
+    background-color: #000;
 
-    text-align: right;
+    text-align: center;
 
     font-size: 1.1em;
     font-weight: bold;

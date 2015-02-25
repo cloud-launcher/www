@@ -58,8 +58,31 @@ module.exports = () => {
             delete configuration.configuration[name];
           }
         }
-        $scope.$broadcast('configurationModified', configuration);
+
         setText();
+        $scope.$broadcast('configurationModified', configuration);
+      });
+
+      $scope.$on('locationModified', ($event, provider, location, selected) => {
+        if (selected) {
+          let locations = configuration.locations[provider] = configuration.locations[provider] || [];
+
+          if (locations.indexOf(location) === -1) locations.push(location);
+        }
+        else {
+          let locations = configuration.locations[provider];
+          if (locations) {
+            const index = locations.indexOf(location);
+            if (index !== -1) {
+              locations.splice(index, 1);
+
+              if (locations.length === 0) delete configuration.locations[provider];
+            }
+          }
+        }
+
+        setText();
+        $scope.$broadcast('configurationModified', configuration);
       });
 
       $scope.$broadcast('configurationModified', configuration);

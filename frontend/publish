@@ -17,7 +17,7 @@ gulpur build \
   && cd ../../cloud-launcher.github.io \
   && git add . \
   && git commit -m "Publishing $REV" \
-  && git push origin master
+  && git push origin master \
   && echo "Published!" \
 || echo "Something failed. Figure it out!"
 

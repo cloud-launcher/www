@@ -1,9 +1,22 @@
 #!/bin/bash
 
+if [ `git rev-parse --abbrev-ref HEAD` != "master" ]; then
+  echo "Not on master"
+  exit 1
+fi
+
+test -z "$(git status --porcelain)"
+if [ $? != 0 ]; then
+  echo "Repo not clean"
+  exit 1
+fi
+
 gulpur build \
+  && REV=`git rev-parse HEAD`
   && cp .dist/* ../../cloud-launcher.github.io \
   && cd ../../cloud-launcher.github.io \
   && git add . \
+  && git commit -m "Publishing $REV"
   && echo "You may now commit!" \
 || echo "Something failed. Figure it out!"
 

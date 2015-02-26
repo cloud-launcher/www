@@ -1,0 +1,10 @@
+#!/bin/bash
+
+gulpur build \
+  && cp .dist/* ../../cloud-launcher.github.io \
+  && cd ../../cloud-launcher.github.io \
+  && git add . \
+  && echo "You may now commit!" \
+|| echo "Something failed. Figure it out!"
+
+

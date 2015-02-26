@@ -12,7 +12,7 @@ if [ $? != 0 ]; then
 fi
 
 gulpur build \
-  && REV=`git rev-parse HEAD`
+  && REV=`git rev-parse HEAD` \
   && cp .dist/* ../../cloud-launcher.github.io \
   && cd ../../cloud-launcher.github.io \
   && git add . \

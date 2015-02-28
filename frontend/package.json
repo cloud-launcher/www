@@ -7,6 +7,7 @@
     "angular": "^1.3.13",
     "angular-resource": "^1.3.13",
     "do-wrapper-browser": "cloud-launcher/do-wrapper",
+    "launch-cloud-providers": "^0.0.3",
     "lodash": "^3.3.0"
   },
   "devDependencies": {

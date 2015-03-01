@@ -116,7 +116,7 @@ gulp.task('minify-css',
   () => pipe([
     gulp.src([paths.dev.css])
     ,print()
-    ,minifyCss()
+    ,minifyCss({advanced: false})
     ,gulp.dest(paths.dist.$)
   ]));
 

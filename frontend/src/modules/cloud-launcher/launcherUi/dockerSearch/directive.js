@@ -14,9 +14,14 @@ module.exports = ['$resource', $resource => {
 
       $scope.queryChanged = $event => {
         const value = docker.query;
-        debouncedSearch(value);
-
-        docker.querying = true;
+        if (value !== '') {
+          debouncedSearch(value);
+          docker.querying = true;
+        }
+        else {
+          docker.querying = false;
+          docker.showResults = false;
+        }
       };
 
       $scope.selectContainer = name => {

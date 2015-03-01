@@ -4,6 +4,8 @@ docker-search {
   display: flex;
   flex-direction: column;
 
+  background: linear-gradient(90deg, #222, #000, #222);
+
   .search {
     position: relative;
 
@@ -72,8 +74,10 @@ docker-search {
 
     flex: 1 1 auto;
 
-    background-color: #000;
+    // background-color: #000;
     padding-bottom: 0.5em;
+
+    border: solid 1px #000;
 
     overflow-y: auto;
 
@@ -108,21 +112,20 @@ docker-search {
         justify-content: space-between;
         align-content: center;
 
-        margin: 0.25em;
-        padding: 0.25em;
+        margin: 0.2em;
+        padding: 0.2em;
 
-        // background: linear-gradient(#000, rgba(136, 136, 153, 0.25), #000);
-        background-color: #666;
-        box-shadow: inset 0px 0px 1px 1px #111;
+        border: solid 1px #666;
+        background: #111;
 
         cursor: pointer;
 
         &:hover {
-          background-color: #aa6;
+          background: linear-gradient(90deg, #663, #993, #663);
         }
 
         &.selected {
-          background-color: #6a6;
+          background: linear-gradient(90deg, #363, #696, #363);
         }
 
         .stars {
@@ -149,8 +152,8 @@ docker-search {
 
           flex: 1 1 auto;
 
-          justify-content: flex-start;
-          align-items: flex-start;
+          justify-content: center;
+          align-items: center;
 
           .container-name {
             flex: 0 0 auto;
@@ -167,6 +170,8 @@ docker-search {
 
           justify-content: center;
           align-items: center;
+
+          margin-left: 0.25em;
         }
       }
     }

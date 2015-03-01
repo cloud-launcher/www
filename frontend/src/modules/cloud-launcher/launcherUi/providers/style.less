@@ -10,7 +10,7 @@ providers {
   .provider {
     display: flex;
 
-    margin-right: 0.25em;
+    margin: 0 0.125em;
     margin-bottom: 0.25em;
 
     flex: 1 1 auto;
@@ -19,6 +19,8 @@ providers {
     justify-content: flex-start;
 
     background: transparent;
+
+    overflow: visible;
 
     &:last-child {
       margin-right: 0;
@@ -97,11 +99,11 @@ providers {
           justify-content: flex-start;
 
           &:hover {
-            background-color: #aa6;
+            background: linear-gradient(90deg, #663, #996, #663);
           }
 
           &.selected {
-            background-color: #6a6;
+            background: linear-gradient(90deg, #363, #696, #363);
           }
 
           label {

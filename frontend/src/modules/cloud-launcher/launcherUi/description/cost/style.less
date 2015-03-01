@@ -34,11 +34,11 @@ cost {
       cursor: pointer;
 
       &:hover {
-        background-color: #9999aa;
+        background-color: #ca0;
 
         .provider-header {
           color: #111;
-          background-color: #999;
+          background-color: #fa0;
 
           .provider-brand {
             color: #fff;
@@ -110,12 +110,20 @@ cost {
           &:hover {
             background-color: #99a;
 
-            .location-name {
-              background-color: #222;
+            .location-name, .location-total {
+              background-color: #b22;
             }
 
             .machine-types {
-              background-color: #334;
+              background-color: #152;
+
+              .machine-type {
+                background-color: #041;
+
+                .machine-count {
+                  background-color: #25b;
+                }
+              }
             }
           }
 
@@ -165,7 +173,9 @@ cost {
                   .name {
                     padding: 0 0.25em;
 
-                    background-color: #333;
+                    color: #000;
+
+                    background-color: #ddd;
                   }
 
                   .cost {

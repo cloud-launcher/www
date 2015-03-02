@@ -12,5 +12,4 @@ module.exports = {
       .directive('dockerSearch',      require('./modules/cloud-launcher/launcherUi/dockerSearch/directive'))
       .directive('launch',            require('./modules/cloud-launcher/launcherUi/launch/directive'))
       .directive('providers',         require('./modules/cloud-launcher/launcherUi/providers/directive'))
-    // .directive('teaser', require('./modules/cloud-launcher/teaser/directive'))
 };

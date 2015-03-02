@@ -7,7 +7,14 @@ module.exports = ['$resource', $resource => {
     template: require('./template.html'),
     link: ($scope, element, attributes) => {
       const input = element.find('input'),
-            docker = {query: '', results: [], sortBy: 'stars', sortFn: sortFns.stars};
+            docker = {
+              query: '',
+              results: [],
+              showLimit: 20,
+              limitStep: 20,
+              sortBy: 'stars',
+              sortFn: sortFns.stars
+            };
 
       $scope.docker = docker;
       $scope.selectedContainers = {};
@@ -17,6 +24,8 @@ module.exports = ['$resource', $resource => {
 
         docker.querying = false;
         docker.haveFirstResults = false;
+        docker.showLimit = 20;
+        docker.limitStep = 20;
         docker.page = 0;
         docker.start = 0;
         docker.end = 0;
@@ -64,7 +73,7 @@ module.exports = ['$resource', $resource => {
 
           docker.haveFirstResults = true;
           docker.querying = false;
-          docker.results.splice(0, 0, ...results);
+          docker.results.push.apply(docker.results, results);
           docker.results.sort(docker.sortFn);
           docker.page = 1;
           docker.start = page * page_size - page_size + 1;
@@ -82,13 +91,12 @@ module.exports = ['$resource', $resource => {
 
       function loadRestOfResults(docker) {
         let {query, page} = docker;
-        console.log('query', query);
+
         docker.querying = true;
 
         page += 1;
 
         const result = registry.get({query, count: 100, page}, () => {
-          console.log('returned', result.query, 'actual query', docker.query);
           if (result.query != docker.query) {
             console.log('didn\'t match', query, result.query);
             return;
@@ -98,7 +106,7 @@ module.exports = ['$resource', $resource => {
 
           docker.page = page;
 
-          docker.results.splice(0, 0, ...results);
+          docker.results.push.apply(docker.results, results);
           docker.results.sort(docker.sortFn);
 
           docker.end = docker.results.length;

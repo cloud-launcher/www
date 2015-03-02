@@ -42,23 +42,44 @@
   </header>
   <div ng-show="docker.haveFirstResults"
        class="results">
-    <label ng-repeat="result in docker.results track by $index"
-         ng-class="{'result': true, 'selected': selectedContainers[result.name]}">
-      <div class="stars">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="17px" height="16px" viewBox="6 6.4 17 16" style="enable-background:new 6 6.4 17 16;" xml:space="preserve">
-        <polygon style="fill:#ff8;stroke:#939BA7;stroke-width:0.5723;stroke-miterlimit:10;" points="14.5,19.1 9.8,21.6 10.7,16.4   6.9,12.6 12.2,11.9 14.5,7.1 16.8,11.9 22.1,12.6 18.3,16.4 19.2,21.6 "/>
-        </svg>
-        <span class="star-count">{{::result.star_count}}</span>
+    <div class="visible-results">
+      <div ng-repeat="result in docker.results | limitTo: docker.showLimit"
+           ng-class="{'result': true, 'selected': selectedContainers[result.name]}"
+           ng-click="selectedContainers[result.name] = !selectedContainers[result.name]">
+        <div class="stars">
+          <span class="star">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="17px" height="16px" viewBox="6 6.4 17 16" style="enable-background:new 6 6.4 17 16;" xml:space="preserve">
+              <polygon style="fill:#ff8;stroke:#939BA7;stroke-width:0.5723;stroke-miterlimit:10;" points="14.5,19.1 9.8,21.6 10.7,16.4   6.9,12.6 12.2,11.9 14.5,7.1 16.8,11.9 22.1,12.6 18.3,16.4 19.2,21.6 "/>
+            </svg>
+          </span>
+          <span class="star-count">{{::result.star_count}}</span>
+        </div>
+        <div class="container-details">
+          <span class="container-name">{{::result.name}}</span>
+          <span class="container-description">{{::result.description}}</span>
+        </div>
+        <div class="size"
+             ng-if="selectedContainers[result.name]"
+             ng-click="$event.stopPropagation()">
+          <select class="size-select"
+                  ng-if="selectedContainers[result.name]">
+            <option>512MB</option>
+            <option>1GB</option>
+            <option>2GB</option>
+            <option>4GB</option>
+          </select>
+        </div>
+        <div class="container-select">
+          <input type="checkbox"
+                 ng-model="selectedContainers[result.name]"
+                 ng-change="selectContainer(result.name)">
+        </div>
       </div>
-      <div class="container-details">
-        <span class="container-name">{{result.name}}</span>
-        <span class="container-description">{{::result.description}}</span>
-      </div>
-      <div class="select">
-        <input type="checkbox"
-               ng-model="selectedContainers[result.name]"
-               ng-change="selectContainer(result.name)">
-      </div>
-    </label>
+    </div>
+    <div class="show-more"
+         ng-show="docker.results.length > docker.showLimit"
+         ng-click="docker.showLimit = docker.showLimit + docker.limitStep">
+         Show next {{docker.limitStep}} matches...
+    </div>
   </div>
 </div>

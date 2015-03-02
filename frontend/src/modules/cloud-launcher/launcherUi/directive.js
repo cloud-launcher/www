@@ -5,8 +5,6 @@ module.exports = () => {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
-      console.log('providers', providers);
-
       $scope.providers = providers;
 
       $scope.$on('configurationModified', ($event, configuration) => {

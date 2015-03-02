@@ -41,19 +41,25 @@ body {
     flex: 0 0 auto;
 
     .cloud-launcher {
-      font-size: 1.25em;
+      font-size: 1.5em;
       line-height: 1em;
     }
 
     .deploy-everywhere {
       padding-left: 0.25em;
 
-      font-size: 0.9em;
+      // font-size: 0.9em;
       line-height: 1em;
 
       vertical-align: super;
 
       font-weight: bold;
+
+      .disclaimer {
+        color: #f33;
+
+        cursor: pointer;
+      }
     }
   }
 
@@ -96,18 +102,6 @@ footer {
       display: block;
     }
   }
-}
-
-.alpha-preview {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-
-  font-size: 0.75em;
-
-  background-color: #000;
-
-  opacity: 0.8;
 }
 
 .unselectable {

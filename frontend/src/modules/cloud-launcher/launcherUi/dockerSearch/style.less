@@ -54,6 +54,10 @@ docker-search {
         flex: 0 0 auto;
 
         margin-right: 0.5em;
+
+        body.ff & {
+          display: none;
+        }
       }
 
       .close {
@@ -75,25 +79,51 @@ docker-search {
     flex: 1 1 auto;
 
     // background-color: #000;
-    padding-bottom: 0.5em;
+    // padding-bottom: 0.5em;
 
-    border: solid 1px #000;
+    // border: solid 1px #000;
 
     overflow-y: auto;
 
     header {
-      display: flex;
+      display: table;
+
+      width: 100%;
 
       flex: 0 0 auto;
-
-      justify-content: space-between;
-      align-items: center;
 
       font-size: 1.2em;
       font-weight: bold;
 
       &>* {
-        flex: 0 0 auto;
+        display: table-cell;
+
+        width: 33%;
+      }
+
+      .title {
+        text-align: center;
+      }
+
+      .sort-by {
+        font-size: 0.9em;
+
+        .text {
+          flex: 0 0 auto;
+
+          margin-right: 0.5em;
+        }
+
+        select {
+          border: none;
+
+          padding: 0 1em;
+
+          color: #111;
+
+          font-size: 1rem;
+          font-weight: bold;
+        }
       }
 
       .result-summary {
@@ -112,6 +142,10 @@ docker-search {
 
         .summary {
           position: relative;
+
+          padding: 0 0.25em;
+
+          text-align: center;
         }
       }
     }
@@ -128,6 +162,8 @@ docker-search {
 
       justify-content: center;
 
+      font-size: 0.9em;
+
       .result {
         flex: 1 0 auto;
 
@@ -135,11 +171,11 @@ docker-search {
         justify-content: space-between;
         align-content: center;
 
-        margin: 0.2em;
-        padding: 0.2em;
+        margin: 0.1em;
+        padding: 0.1em;
 
-        border: solid 1px #666;
-        background: #111;
+        border: solid 1px #111;
+        background: linear-gradient(#000, #333, #000);
 
         cursor: pointer;
 
@@ -176,7 +212,7 @@ docker-search {
           flex: 1 1 auto;
 
           justify-content: center;
-          align-items: center;
+          align-items: flex-start;
 
           .container-name {
             flex: 0 0 auto;

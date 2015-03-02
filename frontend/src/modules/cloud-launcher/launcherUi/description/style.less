@@ -5,6 +5,7 @@
   0% {
     background: linear-gradient(45deg, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b);
     box-shadow: inset 0px 0px 2px 1px #b11;
+    // color: #000;
   }
   50% {
     background: linear-gradient(135deg, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b);
@@ -13,12 +14,20 @@
   100% {
     background: linear-gradient(225deg, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b, @f, @b);
     box-shadow: inset 0px 0px 10px 10px #b11;
+    // color: #fff;
+  }
+}
+
+@keyframes ff-warning {
+  0% {
+    color: #fff;
+  }
+  100% {
+    color: #f00;
   }
 }
 
 description {
-  position: relative;
-
   display: flex;
 
   flex-direction: row;
@@ -26,7 +35,7 @@ description {
   configuration {
     display: flex;
 
-    flex: 10 1 auto;
+    flex: 10 0 auto;
 
     align-self: stretch;
   }
@@ -38,7 +47,7 @@ description {
 
     justify-content: space-between;
 
-    flex: 0 1 auto;
+    flex: 0 0 auto;
 
     min-width: 20%;
 
@@ -72,6 +81,10 @@ description {
 
       &:hover {
         animation: warning 1s linear infinite;
+      }
+
+      body.ff &:hover {
+        animation: ff-warning 1s linear infinite;
       }
     }
   }

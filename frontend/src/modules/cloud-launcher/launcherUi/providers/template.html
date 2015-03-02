@@ -1,6 +1,6 @@
 <div ng-repeat="(name, provider) in providers" class="provider {{::name}}">
   <div class="name">{{::provider.name}} <span ng-if="provider.brand" class="brand">| {{::provider.brand}}</span></div>
-  <div class="selections">
+  <!-- <div class="selections"> -->
     <div class="locations">
       <label ng-repeat="(name, location) in provider.locations"
              ng-class="{'location': true, 'selected': location.selected}">
@@ -12,7 +12,7 @@
           <span class="location-vicinity">{{::location.vicinity}}</span> <span class="location-name">({{::name}})</span>
         </span>
       </label>
-      <div ng-if="provider.comingsoon" class="comingsoon"><span>Coming Soon!</span></div>
+      <div ng-if="provider.comingsoon" class="comingsoon"><div class="banner">Coming Soon!</div></div>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

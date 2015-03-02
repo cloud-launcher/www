@@ -1,34 +1,41 @@
 <div class="search">
-  <input type="text" placeholder="Search Docker Hub For Containers..." ng-model="docker.query" ng-change="queryChanged($event)" autofocus><span class="querying">
-  <span class="indicator" ng-show="docker.querying">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="white">
-      <path transform="translate(2)" d="M0 12 V20 H4 V12z">
-        <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline"  />
-      </path>
-      <path transform="translate(8)" d="M0 12 V20 H4 V12z">
-        <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.2" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline"  />
-      </path>
-      <path transform="translate(14)" d="M0 12 V20 H4 V12z">
-        <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.4" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />
-      </path>
-      <path transform="translate(20)" d="M0 12 V20 H4 V12z">
-        <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.6" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />
-      </path>
-      <path transform="translate(26)" d="M0 12 V20 H4 V12z">
-        <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.8" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />
-      </path>
-    </svg>
+  <input type="text" placeholder="Search Docker Hub For Containers..." ng-model="docker.query" ng-change="queryChanged($event)" autofocus>
+  <span class="querying">
+    <span class="indicator" ng-show="docker.querying">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="white">
+        <path transform="translate(2)" d="M0 12 V20 H4 V12z">
+          <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline"  />
+        </path>
+        <path transform="translate(8)" d="M0 12 V20 H4 V12z">
+          <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.2" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline"  />
+        </path>
+        <path transform="translate(14)" d="M0 12 V20 H4 V12z">
+          <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.4" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />
+        </path>
+        <path transform="translate(20)" d="M0 12 V20 H4 V12z">
+          <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.6" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />
+        </path>
+        <path transform="translate(26)" d="M0 12 V20 H4 V12z">
+          <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.8" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />
+        </path>
+      </svg>
+    </span>
+    <span class="close" ng-show="docker.query != ''" ng-click="docker.query = ''; queryChanged()">X</span>
   </span>
-  <span class="close" ng-show="docker.query != ''" ng-click="docker.query = ''; queryChanged()">X</span>
 </div>
 <div ng-show="docker.showResults"
      class="display">
   <header>
-     <span>Docker Hub Results</span><span ng-show="!docker.querying">Showing {{docker.start}} to {{docker.end}} of {{docker.total}}</span>
+    <div>Docker Hub Results</div>
+    <div ng-show="docker.haveFirstResults"
+          class="result-summary">
+      <div class="progress-bar" style="width: {{docker.resultsLoaded}}%;"></div>
+      <div class="summary">Showing {{docker.start}} to {{docker.end}} of {{docker.total}}</div>
+    </div>
   </header>
-  <div ng-show="!docker.querying"
+  <div ng-show="docker.haveFirstResults"
        class="results">
-    <label ng-repeat="result in docker.results"
+    <label ng-repeat="result in docker.results track by $index"
          ng-class="{'result': true, 'selected': selectedContainers[result.name]}">
       <div class="stars">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="17px" height="16px" viewBox="6 6.4 17 16" style="enable-background:new 6 6.4 17 16;" xml:space="preserve">

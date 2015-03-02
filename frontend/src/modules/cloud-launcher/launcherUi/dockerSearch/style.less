@@ -51,7 +51,7 @@ docker-search {
 
         align-items: center;
 
-        flex: 1;
+        flex: 0 0 auto;
 
         margin-right: 0.5em;
       }
@@ -91,6 +91,29 @@ docker-search {
 
       font-size: 1.2em;
       font-weight: bold;
+
+      &>* {
+        flex: 0 0 auto;
+      }
+
+      .result-summary {
+        position: relative;
+
+        .progress-bar {
+          position: absolute;
+
+          top: 0;
+          left: 0;
+
+          height: 100%;
+
+          background-color: #336;
+        }
+
+        .summary {
+          position: relative;
+        }
+      }
     }
 
     .results {
@@ -106,7 +129,7 @@ docker-search {
       justify-content: center;
 
       .result {
-        flex: 1 1 auto;
+        flex: 1 0 auto;
 
         display: flex;
         justify-content: space-between;

@@ -87,7 +87,8 @@ providers {
         .location {
           display: flex;
 
-          margin: 0.1em 0;
+          padding: 0.25em;
+          margin: 0.1em;
 
           flex: 0 0 auto;
 
@@ -106,40 +107,24 @@ providers {
             background: linear-gradient(90deg, #363, #696, #363);
           }
 
-          label {
-            display: flex;
-
-            margin: 0.25em;
-
-            flex: 1 1 auto;
-
-            font-size: 1.2em;
+          input {
+            flex: 0 0 auto;
 
             cursor: pointer;
+          }
 
-            justify-content: center;
+          .text {
+            display: flex;
+
+            padding: 0.1em 0.2em;
+
+            flex: 1 0 auto;
+
+            justify-content: space-between;
             align-items: center;
 
-            input {
-              flex: 0 0 auto;
-
-              cursor: pointer;
-            }
-
-            .label {
-              display: flex;
-
-              padding: 0.1em 0.2em;
-
-              flex: 1 1 auto;
-
-              background-color: #444;
-
-              justify-content: space-between;
-
-              .location-name {
-                font-size: 0.7em;
-              }
+            .location-name {
+              font-size: 0.7em;
             }
           }
         }

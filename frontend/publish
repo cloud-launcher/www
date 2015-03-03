@@ -16,6 +16,7 @@ gulpur build \
   && cd ../../cloud-launcher.github.io \
   && git rm -r * \
   && cp -r -v ../www/frontend/.dist/* ./ \
+  && echo "www.cloud-launcher.io" > CNAME \
   && git add . \
   && git commit -m "Publishing $REV" \
   && git push origin master \

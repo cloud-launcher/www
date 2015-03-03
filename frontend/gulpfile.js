@@ -148,7 +148,7 @@ gulp.task('minify-images',
   () => pipe([
     gulp.src([paths.dev.images])
     ,print()
-    ,imagemin()
+    // ,imagemin()
     ,gulp.dest(paths.dist.$)
   ]));
 

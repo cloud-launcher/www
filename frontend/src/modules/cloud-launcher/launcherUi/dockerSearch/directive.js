@@ -132,6 +132,10 @@ module.exports = ['$resource', $resource => {
 const sortFns = {
   stars: (x, y) => {
     if (x.star_count < y.star_count) return 1;
+    else if (x.star_count === y.star_count) {
+      if (x.name < y.name) return -1;
+      return 1;
+    }
     else return -1;
   },
   name: (x, y) => {

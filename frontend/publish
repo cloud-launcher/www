@@ -13,7 +13,7 @@ fi
 
 gulpur build \
   && REV=`git rev-parse HEAD` \
-  && cp --parents .dist/* ../../cloud-launcher.github.io \
+  && cp -r -v .dist/* ../../cloud-launcher.github.io \
   && cd ../../cloud-launcher.github.io \
   && git add . \
   && git commit -m "Publishing $REV" \

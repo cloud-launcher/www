@@ -8,7 +8,7 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <script type="text/javascript">
+    <script>
     var wasReload = false;
 
     if (location.hash === '#reload') {
@@ -37,12 +37,12 @@
   </head>
   <body>
 
-<script>
-  // We detect FF because some features (animations, mostly) cause severe performance issues on that platform
-  if (navigator.userAgent.match(/firefox\//i)) {
-    document.body.className = 'ff';
-  }
-</script>
+  <script>
+    // We detect FF because some features (animations, mostly) cause severe performance issues on that platform
+    if (navigator.userAgent.match(/firefox\//i)) {
+      document.body.className = 'ff';
+    }
+  </script>
 
   <teaser>
     <span class="container">
@@ -97,7 +97,7 @@
     <script src="vendor.js" onerror="scriptError()"></script>
     <script src="app.js" onerror="scriptError()"></script>
 
-    <script>
+    <script async>
       if (['www.cloud-launcher.io'].indexOf(window.location.hostname) >= 0) {
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

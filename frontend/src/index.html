@@ -8,7 +8,32 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <link rel="stylesheet" href="app.css">
+    <script type="text/javascript">
+    var wasReload = false;
+
+    if (location.hash === '#reload') {
+      wasReload = true;
+      location.hash = '';
+    }
+
+    function styleError() {
+      if (wasReload) alert('There appears to be a problem loading the site. Please try again soon!');
+      else {
+        location.hash = '#reload';
+        location.reload(true);
+      }
+    }
+
+    function scriptError() {
+      if (wasReload) alert('There appears to be a problem loading the site. Please try again soon!');
+      else {
+        location.hash = '#reload';
+        location.reload(true);
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="app.css" onerror="styleError()">
   </head>
   <body>
 
@@ -69,8 +94,8 @@
     window.addEventListener("orientationchange",function(){hideAddressBar();});
     </script> -->
 
-    <script src="vendor.js"></script>
-    <script src="app.js"></script>
+    <script src="vendor.js" onerror="scriptError()"></script>
+    <script src="app.js" onerror="scriptError()"></script>
 
     <script>
       if (['www.cloud-launcher.io'].indexOf(window.location.hostname) >= 0) {

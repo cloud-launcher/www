@@ -5,6 +5,7 @@ const gulp = require('gulp'),
       browserSync = require('browser-sync'),
       reload = browserSync.reload,
       source = require('vinyl-source-stream'),
+      uuid = require('uuid'),
       _ = require('lodash'),
       {
         autoprefixer,
@@ -12,6 +13,7 @@ const gulp = require('gulp'),
         clean,
         concat,
         imagemin,
+        file,
         jshint,
         less,
         lessReporter,
@@ -23,6 +25,7 @@ const gulp = require('gulp'),
         revAll,
         sequence,
         sourcemaps,
+        template,
         uglify,
         util
       } = require('gulp-load-plugins')();
@@ -34,7 +37,7 @@ gulp.task('default', ['build']);
 gulp.task('build', sequence(['clean-rev', 'clean-dist'],
                             ['js-vendor', 'js-app', 'less:debug', 'html', 'images', 'fonts'],
                             ['minify-css', 'minify-html', 'minify-js', 'minify-images'],
-                            'rev'));
+                            ['rev', 'write-version']));
 
 gulp.task('dev', cb => {
   const {src} = paths;
@@ -52,6 +55,13 @@ gulp.task('dev', cb => {
         }
       });
 });
+
+// gulp.task('write-version',
+//   () => pipe([
+//     file('currentVersion', version, {src: true})
+//     ,p('write-version')
+//     ,gulp.dest(paths.dist.$)
+//   ]));
 
 gulp.task('browser-sync',
   () => browserSync({
@@ -111,13 +121,22 @@ gulp.task('less:debug',
     ,reload({stream: true})
   ));
 
-gulp.task('html',
+gulp.task('html', ['generate-version'],
   () => pipe([
     gulp.src(paths.src.html)
     ,p('html')
+    ,template({version})
+    ,file('currentVersion', version)
+    ,p('html:post')
     ,gulp.dest(paths.dev.$)
     ,reload({stream: true})
   ]));
+
+let version = uuid.v1();
+gulp.task('generate-version',
+  () => {
+    version = uuid.v1();
+  });
 
 gulp.task('images',
   () => pipe([
@@ -167,6 +186,13 @@ gulp.task('rev',
     ,gulp.dest(paths.dist.$)
   ]));
 
+gulp.task('write-version',
+  () => pipe([
+    gulp.src([paths.dev.currentVersion])
+    ,p('write-version')
+    ,gulp.dest(paths.dist.$)
+  ]));
+
 gulp.task('fonts');
 
 gulp.task('clean-dev',
@@ -204,7 +230,8 @@ const paths = {
     css: './.dev/app.css',
     html: './.dev/index.html',
     images: './.dev/**/*.{svg,gif,png,jpg}',
-    vendor: './.dev/vendor.js'
+    vendor: './.dev/vendor.js',
+    currentVersion: './.dev/currentVersion'
   },
   rev: {
     $: './.rev',
@@ -214,6 +241,7 @@ const paths = {
     $: './.dist',
     app: './.dist/app.js',
     css: './.dist/app.css',
-    html: './.dist/index.html'
+    html: './.dist/index.html',
+    currentVersion: './dist/currentVersion'
   }
 };

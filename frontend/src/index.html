@@ -9,6 +9,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <script>
+    var clVersion = '<%= version %>';
     var wasReload = false;
 
     if (location.hash === '#reload') {
@@ -49,6 +50,14 @@
       <span class="flip"><span class="launcher"><span class="arm"><span class="right-arm">╯</span></span><span class="body">{<span class="face">°□°</span>}</span><span class="arm"><span class="left-arm">╯</span></span></span></span><span class="swoosh">彡</span><span class="cloud">{益}</span>
     </span>
   </teaser>
+
+  <div ng-if="newVersionAvailable"
+       class="new-version">
+    <a href="/">Excuse me, there is a new version. Click here to load.</a>
+    <span class="close"
+          ng-click="ignoreNewVersion()"
+          title="Ignore This Version">X</span>
+  </div>
 
   <header class="page-header grow">
     <span class="name">Pre-Alpha</span>

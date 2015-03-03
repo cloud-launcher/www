@@ -1,7 +1,7 @@
 const providers = require('launch-cloud-providers'),
       _ = require('lodash');
 
-module.exports = () => {
+module.exports = ['newVersionCheck', newVersionCheck => {
   return {
     restrict: 'E',
     template: require('./template.html'),
@@ -11,8 +11,6 @@ module.exports = () => {
       $scope.availableSizes = _.flatten(_.map(providers, provider => {
         return _.keys(provider.sizes);
       }));
-
-      console.log($scope.availableSizes);
 
       $scope.$on('configurationModified', ($event, configuration) => {
         // this stuff is horribly named
@@ -30,4 +28,4 @@ module.exports = () => {
       });
     }]
   };
-};
+}];

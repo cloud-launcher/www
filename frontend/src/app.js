@@ -3,7 +3,9 @@ require('angular-resource');
 
 module.exports = {
   'cloud-launcher': angular.module('cloud-launcher', ['ngResource'])
-    .directive('launcherUi',      require('./modules/cloud-launcher/launcherUi/directive'))
+    .service('newVersionCheck',       require('./modules/cloud-launcher/newVersionCheck/service'))
+
+    .directive('launcherUi',          require('./modules/cloud-launcher/launcherUi/directive'))
 
       .directive('description',       require('./modules/cloud-launcher/launcherUi/description/directive'))
         .directive('target',          require('./modules/cloud-launcher/launcherUi/description/target/directive'))

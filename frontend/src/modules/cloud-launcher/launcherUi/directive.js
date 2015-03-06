@@ -1,4 +1,4 @@
-const providers = require('launch-cloud-providers'),
+const apiInjector = require('launch-cloud-browser'),
       _ = require('lodash');
 
 module.exports = ['newVersionCheck', newVersionCheck => {
@@ -6,9 +6,20 @@ module.exports = ['newVersionCheck', newVersionCheck => {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
-      $scope.providers = providers;
+      console.log(apiInjector);
+      const providerConfigs = {};
+      const api = apiInjector(providerConfigs);
 
-      $scope.availableSizes = _.flatten(_.map(providers, provider => {
+      console.log(api);
+
+      $scope.providers = _.reduce(api.providers, (providers, provider) => {
+        providers[provider.name] = provider.profile;
+        return providers;
+      }, {});
+
+      console.log($scope.providers);
+
+      $scope.availableSizes = _.flatten(_.map($scope.providers, provider => {
         return _.keys(provider.sizes);
       }));
 

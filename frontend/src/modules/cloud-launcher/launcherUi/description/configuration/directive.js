@@ -8,8 +8,7 @@ module.exports = () => {
         root: 'https://github.com/cloud-launcher',
         authorizations: ['40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98'],
         locations: {
-          digitalocean: ['sfo1', 'lon1'],
-          amazon: ['ap-northeast-1']
+          digitalocean: ['sfo1']
         },
         configuration: {
           www: 1,

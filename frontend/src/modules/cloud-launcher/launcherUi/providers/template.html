@@ -5,7 +5,7 @@
     <span ng-class="{'key': true, 'has-credential': provider.hasCredential}"
           ng-if="!provider.profile.comingsoon"
           ng-click="showCredentialCollector[name] = !showCredentialCollector[name]"
-          title="{{provider.profile.name + ' Credentials ' + (provider.hasCredential ? 'Needed' : 'Acquired')}}">⚿</span>
+          title="{{provider.profile.name + ' Credentials ' + (provider.hasCredential ? 'Acquired' : 'Needed')}}">⚿</span>
   </div>
   <credential-collector ng-if="showCredentialCollector[name]" provider="provider">
     Credentials needed yo!

@@ -1,26 +1,23 @@
 const apiInjector = require('launch-cloud-browser'),
       _ = require('lodash');
 
-module.exports = ['newVersionCheck', newVersionCheck => {
+module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, storedCredentials) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
-      console.log(apiInjector);
-      const providerConfigs = {};
-      const api = apiInjector(providerConfigs);
+      const providerConfigs = {},
+            api = apiInjector(providerConfigs),
+            {providers} = api;
 
-      console.log(api);
+      $scope.providers = providers;
 
-      $scope.providers = _.reduce(api.providers, (providers, provider) => {
-        providers[provider.name] = provider.profile;
-        return providers;
-      }, {});
+      _.each(providers, provider => {
+        _.extend(provider, storedCredentials.getCredentials(provider.name) || {});
+      });
 
-      console.log($scope.providers);
-
-      $scope.availableSizes = _.flatten(_.map($scope.providers, provider => {
-        return _.keys(provider.sizes);
+      $scope.availableSizes = _.flatten(_.map(_.values(providers), provider => {
+        return _.keys(provider.profile.sizes);
       }));
 
       $scope.$on('configurationModified', ($event, configuration) => {
@@ -32,7 +29,7 @@ module.exports = ['newVersionCheck', newVersionCheck => {
 
             for (var index in provider) {
               const location = provider[index];
-              $scope.providers[providerName].locations[location].selected = true;
+              $scope.providers[providerName].profile.locations[location].selected = true;
             }
           }
         }

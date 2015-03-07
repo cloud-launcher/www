@@ -23,18 +23,18 @@ module.exports = () => {
 
         // horrible
         for (var providerId in configuration.locations) {
-          const sourceProvider = $scope.providers[providerId];
+          const sourceProviderProfile = $scope.providers[providerId].profile;
 
           const provider = cost.providers[providerId] = {
-            name: sourceProvider.name,
-            brand: sourceProvider.brand,
+            name: sourceProviderProfile.name,
+            brand: sourceProviderProfile.brand,
             locations: {},
             total: 0
           };
 
           for (var locationIndex in configuration.locations[providerId]) {
             const locationName = configuration.locations[providerId][locationIndex],
-                  sourceLocation = sourceProvider.locations[locationName];
+                  sourceLocation = sourceProviderProfile.locations[locationName];
 
             const location = provider.locations[locationName] = {
               name: locationName,

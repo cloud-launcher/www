@@ -3,7 +3,7 @@ module.exports = () => {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
-      const configuration = {
+      $scope.configuration = {
         domain: 'cloud-launcher.io',
         root: 'https://github.com/cloud-launcher',
         authorizations: ['40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98'],
@@ -28,10 +28,23 @@ module.exports = () => {
         }
       };
 
-      $scope.configuration = configuration;
+      $scope.configurationOK = true;
+
+      $scope.configurationChanged = $event => {
+        try {
+          $scope.configuration = JSON.parse($scope.configurationText);
+          $scope.configurationOK = true;
+          $scope.$broadcast('configurationModified', $scope.configuration);
+        }
+        catch (e) {
+          console.log('parse error', e);
+          $scope.configurationOK = false;
+        }
+      };
 
       $scope.$on('containerModified', ($event, name, selected) => {
-        const parts = name.split('/');
+        const parts = name.split('/'),
+              {configuration} = $scope;
 
         let [repo, container] = parts;
 
@@ -63,6 +76,8 @@ module.exports = () => {
       });
 
       $scope.$on('locationModified', ($event, provider, location, selected) => {
+        const {configuration} = $scope;
+
         if (selected) {
           let locations = configuration.locations[provider] = configuration.locations[provider] || [];
 
@@ -84,7 +99,7 @@ module.exports = () => {
         $scope.$broadcast('configurationModified', configuration);
       });
 
-      $scope.$broadcast('configurationModified', configuration);
+      $scope.$broadcast('configurationModified', $scope.configuration);
       setText();
 
       function setText() {

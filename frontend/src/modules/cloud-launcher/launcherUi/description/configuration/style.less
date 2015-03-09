@@ -3,21 +3,33 @@ configuration {
 
   flex-direction: column;
 
-  pre {
+  .status {
+    display: flex;
+
     flex: 1 1 auto;
 
-    margin: 0;
+    background-color: rgba(255, 0, 0, 0.05);
 
-    overflow-y: auto;
+    &.ok {
+      background-color: inherit;
+    }
 
-    background: transparent;
-    border: none;
+    .configuration-text {
+      flex: 1 1 auto;
 
-    color: #fff;
+      margin: 0;
 
-    resize: none;
-    outline: 0;
+      overflow-y: auto;
 
-    font-size: 0.9em;
+      background: transparent;
+      border: none;
+
+      color: #fff;
+
+      resize: none;
+      outline: 0;
+
+      font-size: 0.9em;
+    }
   }
 }

@@ -1,4 +1,5 @@
 const apiInjector = require('launch-cloud-browser'),
+      request = require('browser-request'),
       _ = require('lodash');
 
 module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, storedCredentials) => {
@@ -7,9 +8,10 @@ module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, stor
     template: require('./template.html'),
     controller: ['$scope', $scope => {
       const providerConfigs = {},
-            api = apiInjector(providerConfigs),
+            api = apiInjector(providerConfigs, (...args) => console.log(...args), request),
             {providers} = api;
 
+      $scope.api = api;
       $scope.providers = providers;
 
       _.each(providers, provider => {

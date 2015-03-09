@@ -1,13 +1,11 @@
 const _ = require('lodash');
 
-module.exports = ['$resource', $resource => {
-  const registry = $resource('https://registry.hub.docker.com/v1/search?q=:query&n=:count&page=:page');
+module.exports = ['$resource', '$http', 'dockerHubApiRoot', ($resource, $http, dockerHubApiRoot) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
-    link: ($scope, element, attributes) => {
-      const input = element.find('input'),
-            docker = {
+    controller: ['$scope', $scope => {
+      const docker = {
               query: '',
               results: [],
               showLimit: 20,
@@ -15,6 +13,26 @@ module.exports = ['$resource', $resource => {
               sortBy: 'stars',
               sortFn: sortFns.stars
             };
+
+      const registry = $resource(`${dockerHubApiRoot}/v1/search?q=:query&n=:count&page=:page`);
+      // let registry = getDockerHubApiResource(),
+      //     currentApiIndex = 0;
+
+      // function getDockerHubApiResource() {
+      //   return new Promise((resolve, reject) => {
+      //     const base = dockerHubApiRoots[currentApiIndex];
+
+      //     $http(`${base}/v1/_ping`)
+      //       .success((data) => {
+      //         if (data === 'true' || data === true) resolve($resource(`${base}/v1/search?q=:query&n=:count&page=:page`));
+      //         else reje
+      //       });
+      //     resolve({
+      //       ping: $resource(`${base}/v1/_ping`),
+      //       search: $resource(`${base}/v1/search?q=:query&n=:count&page=:page`)
+      //     });
+      //   });
+      // }
 
       $scope.docker = docker;
       $scope.selectedContainers = {};
@@ -63,7 +81,7 @@ module.exports = ['$resource', $resource => {
       const debouncedSearch = _.debounce(query => {
         docker.querying = true;
 
-        const result = registry.get({query, count: 1000, page: 1} , () => {
+        const result = registry.get({query, count: 100, page: 1} , () => {
           if (result.query != docker.query) {
             console.log('didn\'t match', query, result.query);
             return;
@@ -122,9 +140,6 @@ module.exports = ['$resource', $resource => {
           }
         });
       }
-    },
-    controller: ['$scope', $scope => {
-
     }]
   };
 }];

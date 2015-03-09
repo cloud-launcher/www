@@ -17,4 +17,6 @@ module.exports = {
       .directive('launch',                require('./modules/cloud-launcher/launcherUi/launch/directive'))
       .directive('providers',             require('./modules/cloud-launcher/launcherUi/providers/directive'))
         .directive('credentialCollector',   require('./modules/cloud-launcher/launcherUi/providers/credentialCollector/directive'))
+
+    .value('dockerHubApiRoot', 'http://localhost:3408')
 };

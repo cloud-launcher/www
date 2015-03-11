@@ -1,26 +1,56 @@
+const _ = require('lodash');
+
 module.exports = () => {
   return {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
       $scope.launch = () => {
-        const DO = $scope.providers['digitalocean'],
-              key = DO.credentials.token,
-              wrapper = new DO.$rawAPI(key);
+        if (!$scope.configurationModified &&
+            $scope.configurationOK) {
 
-        console.log('wrapper', wrapper);
+          $scope.launching = true;
+          $scope.launchError = undefined;
 
-        console.log('launching', $scope.configuration);
-        $scope.api.launch($scope.configuration)
-                  .then(something => console.log('launched', something))
-                  .catch(error => console.log('launch error', error));
+          const {api, configuration: cloud} = $scope,
+                missingProviderConfigurations = api.checkProviderConfigurations(cloud);
 
-        wrapper.dropletsGetAll((error, droplets, response) => {
-          console.log(droplets, response);
-          const headers = response.getAllResponseHeaders();
+          if (_.keys(missingProviderConfigurations).length === 0) {
+            api.launch(cloud)
+               .then(something => {
+                  console.log('launched', something);
 
-          console.log(droplets, headers);
-        });
+                  $scope.$apply(() => {$scope.launching = false;});
+                })
+               .catch(error => {
+                  console.log('launch error', error);
+                  $scope.$apply(() => {
+                    $scope.launching = false;
+                    $scope.launchError = error;
+                  });
+                });
+          }
+          else {
+            $scope.missingProviderConfigurations = missingProviderConfigurations;
+            console.log($scope.missingProviderConfigurations);
+          }
+        }
+
+
+        // const DO = $scope.providers['digitalocean'],
+        //       key = DO.credentials.token,
+        //       wrapper = new DO.$rawAPI(key);
+
+        // console.log('wrapper', wrapper);
+
+        // console.log('launching', $scope.configuration);
+
+        // wrapper.dropletsGetAll((error, droplets, response) => {
+        //   console.log(droplets, response);
+        //   const headers = response.getAllResponseHeaders();
+
+        //   console.log(droplets, headers);
+        // });
       };
     }]
   };

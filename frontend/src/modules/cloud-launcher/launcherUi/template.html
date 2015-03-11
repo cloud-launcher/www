@@ -1,5 +1,12 @@
-<description></description>
+<div ng-class="{'scene': true, 'launching': launching}">
+  <description></description>
 
-<docker-search></docker-search>
+  <docker-search></docker-search>
 
-<providers></providers>
+  <providers></providers>
+</div>
+
+<div ng-if="launching"
+     ng-class="{'launch-status': true, 'launching': launching}">
+  <button ng-click="cancelLaunch()">Back to Launchpad</button>
+</div>

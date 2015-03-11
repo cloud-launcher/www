@@ -1,11 +1,8 @@
-<!-- <pre spellcheck="false" contenteditable>
-{{configurationText}}
-</pre> -->
 <div ng-class="{'status': true, 'ok': configurationOK}">
-  <textarea class="configuration-text"
-            spellcheck="false"
-            ng-model="configurationText"
-            ng-change="configurationChanged($event)">
-
-  </textarea>
+  <div class="configuration-text"
+       contenteditable
+       spellcheck="false"
+       ng-keydown="allowTab($event)"
+       ng-keyup="configurationKeyUp($event)"
+       ng-bind-html="configurationHtml"></div>
 </div>

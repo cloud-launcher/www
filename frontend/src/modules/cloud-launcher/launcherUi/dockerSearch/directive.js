@@ -73,8 +73,9 @@ module.exports = ['$resource', '$http', 'dockerHubApiRoot', ($resource, $http, d
         docker.results.sort(docker.sortFn);
       };
 
-      $scope.selectContainer = name => {
-        $scope.$broadcast('containerModified', name, $scope.selectedContainers[name]);
+      $scope.selectContainer = (name, selected) => {
+        $scope.selectedContainers[name] = selected;
+        $scope.$broadcast('containerModified', name, selected);
       };
 
       // Going to have issues with requests returning out-of-order...

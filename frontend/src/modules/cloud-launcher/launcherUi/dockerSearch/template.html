@@ -28,7 +28,7 @@
     <div class="visible-results">
       <div ng-repeat="result in docker.results | limitTo: docker.showLimit"
            ng-class="{'result': true, 'selected': selectedContainers[result.name]}"
-           ng-click="selectedContainers[result.name] = !selectedContainers[result.name]">
+           ng-click="selectContainer(result.name, !selectedContainers[result.name])">
         <div class="stars">
           <span class="star">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="17px" height="16px" viewBox="6 6.4 17 16" style="enable-background:new 6 6.4 17 16;" xml:space="preserve">
@@ -51,7 +51,7 @@
         <div class="container-select">
           <input type="checkbox"
                  ng-model="selectedContainers[result.name]"
-                 ng-change="selectContainer(result.name)">
+                 ng-click="$event.stopPropagation()">
         </div>
       </div>
     </div>

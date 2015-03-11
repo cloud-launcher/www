@@ -11,6 +11,29 @@ module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, stor
             api = apiInjector(providerConfigs, (...args) => console.log(...args), request),
             {providers} = api;
 
+      $scope.configuration = {
+        locations: {
+          digitalocean: ['sfo1']
+        },
+        configuration: {
+          www: 1,
+          api: 2,
+          influxdb: 1
+        },
+        roles: {
+          $all: ['cadvisor']
+        },
+        containers: {
+          api: {
+            linkTo: ['influxdb']
+          },
+          influxdb: {
+            container: 'tutum/influxdb'
+          }
+        },
+        authorizations: ['40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98']
+      };
+
       $scope.api = api;
       $scope.providers = providers;
 
@@ -36,6 +59,15 @@ module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, stor
           }
         }
       });
+
+      $scope.cancelLaunch = () => {
+        $scope.launching = false;
+        // prompt('Are you sure you want to cancel launch?', '', () => {
+        //   $scope.$apply(() => {
+        //     $scope.launching = false;
+        //   });
+        // });
+      };
     }]
   };
 }];

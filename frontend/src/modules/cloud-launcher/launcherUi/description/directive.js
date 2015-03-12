@@ -18,7 +18,7 @@ module.exports = ['$timeout', $timeout => {
 
           $timeout(
             () =>
-              api.launch(cloud, launchLog)
+              api.launch(_.cloneDeep(cloud), launchLog)
                .then(something => {
                   console.log('launched', something);
 

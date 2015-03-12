@@ -55,6 +55,9 @@ launcher-ui {
   .launch-status {
     position: absolute;
 
+    display: flex;
+    flex-direction: column;
+
     top: 0;
     left: 0;
 
@@ -75,6 +78,41 @@ launcher-ui {
 
     &.ng-leave, &.ng-enter.ng-enter-active {
       transform: scale(1);
+    }
+
+    &.launch-error {
+      background-color: rgba(255, 0, 0, 0.1);
+    }
+
+    .log {
+      flex: 1 1 auto;
+
+      margin: 2em;
+
+      overflow-y: auto;
+
+      .missing-provider {
+        display: flex;
+        flex-direction: column;
+
+        justify-content: flex-end;
+        align-items: stretch;
+
+        background-color: rgba(255, 0, 0, 0.2);
+
+        &>* {
+          flex: 1 0 auto;
+
+          margin: 0.25em;
+        }
+
+        .header {
+          text-align: center;
+
+          font-size: 1.25em;
+          font-weight: bold;
+        }
+      }
     }
   }
 }

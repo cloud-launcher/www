@@ -1,5 +1,4 @@
 const apiInjector = require('launch-cloud-browser'),
-      request = require('browser-request'),
       _ = require('lodash');
 
 module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, storedCredentials) => {
@@ -8,7 +7,7 @@ module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, stor
     template: require('./template.html'),
     controller: ['$scope', $scope => {
       const providerConfigs = {},
-            api = apiInjector(providerConfigs, (...args) => console.log(...args), request),
+            api = apiInjector(providerConfigs, (...args) => console.log(...args)),
             {providers} = api;
 
       $scope.configuration = {
@@ -60,13 +59,8 @@ module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, stor
         }
       });
 
-      $scope.cancelLaunch = () => {
+      $scope.returnToLaunchpad = () => {
         $scope.launching = false;
-        // prompt('Are you sure you want to cancel launch?', '', () => {
-        //   $scope.$apply(() => {
-        //     $scope.launching = false;
-        //   });
-        // });
       };
     }]
   };

@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = () => {
+module.exports = ['$timeout', $timeout => {
   return {
     restrict: 'E',
     template: require('./template.html'),
@@ -10,13 +10,15 @@ module.exports = () => {
             $scope.configurationOK) {
 
           $scope.launching = true;
+          $scope.launchLog = [];
           $scope.launchError = undefined;
+          $scope.missingCredentials = undefined;
 
-          const {api, configuration: cloud} = $scope,
-                missingProviderConfigurations = api.checkProviderConfigurations(cloud);
+          const {api, configuration: cloud} = $scope;
 
-          if (_.keys(missingProviderConfigurations).length === 0) {
-            api.launch(cloud)
+          $timeout(
+            () =>
+              api.launch(cloud, launchLog)
                .then(something => {
                   console.log('launched', something);
 
@@ -24,34 +26,21 @@ module.exports = () => {
                 })
                .catch(error => {
                   console.log('launch error', error);
+
+                  if (error.type === 'Credentials') {
+                    $scope.missingCredentials = error.missing;
+                  }
+
                   $scope.$apply(() => {
-                    $scope.launching = false;
                     $scope.launchError = error;
                   });
-                });
-          }
-          else {
-            $scope.missingProviderConfigurations = missingProviderConfigurations;
-            console.log($scope.missingProviderConfigurations);
-          }
+                }), 500);
         }
-
-
-        // const DO = $scope.providers['digitalocean'],
-        //       key = DO.credentials.token,
-        //       wrapper = new DO.$rawAPI(key);
-
-        // console.log('wrapper', wrapper);
-
-        // console.log('launching', $scope.configuration);
-
-        // wrapper.dropletsGetAll((error, droplets, response) => {
-        //   console.log(droplets, response);
-        //   const headers = response.getAllResponseHeaders();
-
-        //   console.log(droplets, headers);
-        // });
       };
+
+      function launchLog(...args) {
+        $scope.$apply(() => $scope.launchLog.push(args.join(' ')));
+      }
     }]
   };
-};
+}];

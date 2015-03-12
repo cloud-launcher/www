@@ -7,6 +7,19 @@
 </div>
 
 <div ng-if="launching"
-     class="launch-status">
-  <button ng-click="cancelLaunch()">Back to Launchpad</button>
+     ng-class="{'launch-status': true, 'launch-error': launchError}">
+  <div class="error">{{launchError}}</div>
+  <div class="log">
+    <div ng-repeat="item in launchLog">{{item}}</div>
+    <div ng-if="missingCredentials"
+         class="missing-credentials">
+      <div ng-repeat="(providerName, parts) in missingCredentials"
+           class="missing-provider">
+        <span class="header">Missing {{providerName}} Credentials!</span>
+        <credential-collector provider="providers[providerName]"></credential-collector>
+        <button ng-click="">OK</button>
+      </div>
+    </div>
+  </div>
+  <button ng-click="returnToLaunchpad()">Back to Launchpad</button>
 </div>

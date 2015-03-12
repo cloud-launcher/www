@@ -161,12 +161,15 @@ providers {
           font-size: 1.2em;
           font-weight: bold;
 
+          display: flex;
+          justify-content: center;
+
           .banner {
-            text-align: center;
+            flex: 0 0 auto;
 
             transform: rotate(-45deg);
 
-            // background-color: red;
+            transform-origin: 50% 0%;
           }
         }
       }

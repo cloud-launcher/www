@@ -66,7 +66,7 @@ launcher-ui {
 
     flex: 1 1 auto;
 
-    background-color: rgba(0, 255, 0, 0.1);
+    background: radial-gradient(farthest-corner at 100% 50% , rgba(0, 255, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
 
     &.ng-enter, &.ng-leave {
       transition: transform 0.66s cubic-bezier(0, 1, 0.25, 1);
@@ -81,7 +81,7 @@ launcher-ui {
     }
 
     &.launch-error {
-      background-color: rgba(255, 0, 0, 0.1);
+      background: radial-gradient(farthest-corner at 0% 50% , rgba(255, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
 
     .log {
@@ -90,6 +90,10 @@ launcher-ui {
       margin: 2em;
 
       overflow-y: auto;
+
+      font-weight: bold;
+      font-size: 1.2em;
+      font-family: monospace;
 
       .missing-provider {
         display: flex;

@@ -81,7 +81,10 @@
     <span class="fork-it"><a href="https://github.com/cloud-launcher"><span class="fork">fork</span> cloud-launcher <span class="github">on github</span></a></span>
   </header>
 
-  <launcher-ui class="grow"></launcher-ui>
+  <div class="scene grow">
+    <launch-pad ng-class="{'launching': launching}"></launch-pad>
+    <launch-status ng-if="launching"></launch-status>
+  </div>
 
   <footer class="grow">
     <div class="method git">

@@ -1,0 +1,19 @@
+<div ng-class="{'launch-status': true, 'launch-error': launchError}">
+  <div class="error">{{launchError}}</div>
+  <div class="status">{{launchStatus}}</div>
+  <div class="log">
+    <div ng-repeat="item in launchLog">{{item}}</div>
+    <div ng-if="missingCredentials"
+         class="missing-credentials">
+      <div ng-repeat="(providerName, parts) in missingCredentials"
+           class="missing-provider">
+        <span class="header">Missing {{providers[providerName].profile.name}} Credentials!</span>
+        <credential-collector provider="providers[providerName]"></credential-collector>
+        <button ng-class="{'proceed': true, 'has-credentials': providers[providerName].hasCredentials}"
+                ng-disabled="!providers[providerName].hasCredentials"
+                ng-click="launch()">{{providers[providerName].hasCredentials ? 'Proceed' : 'Enter Credentials To Proceed'}}</button>
+      </div>
+    </div>
+  </div>
+  <button class="return" ng-click="returnToLaunchpad()">↓ Return to Launchpad ↓</button>
+</div>

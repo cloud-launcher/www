@@ -1,14 +1,11 @@
-const apiInjector = require('launch-cloud-browser'),
-      _ = require('lodash');
+const _ = require('lodash');
 
-module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, storedCredentials) => {
+module.exports = ['launchCloud', 'newVersionCheck', 'storedCredentials', (launchCloud, newVersionCheck, storedCredentials) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
-      const providerConfigs = {},
-            api = apiInjector(providerConfigs, (...args) => console.log(...args)),
-            {providers} = api;
+      const {providers} = launchCloud;
 
       $scope.configuration = {
         locations: {
@@ -33,7 +30,6 @@ module.exports = ['newVersionCheck', 'storedCredentials', (newVersionCheck, stor
         authorizations: ['40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98']
       };
 
-      $scope.api = api;
       $scope.providers = providers;
 
       _.each(providers, provider => {

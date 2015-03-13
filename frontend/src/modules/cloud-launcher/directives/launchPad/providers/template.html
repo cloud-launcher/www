@@ -2,10 +2,10 @@
   <div class="header">
     <span class="help">?</span>
     <span class="name">{{::provider.profile.name}} <span ng-if="provider.profile.brand" class="brand">| {{::provider.profile.brand}}</span></span>
-    <span ng-class="{'key': true, 'has-credential': provider.hasCredential}"
+    <span ng-class="{'key': true, 'has-credential': provider.hasCredentials}"
           ng-if="!provider.profile.comingsoon"
           ng-click="showCredentialCollector[name] = !showCredentialCollector[name]"
-          title="{{provider.profile.name + ' Credentials ' + (provider.hasCredential ? 'Acquired' : 'Needed')}}">⚿</span>
+          title="{{provider.profile.name + ' Credentials ' + (provider.hasCredentials ? 'Acquired' : 'Needed')}}">⚿</span>
   </div>
   <credential-collector ng-if="showCredentialCollector[name]" provider="provider">
     Credentials needed yo!

@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = ['$timeout', $timeout => {
+module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
@@ -11,18 +11,22 @@ module.exports = ['$timeout', $timeout => {
 
           $scope.launching = true;
           $scope.launchLog = [];
+          $scope.launchStatus = 'Launching...';
           $scope.launchError = undefined;
           $scope.missingCredentials = undefined;
 
-          const {api, configuration: cloud} = $scope;
+          const {configuration: cloud} = $scope;
 
           $timeout(
             () =>
-              api.launch(_.cloneDeep(cloud), launchLog)
+              launchCloud.launch(_.cloneDeep(cloud), launchLog)
                .then(something => {
                   console.log('launched', something);
 
-                  $scope.$apply(() => {$scope.launching = false;});
+                  $scope.$apply(() => {
+                    $scope.launchStatus = 'Launched!';
+                    $scope.launching = false;
+                  });
                 })
                .catch(error => {
                   console.log('launch error', error);
@@ -32,9 +36,10 @@ module.exports = ['$timeout', $timeout => {
                   }
 
                   $scope.$apply(() => {
+                    $scope.launchStatus = 'Launch Error!';
                     $scope.launchError = error;
                   });
-                }), 500);
+                }), 0);
         }
       };
 

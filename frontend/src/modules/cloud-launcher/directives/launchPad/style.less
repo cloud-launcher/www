@@ -1,0 +1,44 @@
+launch-pad {
+  position: relative;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  perspective: 700px;
+
+  transform-style: preserve-3d;
+
+  background: linear-gradient(#000, #222, #000);
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: stretch;
+
+  transform: translateZ(0em) translateY(0%) rotateX(0deg);
+  transition: transform 0.66s cubic-bezier(0, 1, 0.25, 1);
+
+  &.launching {
+    transform: translateZ(-50em) translateY(50%) rotateX(60deg);
+  }
+
+  description {
+    flex: 6 1 auto;
+
+    max-height: 70%;
+  }
+
+  docker-search {
+    flex: 0 0 auto;
+
+    max-height: 30%;
+  }
+
+  providers {
+    flex: 1 0 auto;
+
+    max-height: 30%;
+  }
+}

@@ -9,7 +9,9 @@ module.exports = ['$interval', '$http', '$rootScope', ($interval, $http, $rootSc
     $interval.cancel(versionCheck);
   };
 
-  let versionCheck = $interval(() => {
+  let versionCheck = $interval(checkForNewVersion, NEW_VERSION_INTERVAL);
+
+  function checkForNewVersion() {
     $http
       .get('currentVersion?' + new Date().getTime())
         .success(version => {
@@ -20,5 +22,5 @@ module.exports = ['$interval', '$http', '$rootScope', ($interval, $http, $rootSc
         .error(error => {
 
         });
-  }, NEW_VERSION_INTERVAL);
+  }
 }];

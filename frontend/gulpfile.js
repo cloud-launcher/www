@@ -222,7 +222,7 @@ const paths = {
     app: ['./src/app.js'],
     less: ['src/**/*.less'],
     html: ['./src/index.html'],
-    images: ['./src/**/*.{svg,gif,png,jpg}'],
+    images: ['./src/**/*.{svg,gif,png,jpg,ico}'],
     scripts: ['src/**/*.js'],
     templates: ['src/modules/**/template.html'],
     vendor: _.map(dependencies, (version, dependency) => { return `./node_modules/${dependency}/.dist/*.js`; } ),
@@ -233,7 +233,7 @@ const paths = {
     app: './.dev/app.js',
     css: './.dev/app.css',
     html: './.dev/index.html',
-    images: './.dev/**/*.{svg,gif,png,jpg}',
+    images: './.dev/**/*.{svg,gif,png,jpg,ico}',
     vendor: './.dev/vendor.js',
     currentVersion: './.dev/currentVersion'
   },

@@ -16,23 +16,23 @@
     var clVersion = '<%= version %>';
     var wasReload = false;
 
-    if (location.hash === '#reload') {
+    if (location.search.indexOf('?cacheBust') === 0) {
       wasReload = true;
-      location.hash = '';
+      location.search = '';
     }
 
     function styleError() {
-      if (wasReload) alert('There appears to be a problem loading the site. Please try again soon!');
-      else {
-        location.hash = '#reload';
-        location.reload(true);
-      }
+      checkAndReload();
     }
 
     function scriptError() {
+      checkAndReload();
+    }
+
+    function checkAndReload() {
       if (wasReload) alert('There appears to be a problem loading the site. Please try again soon!');
       else {
-        location.hash = '#reload';
+        location.search = 'cacheBust' + new Date().getTime();
         location.reload(true);
       }
     }

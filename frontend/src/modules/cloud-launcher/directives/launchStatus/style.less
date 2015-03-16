@@ -60,6 +60,22 @@
     // font-size: 1.25em;
     font-family: monospace;
 
+    .log-item {
+      .message {
+        white-space: pre-wrap;
+      }
+
+      .log-status {
+        &.ok {
+          color: #0f0;
+        }
+
+        &.bad {
+          color: #f00;
+        }
+      }
+    }
+
     .missing-credentials {
       display: flex;
       flex-direction: column;

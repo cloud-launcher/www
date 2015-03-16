@@ -5,7 +5,7 @@ module.exports = ['localStorageService', localStorage => {
   };
 
   function getCredentials(providerName) {
-    return localStorage.get(getKeyName(providerName));
+    return localStorage.get(getKeyName(providerName)) || {credentials: {}};
   }
 
   function setCredentials(providerName, saveCredentials, credentials) {

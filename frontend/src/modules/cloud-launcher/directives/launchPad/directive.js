@@ -12,17 +12,12 @@ module.exports = ['launchCloud', 'newVersionCheck', 'storedCredentials', (launch
           digitalocean: ['sfo1']
         },
         configuration: {
-          www: 1,
-          api: 2,
           influxdb: 1
         },
         roles: {
           $all: ['cadvisor']
         },
         containers: {
-          api: {
-            linkTo: ['influxdb']
-          },
           influxdb: {
             container: 'tutum/influxdb'
           }
@@ -33,8 +28,11 @@ module.exports = ['launchCloud', 'newVersionCheck', 'storedCredentials', (launch
       $scope.providers = providers;
 
       _.each(providers, provider => {
-        _.extend(provider, storedCredentials.getCredentials(provider.name) || {});
+        const credentials = storedCredentials.getCredentials(provider.name);
+        _.merge(provider, credentials);
       });
+
+      _.each(providers, checkCredentials); // find better place for this
 
       $scope.availableSizes = _.flatten(_.map(_.values(providers), provider => {
         return _.keys(provider.profile.sizes);
@@ -58,6 +56,14 @@ module.exports = ['launchCloud', 'newVersionCheck', 'storedCredentials', (launch
       $scope.returnToLaunchpad = () => {
         $scope.launching = false;
       };
+
+      function checkCredentials(provider) {
+        let hasCredentials = true;
+        _.each(provider.credentials, credential => {
+          if (credential.length === 0) hasCredentials = false;
+        });
+        provider.hasCredentials = hasCredentials;
+      }
     }]
   };
 }];

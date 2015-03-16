@@ -1,8 +1,10 @@
 <div ng-class="{'launch-status': true, 'launch-error': launchError}">
-  <div class="error">{{launchError}}</div>
   <div class="status">{{launchStatus}}</div>
   <div class="log">
-    <div ng-repeat="item in launchLog">{{item}}</div>
+    <div ng-repeat="item in launchLog track by $index"
+         class="log-item">
+         <span class="message">{{::item.message}}</span><span ng-class="{'log-status': true, 'ok': item.status === 'ok', 'bad': item.status === 'bad'}">{{::item.status}}</span> <span>{{::item.additionalStatus}}</span>
+    </div>
     <div ng-if="missingCredentials"
          class="missing-credentials">
       <div ng-repeat="(providerName, parts) in missingCredentials"
@@ -15,5 +17,7 @@
       </div>
     </div>
   </div>
+  <provider-statuses></provider-statuses>
+  <div class="error">{{launchError}}</div>
   <button class="return" ng-click="returnToLaunchpad()">↓ Return to Launchpad ↓</button>
 </div>

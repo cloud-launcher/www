@@ -177,6 +177,18 @@
   }
 }
 
+@keyframes question {
+  0% {
+    transform: scale(0);
+  }
+  1% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 body {
   animation: fade-to-black @receed-duration @receed-delay @receed-curve;
   animation-fill-mode: both;
@@ -189,6 +201,7 @@ body {
 
 teaser {
   position: fixed;
+
   top: 0;
   left: 0;
   bottom: 0;
@@ -223,6 +236,35 @@ teaser {
     transform-style: preserve-3d;
 
     overflow: visible;
+  }
+
+  // need animations
+  .question {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    text-align: center;
+
+    font-size: 18vh;
+
+    color: #000;
+    font-size: bold;
+    text-transform: uppercase;
+
+    .generate-transitions(@count, @i: 1) when (@i =< @count) {
+      .q@{i} {
+        transform: scale(0);
+
+        animation: question 0.5s (1s + (@i) * 0.15s) ease-out;
+      }
+
+      .generate-transitions(@count, (@i + 1));
+    }
+
+    .generate-transitions(11);
   }
 
   .container {

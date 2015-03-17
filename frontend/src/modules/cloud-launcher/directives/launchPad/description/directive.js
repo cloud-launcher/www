@@ -26,7 +26,7 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
 
                   $scope.$apply(() => {
                     $scope.launchStatus = 'Launched!';
-                    $scope.launching = false;
+                    // $scope.launching = false;
                   });
                 })
                .catch(error => {
@@ -48,7 +48,8 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
         const status = {},
               handlers = {
                 'Validation': handleValidation,
-                'Generate Plan': handleGeneratePlan
+                'Generate Plan': handleGeneratePlan,
+                'Execute Plan': handleExecutePlan
               };
 
         let indent = '';
@@ -142,25 +143,25 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
               indent += '  ';
             }
             else if (start === 'Clusters') {
+              const {clusters} = args[0],
+                    clusterCount = _.keys(clusters).length;
+
               let entry = {
-                message: `${indent}Generating Cluster Plans...`,
+                message: `${indent}Generating ${clusterCount} Cluster Plan${clusterCount > 1 ? 's' : ''}...`,
                 event
               };
               status[start] = entry;
               $scope.launchLog.push(entry);
               indent += '  ';
-
-              const {clusters} = args[0],
-                    clusterCount = _.keys(clusters).length;
-              console.log(clusters);
-              $scope.launchLog.push({message: `${indent}Will Generate ${clusterCount} Cluster Plan${clusterCount > 1 ? 's' : ''}:`});
-              indent += '  ';
             }
             else if (start === 'Cluster') {
-              let {cluster} = args[0];
+              let {cluster} = args[0],
+                  {machineCount, providerName, location} = cluster;
+
+              providerName = providers[providerName].profile.name;
 
               let entry = {
-                message: `${indent}${cluster.id}`,
+                message: `${indent}${cluster.id} ${machineCount} Machine${machineCount > 1 ? 's' : ''} on ${providerName} at ${location}...`,
                 event
               };
               status[start] = status[start] || {};
@@ -185,6 +186,20 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
             else status[bad].status = 'bad';
 
             indent = indent.substr(0, Math.max(0, indent.length - 2));
+          }
+        }
+
+        function handleExecutePlan(event) {
+          const {start, ok, bad, args} = event;
+
+          if (start) {
+
+          }
+          else if (ok) {
+
+          }
+          else if (bad) {
+
           }
         }
       }

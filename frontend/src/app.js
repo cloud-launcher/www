@@ -24,5 +24,5 @@ module.exports = {
 
 
     // .value('dockerHubApiRoots', ['https://index.docker.io', 'http://localhost:3408'])
-    .value('dockerHubApiRoot', 'http://localhost:3408')
+    .value('dockerHubApiRoot', 'http://104.154.35.244')
 };

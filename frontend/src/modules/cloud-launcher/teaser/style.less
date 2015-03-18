@@ -8,8 +8,8 @@
 @swoosh-duration: 0.2s;
 @swoosh-delay: @flip-duration - 0.15s;
 
-@launch-duration: 2s;
-@launch-delay: @flip-duration - 0.5s;
+@launch-duration: 1.5s;
+@launch-delay: @flip-duration - 0.3s;
 @launch-curve: @flip-curve;
 
 @receed-duration: 1s;
@@ -152,25 +152,26 @@
 
 @keyframes launch {
   0% {
-    transform: scale(0) translateX(-300%) translateY(100%) translateZ(-500px) rotateZ(0deg) rotateX(0deg);
+    transform: scale(0) translateX(-300%) translateY(100%) translateZ(-500px) rotateZ(0deg) rotateX(0deg) rotateY(0deg);
   }
   5% {
-    transform: scale(0.1) translateX(-250%) translateY(0%) translateZ(-250px) rotateZ(360deg) rotateX(0deg);
+    transform: scale(0.1) translateX(-250%) translateY(0%) translateZ(-250px) rotateZ(360deg) rotateX(0deg)  rotateY(0deg);
   }
-  50% {
-    transform: scale(1) translateX(-50%) translateY(0%) translateZ(-150px) rotateZ(1080deg) rotateX(0deg);
+  20% {
+    transform: scale(1) translateX(-50%) translateY(0%) translateZ(-150px) rotateZ(1080deg) rotateX(0deg) rotateY(0deg);
   }
-  60% {
-    transform: scale(2) translateX(-50%) translateY(0%) translateZ(250px) rotateZ(1080deg) rotateX(0deg);
-  }
+  // 60% {
+  //   transform: scale(2) translateX(-50%) translateY(0%) translateZ(0px) rotateZ(1080deg) rotateX(0deg) rotateY(0deg);
+  // }
   100% {
-    transform: scale(1) translateX(0%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
+    transform: scale(5) translateX(-50%) translateY(0%) translateZ(1000px) rotateZ(1080deg) rotateX(-1080deg) rotateY(0deg);
   }
 }
 
 @keyframes launch-reset {
   0% {
-    transform: scale(1) translateX(0%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
+    transform: scale(5) translateX(-50%) translateY(0%) translateZ(1000px) rotateZ(1080deg) rotateX(-1080deg) rotateY(0deg);
+    // transform: scale(1) translateX(0%) translateY(0%) translateZ(-750px) rotateZ(1080deg) rotateX(-720deg);
   }
   100% {
     transform: scale(1) translateX(0%) translateY(0%) translateZ(0px) rotateZ(0deg) rotateX(0deg);
@@ -246,25 +247,36 @@ teaser {
     bottom: 0;
     right: 0;
 
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     font-size: 18vh;
 
     color: #000;
-    font-size: bold;
+    font-family: monospace;
+    font-size: bolder;
     text-transform: uppercase;
 
-    .generate-transitions(@count, @i: 1) when (@i =< @count) {
-      .q@{i} {
-        transform: scale(0);
+    .center {
+      flex: 1 0 auto;
 
-        animation: question 0.5s (1s + (@i) * 0.15s) ease-out;
+      max-width: 100%;
+
+      text-align: center;
+
+      .generate-transitions(@count, @i: 1) when (@i =< @count) {
+        .q@{i} {
+          transform: scale(0);
+
+          animation: question 1s (1.5s + (@i) * 0.15s) ease-out;
+        }
+
+        .generate-transitions(@count, (@i + 1));
       }
 
-      .generate-transitions(@count, (@i + 1));
+      .generate-transitions(11);
     }
-
-    .generate-transitions(11);
   }
 
   .container {

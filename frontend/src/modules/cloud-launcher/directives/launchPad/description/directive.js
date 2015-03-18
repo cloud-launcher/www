@@ -47,9 +47,9 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
       function launchLog(cloud, providers) {
         const status = {},
               handlers = {
-                'Validation': handleValidation,
-                'Generate Plan': handleGeneratePlan,
-                'Execute Plan': handleExecutePlan
+                'Validate': handleValidation,
+                'Generate': handleGeneratePlan,
+                'Execute': handleExecutePlan
               };
 
         let indent = '';
@@ -92,21 +92,23 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
           else if (ok) {
             status[ok].status = 'ok';
 
-            if (ok === 'Locations') {
-              $scope.launchLog.push({message: `${indent}${args[0].status}`});
-            }
-            else if (ok === 'Credentials') {
-              $scope.providerStatuses = _.mapValues(cloud.locations, (locations, providerName) => {
-                console.log(providers, providerName);
-                return providers[providerName].api.status;
-              });
-              console.log($scope.providerStatuses);
-            }
-            else if (ok === 'Container') {
+            if (ok === 'Container') {
               let {containerName} = args[0];
               status['Container'][containerName].status = 'ok';
             }
-            indent = indent.substr(0, Math.max(0, indent.length - 2));
+            else {
+              if (ok === 'Locations') {
+                $scope.launchLog.push({message: `${indent}${args[0].status}`});
+              }
+              else if (ok === 'Credentials') {
+                $scope.providerStatuses = _.mapValues(cloud.locations, (locations, providerName) => {
+                  console.log(providers, providerName);
+                  return providers[providerName].api.status;
+                });
+                console.log($scope.providerStatuses);
+              }
+              indent = indent.substr(0, Math.max(0, indent.length - 2));
+            }
           }
           else if (bad) {
             status[bad].status = 'bad';
@@ -133,9 +135,9 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
           const {start, ok, bad, args} = event;
 
           if (start) {
-            if (start === 'Generation') {
+            if (start === 'Plan') {
               let entry = {
-                message: `${indent}Generating Execution Plan...`,
+                message: `${indent}Generating Execution ${start}...`,
                 event
               };
               status[start] = entry;
@@ -193,13 +195,41 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
           const {start, ok, bad, args} = event;
 
           if (start) {
-
+            if (start === 'Machine') {
+              let {machine: {id}} = args[0];
+              let entry = {
+                message: `${indent}Launching Machine ${id}...`,
+                event
+              };
+              status[start] = status[start] || {};
+              status[start][id] = entry;
+              $scope.launchLog.push(entry);
+            }
+            else {
+              let entry = {
+                message: `${indent}Executing ${start}...`,
+                event
+              };
+              status[start] = entry;
+              $scope.launchLog.push(entry);
+              indent += '  ';
+            }
           }
           else if (ok) {
+            if (ok === 'Machine') {
+              let {machine: {id}} = args[0];
+              status[ok][id].status = 'ok';
+            }
+            else {
+              status[ok].status = 'ok';
 
+              indent = indent.substr(0, Math.max(0, indent.length - 2));
+            }
           }
           else if (bad) {
+            status[bad].status = 'bad';
 
+            indent = indent.substr(0, Math.max(0, indent.length - 2));
           }
         }
       }

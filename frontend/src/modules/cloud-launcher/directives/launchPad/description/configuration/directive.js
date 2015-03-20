@@ -6,8 +6,9 @@ module.exports = () => {
     restrict: 'E',
     template: require('./template.html'),
     link: ($scope, element, attributes) => {
+      console.log(element);
       const status = element[0].children[0],
-            editor = status.children[0];
+            editor = status.children[1];
 
       editor.addEventListener('keydown', event => {
         if (event.keyCode === 9) {

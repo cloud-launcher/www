@@ -1,0 +1,24 @@
+<div class="clouds">
+  <div ng-if="clouds.length === 0">You have no clouds! Try launching one!</div>
+  <div ng-repeat="cloud in clouds track by $index"
+       class="cloud">
+    <div class="cloud-header"
+         ng-click="hideClusters[cloud.id] = !hideClusters[cloud.id]">
+      <div class="cloud-id">{{cloud.id}} ({{cloud.clusterCount}}) Cluster{{cloud.clusterCount > 1 ? 's' : ''}}</div>
+      <button ng-click="forgetCloud(cloud); $event.stopPropagation()" title="Clouds remains running, but is removed from GUI">Forget Cloud</button>
+      <button ng-click="destroyCloud(cloud); $event.stopPropagation()">Destroy Cloud</button>
+    </div>
+    <div ng-if="!hideClusters[cloud.id]"
+         class="clusters">
+      <div ng-repeat="(clusterID, cluster) in cloud.clusters"
+           class="cluster">
+        <div class="cluster-header">{{cluster.provider}} {{cluster.location}} {{clusterID}} ({{cluster.machineCount}}) Machine{{cluster.machineCount > 1 ? 's' : ''}}</div>
+        <div ng-repeat="(machineID, machine) in cluster.machines">
+          {{::machine.roleName}} {{::machine.size}} {{::machine.image}} {{::machine.id}} {{::machine.generatedAt}}
+        </div>
+       <!--  <button ng-click="destroyCluster(cluster)">Destroy Cluster</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<button class="return" ng-click="returnToLaunchStatus()">↓ Return to Launch Status ↓</button>

@@ -4,6 +4,8 @@ configuration {
   flex-direction: column;
 
   .status {
+    position: relative;
+
     display: flex;
 
     flex: 1 1 auto;
@@ -14,7 +16,32 @@ configuration {
       background-color: inherit;
     }
 
+    .pre-alpha {
+      position: absolute;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+      font-size: 5em;
+
+      color: #333;
+
+      text-align: center;
+
+      span {
+        transform: rotateZ(-10deg);
+      }
+    }
+
     .configuration-text {
+      position: relative;
+
       flex: 1 1 auto;
 
       margin: 0;

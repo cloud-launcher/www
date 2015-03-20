@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
+module.exports = ['$timeout', 'launchCloud', 'storedClouds', ($timeout, launchCloud, storedClouds) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
@@ -15,18 +15,22 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
           $scope.launchError = undefined;
           $scope.missingCredentials = undefined;
 
+          $scope.gotoStage('launchstatus');
+
           const {configuration, providers} = $scope;
           const cloud = _.cloneDeep(configuration);
 
           $timeout(
             () =>
               launchCloud.launch(cloud, launchLog(cloud, providers))
-               .then(something => {
-                  console.log('launched', something);
+               .then(cloud => {
+                  console.log('launched', cloud);
 
                   $scope.$apply(() => {
+                    storedClouds.addCloud(cloud);
                     $scope.launchStatus = 'Launched!';
-                    // $scope.launching = false;
+                    $scope.gotoStage('clouds');
+                    $scope.launching = false;
                   });
                 })
                .catch(error => {
@@ -176,18 +180,20 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
               let {cluster} = args[0];
               status[ok][cluster.id].status = 'ok';
             }
-            else status[ok].status = 'ok';
-
-            indent = indent.substr(0, Math.max(0, indent.length - 2));
+            else {
+              status[ok].status = 'ok';
+              indent = indent.substr(0, Math.max(0, indent.length - 2));
+            }
           }
           else if (bad) {
             if (bad === 'Cluster') {
               let {cluster} = args[0];
               status[bad][cluster.id].status = 'bad';
             }
-            else status[bad].status = 'bad';
-
-            indent = indent.substr(0, Math.max(0, indent.length - 2));
+            else {
+              status[bad].status = 'bad';
+              indent = indent.substr(0, Math.max(0, indent.length - 2));
+            }
           }
         }
 
@@ -227,9 +233,14 @@ module.exports = ['$timeout', 'launchCloud', ($timeout, launchCloud) => {
             }
           }
           else if (bad) {
-            status[bad].status = 'bad';
-
-            indent = indent.substr(0, Math.max(0, indent.length - 2));
+            if (bad === 'Machine') {
+              let {machine: {id}} = args[0];
+              status[bad][id].status = 'bad';
+            }
+            else {
+              status[bad].status = 'bad';
+              indent = indent.substr(0, Math.max(0, indent.length - 2));
+            }
           }
         }
       }

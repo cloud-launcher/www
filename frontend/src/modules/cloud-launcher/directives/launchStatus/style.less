@@ -1,20 +1,8 @@
-.launch-status {
-  position: absolute;
+launch-status {
 
-  display: flex;
-  flex-direction: column;
-
-  top: 0;
-  left: 0;
-
-  height: 100%;
-  width: 100%;
-
-  flex: 1 1 auto;
-
-  background: radial-gradient(farthest-corner at 100% 50% , rgba(0, 128, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
-
-  overflow-y: auto;
+  &.in-clouds {
+    transform: translateZ(-50em) translateY(50%) rotateX(45deg);
+  }
 
   &.ng-enter, &.ng-leave {
     transition: transform 0.66s cubic-bezier(0, 1, 0.25, 1);
@@ -28,153 +16,167 @@
     transform: scale(1);
   }
 
-  &.launch-error {
-    background: radial-gradient(farthest-corner at 0% 50% , rgba(128, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
-  }
+  .launch-status {
+    height: 100%;
+    width: 100%;
 
-  .error {
-    flex: 0 0 auto;
-  }
+    display: flex;
+    flex-direction: column;
 
-  .status {
-    flex: 0 0 auto;
-
-    text-align: center;
-
-    font-weight: bold;
-    font-size: 1.5em;
-  }
-
-  .log {
     flex: 1 1 auto;
 
-    margin: 0.5em 2em;
+    background: radial-gradient(farthest-corner at 100% 50% , rgba(0, 128, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
 
     overflow-y: auto;
 
-    color: #fff;
-
-    text-shadow: 0px 0px 4px #000;
-
-    font-weight: bold;
-    // font-size: 1.25em;
-    font-family: monospace;
-
-    .log-item {
-      .message {
-        white-space: pre-wrap;
-      }
-
-      .log-status {
-        &.ok {
-          color: #0f0;
-        }
-
-        &.bad {
-          color: #f00;
-        }
-      }
+    &.launch-error {
+      background: radial-gradient(farthest-corner at 0% 50% , rgba(128, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
 
-    .missing-credentials {
-      display: flex;
-      flex-direction: column;
+    .error {
+      flex: 0 0 auto;
+    }
 
-      align-items: center;
+    .status {
+      flex: 0 0 auto;
 
-      padding: 1em;
+      text-align: center;
 
-      .missing-provider {
-        width: 50em;
+      font-weight: bold;
+      font-size: 1.5em;
+    }
 
-        margin: 1em 0;
-        padding: 1em 0.5em;
+    .log {
+      flex: 1 1 auto;
 
+      margin: 0.5em 2em;
+
+      overflow-y: auto;
+
+      color: #fff;
+
+      text-shadow: 0px 0px 4px #000;
+
+      font-weight: bold;
+      // font-size: 1.25em;
+      font-family: monospace;
+
+      .log-item {
+        .message {
+          white-space: pre-wrap;
+        }
+
+        .log-status {
+          &.ok {
+            color: #0f0;
+          }
+
+          &.bad {
+            color: #f00;
+          }
+        }
+      }
+
+      .missing-credentials {
         display: flex;
         flex-direction: column;
 
-        justify-content: flex-end;
-        align-items: stretch;
+        align-items: center;
 
-        background-color: rgba(96, 0, 0, 1);
+        padding: 1em;
 
-        // box-shadow: 2px 2px 2px 2px #222;
-        border: solid 3px #000;
+        .missing-provider {
+          width: 50em;
 
-        &>* {
-          flex: 1 0 auto;
+          margin: 1em 0;
+          padding: 1em 0.5em;
 
-          margin: 0.5em 0;
-        }
+          display: flex;
+          flex-direction: column;
 
-        .header {
-          text-align: center;
+          justify-content: flex-end;
+          align-items: stretch;
 
-          font-size: 1.5em;
-          font-weight: bold;
-        }
+          background-color: rgba(96, 0, 0, 1);
 
-        credential-collector {
-          font-size: 1.5em;
+          // box-shadow: 2px 2px 2px 2px #222;
+          border: solid 3px #000;
 
-          text-shadow: none;
-        }
+          &>* {
+            flex: 1 0 auto;
 
-        .proceed {
-          padding: 0;
-          margin: 0;
-
-          border: solid 1px #f00;
-          background-color: #000;
-
-          color: #f00;
-
-          font-size: 2em;
-
-          cursor: pointer;
-
-          &:hover {
-            background-color: rgb(16, 0, 0);
+            margin: 0.5em 0;
           }
 
-          &.has-credentials {
-            border: solid 1px #0f0;
+          .header {
+            text-align: center;
 
-            color: #0f0;
+            font-size: 1.5em;
+            font-weight: bold;
+          }
+
+          credential-collector {
+            font-size: 1.5em;
+
+            text-shadow: none;
+          }
+
+          .proceed {
+            padding: 0;
+            margin: 0;
+
+            border: solid 1px #f00;
+            background-color: #000;
+
+            color: #f00;
+
+            font-size: 2em;
+
+            cursor: pointer;
 
             &:hover {
-              background-color: rgb(0, 16, 0);
+              background-color: rgb(16, 0, 0);
+            }
+
+            &.has-credentials {
+              border: solid 1px #0f0;
+
+              color: #0f0;
+
+              &:hover {
+                background-color: rgb(0, 16, 0);
+              }
             }
           }
         }
       }
     }
-  }
 
-  .return {
-    flex: 0 0 auto;
+    .return {
+      flex: 0 0 auto;
 
-    margin: 0;
-    padding: 0;
+      margin: 0;
+      padding: 0;
 
-    border: none;
-    background: transparent;
+      border: none;
+      background: transparent;
 
-    color: #fff;
-    font-size: 1em;
+      color: #fff;
+      font-size: 1em;
 
-    cursor: pointer;
+      cursor: pointer;
 
-    transition: font-size 0.05s ease-in-out;
+      transition: font-size 0.05s ease-in-out;
 
-    &:hover {
-      text-shadow: 0px 0px 10px #fff;
+      &:hover {
+        text-shadow: 0px 0px 10px #fff;
 
-      font-size: 2em;
-    }
+        font-size: 2em;
+      }
 
-    &:focus {
-      outline: 0;
+      &:focus {
+        outline: 0;
+      }
     }
   }
 }

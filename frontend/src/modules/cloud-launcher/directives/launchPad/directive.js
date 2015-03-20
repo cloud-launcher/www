@@ -1,31 +1,37 @@
 const _ = require('lodash');
 
-module.exports = ['launchCloud', 'newVersionCheck', 'storedCredentials', (launchCloud, newVersionCheck, storedCredentials) => {
+module.exports = [
+  'launchCloud', 'newVersionCheck', 'storedClouds', 'storedCredentials',
+  (launchCloud, newVersionCheck, storedClouds, storedCredentials) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
+
       const {providers} = launchCloud;
+
+      $scope.providers = providers;
+      $scope.clouds = storedClouds.getClouds();
 
       $scope.configuration = {
         locations: {
-          digitalocean: ['sfo1']
+          digitalocean: [ "sfo1" ]
         },
         configuration: {
-          influxdb: 1
+          benchmarker: 1
         },
         roles: {
-          $all: ['cadvisor']
+          $all: [ "cadvisor" ]
         },
         containers: {
-          influxdb: {
-            container: 'tutum/influxdb'
+          benchmarker: {
+            container: "instantchat/benchmarker",
+            options: "-p 4001 -p 80:2771 -e ETCD_HOST=172.17.42.1"
           }
         },
-        authorizations: ['40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98']
+        authorizations: [ "40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98" ]
       };
 
-      $scope.providers = providers;
 
       _.each(providers, provider => {
         const credentials = storedCredentials.getCredentials(provider.name);
@@ -55,6 +61,42 @@ module.exports = ['launchCloud', 'newVersionCheck', 'storedCredentials', (launch
 
       $scope.returnToLaunchpad = () => {
         $scope.launching = false;
+        $scope.stage = 'launchpad';
+        $scope.launchStatusVisible = false;
+        $scope.cloudsVisible = false;
+      };
+
+      $scope.toggleClouds = () => {
+        if ($scope.stage === 'clouds') {
+          $scope.stage = 'launchpad';
+          $scope.cloudsVisible = false;
+        }
+        else {
+          $scope.stage = 'clouds';
+          $scope.cloudsVisible = true;
+        }
+      };
+
+      $scope.gotoStage = stage => {
+        if (stage === 'launchpad') {
+          $scope.stage = 'launchpad';
+          $scope.launchPadVisible = true;
+          $scope.launchStatusVisible = false;
+          $scope.cloudsVisible = false;
+        }
+        else if (stage === 'launchstatus') {
+          $scope.stage = 'launchstatus';
+          $scope.launchPadVisible = true;
+          $scope.launchStatusVisible = true;
+          $scope.cloudsVisible = false;
+        }
+        else if (stage === 'clouds') {
+          $scope.stage = 'clouds';
+          $scope.launchPadVisible = true;
+          // $scope.launchStatusVisible = true;
+          $scope.cloudsVisible = true;
+        }
+        else throw new Error(`Unknown ${stage}`);
       };
 
       function checkCredentials(provider) {

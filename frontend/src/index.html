@@ -88,8 +88,12 @@
   </div>
 
   <header class="page-header grow">
-    <span class="name">Pre-Alpha</span>
-
+    <div ng-if="clouds.length > 0"
+         ng-class="{'clouds': true, 'selected': stage === 'clouds'}"
+         ng-click="toggleClouds()">
+      <span class="text">Clouds</span>
+      <span class="count">({{clouds.length}})</span>
+    </div>
     <div class="cl-brand">
       <span class="cloud-launcher">{╯°□°}╯彡{益}</span>
       <span class="deploy-everywhere">Deploy Everywhere<span class="disclaimer" title="Where There Is A Provider">*</span></span>
@@ -99,8 +103,10 @@
   </header>
 
   <div class="scene grow">
-    <launch-pad ng-class="{'launching': launching}"></launch-pad>
-    <launch-status ng-if="launching"></launch-status>
+    <launch-pad ng-class="{'in-launch-status': stage === 'launchstatus', 'in-clouds': stage === 'clouds'}"></launch-pad>
+    <launch-status ng-if="launchStatusVisible"
+                   ng-class="{'in-clouds': stage === 'clouds'}"></launch-status>
+    <clouds ng-if="cloudsVisible"></clouds>
   </div>
 
   <footer class="grow">

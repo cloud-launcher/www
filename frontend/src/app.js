@@ -7,7 +7,10 @@ module.exports = {
   'cloud-launcher': angular.module('cloud-launcher', ['ngAnimate', 'ngResource', 'LocalStorageModule'])
     .service('launchCloud',               require('./modules/cloud-launcher/services/launchCloud/service'))
     .service('newVersionCheck',           require('./modules/cloud-launcher/services/newVersionCheck/service'))
+    .service('storedClouds',              require('./modules/cloud-launcher/services/storedClouds/service'))
     .service('storedCredentials',         require('./modules/cloud-launcher/services/storedCredentials/service'))
+
+    .directive('clouds',                  require('./modules/cloud-launcher/directives/clouds/directive'))
 
     .directive('launchPad',               require('./modules/cloud-launcher/directives/launchPad/directive'))
       .directive('description',           require('./modules/cloud-launcher/directives/launchPad/description/directive'))

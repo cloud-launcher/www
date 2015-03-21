@@ -1,14 +1,31 @@
+import _ from 'lodash';
+
 module.exports = () => {
   return {
     restrict: 'E',
     template: require('./template.html'),
     controller: [
-    '$scope', 'launchCloud', 'storedClouds',
-    ($scope, launchCloud, storedClouds) => {
-      const {providers} = launchCloud;
+    '$scope', 'launchCloud', 'providerMonitor', 'storedClouds',
+    ($scope, launchCloud, providerMonitor, storedClouds) => {
+      const {providers} = launchCloud,
+            clouds = storedClouds.getClouds();
 
       $scope.showClusters = {};
-      $scope.clouds = storedClouds.getClouds();
+      $scope.clouds = clouds;
+
+      $scope.$watchCollection('clouds', clouds => {
+        console.log(clouds);
+        const providers = _.unique(
+                            _.flatten(
+                              _.map(
+                                clouds,
+                                cloud => _.map(cloud.clusters, cluster => { return cluster.provider; }))));
+
+
+        console.log(providers);
+
+        _.each(providers, provider => providerMonitor.monitor(provider, 15000, updateMachines));
+      });
 
       $scope.destroyCluster = cluster => {
         const {id} = cluster;
@@ -47,6 +64,27 @@ module.exports = () => {
       $scope.returnToLaunchStatus = () => {
         $scope.gotoStage('launchstatus');
       };
+
+      function updateMachines(providerName, machines) {
+        let gotNew = false;
+
+        _.each(clouds, cloud => {
+          _.each(cloud.clusters, cluster => {
+            _.each(cluster.machines, (machine, id) => {
+              const machineUpdate = machines[id];
+
+              if (!_.matches(machineUpdate)(machine.providerData)) {
+                gotNew = true;
+                machine.providerData = machineUpdate;
+              }
+            });
+          });
+        });
+        if (gotNew) $scope.$apply();
+        else {
+          const monitor = providerMonitor.cancel(providerName);
+        }
+      }
 
       function destroyLog(cloud, providers) {
         return event => {

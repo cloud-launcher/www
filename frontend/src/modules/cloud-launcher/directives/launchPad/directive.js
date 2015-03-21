@@ -24,6 +24,9 @@ module.exports = [
           $all: [ "cadvisor" ]
         },
         containers: {
+          cadvisor: {
+            container: "google/cadvisor"
+          },
           benchmarker: {
             container: "instantchat/benchmarker",
             options: "-p 4001 -p 80:2771 -e ETCD_HOST=172.17.42.1"

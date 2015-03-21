@@ -15,6 +15,7 @@
         <div class="cluster-header">{{cluster.provider}} {{cluster.location}} {{clusterID}} ({{cluster.machineCount}}) Machine{{cluster.machineCount > 1 ? 's' : ''}}</div>
         <div ng-repeat="(machineID, machine) in cluster.machines">
           {{::machine.roleName}} {{::machine.size}} {{::machine.image}} {{::machine.id}} {{::machine.generatedAt}}
+          {{machine.providerData}}
         </div>
        <!--  <button ng-click="destroyCluster(cluster)">Destroy Cluster</button> -->
       </div>

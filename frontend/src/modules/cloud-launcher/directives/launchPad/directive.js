@@ -18,7 +18,7 @@ module.exports = [
           digitalocean: [ "sfo1" ]
         },
         configuration: {
-          benchmarker: 1
+          "benchmark-viewer": 1
         },
         roles: {
           $all: [ "cadvisor" ]
@@ -27,8 +27,8 @@ module.exports = [
           cadvisor: {
             container: "google/cadvisor"
           },
-          benchmarker: {
-            container: "instantchat/benchmarker",
+          "benchmark-viewer": {
+            container: "cloudlauncher/benchmark-viewer",
             options: "-p 4001 -p 80:2771 -e ETCD_HOST=172.17.42.1"
           }
         },

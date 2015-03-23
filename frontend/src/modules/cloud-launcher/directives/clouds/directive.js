@@ -11,6 +11,7 @@ module.exports = () => {
             clouds = storedClouds.getClouds();
 
       $scope.showClusters = {};
+      $scope.hideMachines = {};
       $scope.clouds = clouds;
 
       $scope.$watchCollection('clouds', clouds => {
@@ -76,11 +77,17 @@ module.exports = () => {
               if (!_.matches(machineUpdate)(machine.providerData)) {
                 gotNew = true;
                 machine.providerData = machineUpdate;
+
+                _.merge(machine, machineUpdate);
               }
             });
           });
         });
-        if (gotNew) $scope.$apply();
+
+        if (gotNew) {
+          storedClouds.saveClouds();
+          $scope.$apply();
+        }
         else {
           const monitor = providerMonitor.cancel(providerName);
         }

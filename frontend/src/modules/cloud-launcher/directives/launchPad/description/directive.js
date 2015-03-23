@@ -105,11 +105,7 @@ module.exports = ['$timeout', 'launchCloud', 'storedClouds', ($timeout, launchCl
                 $scope.launchLog.push({message: `${indent}${args[0].status}`});
               }
               else if (ok === 'Credentials') {
-                $scope.providerStatuses = _.mapValues(cloud.locations, (locations, providerName) => {
-                  console.log(providers, providerName);
-                  return providers[providerName].api.status;
-                });
-                console.log($scope.providerStatuses);
+
               }
               indent = indent.substr(0, Math.max(0, indent.length - 2));
             }

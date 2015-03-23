@@ -1,7 +1,9 @@
 launch-status {
 
+  transition: transform 0.66s cubic-bezier(0, 1, 0.25, 1);
+
   &.in-clouds {
-    transform: translateZ(-50em) translateY(50%) rotateX(45deg);
+    transform: scale(1) translateZ(-50em) translateY(50%) rotateX(45deg);
   }
 
   &.ng-enter, &.ng-leave {
@@ -9,11 +11,11 @@ launch-status {
   }
 
   &.ng-enter, &.ng-leave.ng-leave-active {
-    transform: scale(0);
+    transform: scale(0) translateZ(0em) translateY(0%) rotateX(0deg);
   }
 
   &.ng-leave, &.ng-enter.ng-enter-active {
-    transform: scale(1);
+    transform: scale(1) translateZ(0em) translateY(0%) rotateX(0deg);
   }
 
   .launch-status {

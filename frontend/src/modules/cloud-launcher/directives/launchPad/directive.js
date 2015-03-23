@@ -1,8 +1,8 @@
 const _ = require('lodash');
 
 module.exports = [
-  'launchCloud', 'newVersionCheck', 'storedClouds', 'storedCredentials',
-  (launchCloud, newVersionCheck, storedClouds, storedCredentials) => {
+  'launchCloud', 'newVersionCheck', 'storedClouds', 'storedCredentials', 'stageManager',
+  (launchCloud, newVersionCheck, storedClouds, storedCredentials, stageManager) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
@@ -12,6 +12,13 @@ module.exports = [
 
       $scope.providers = providers;
       $scope.clouds = storedClouds.getClouds();
+
+      $scope.stage = stageManager.stage;
+
+      $scope.providerStatuses = _.mapValues(providers, (provider, providerName) => {
+        console.log(provider, providerName);
+        return provider.api.status;
+      });
 
       $scope.configuration = {
         locations: {
@@ -61,46 +68,6 @@ module.exports = [
           }
         }
       });
-
-      $scope.returnToLaunchpad = () => {
-        $scope.launching = false;
-        $scope.stage = 'launchpad';
-        $scope.launchStatusVisible = false;
-        $scope.cloudsVisible = false;
-      };
-
-      $scope.toggleClouds = () => {
-        if ($scope.stage === 'clouds') {
-          $scope.stage = 'launchpad';
-          $scope.cloudsVisible = false;
-        }
-        else {
-          $scope.stage = 'clouds';
-          $scope.cloudsVisible = true;
-        }
-      };
-
-      $scope.gotoStage = stage => {
-        if (stage === 'launchpad') {
-          $scope.stage = 'launchpad';
-          $scope.launchPadVisible = true;
-          $scope.launchStatusVisible = false;
-          $scope.cloudsVisible = false;
-        }
-        else if (stage === 'launchstatus') {
-          $scope.stage = 'launchstatus';
-          $scope.launchPadVisible = true;
-          $scope.launchStatusVisible = true;
-          $scope.cloudsVisible = false;
-        }
-        else if (stage === 'clouds') {
-          $scope.stage = 'clouds';
-          $scope.launchPadVisible = true;
-          // $scope.launchStatusVisible = true;
-          $scope.cloudsVisible = true;
-        }
-        else throw new Error(`Unknown ${stage}`);
-      };
 
       function checkCredentials(provider) {
         let hasCredentials = true;

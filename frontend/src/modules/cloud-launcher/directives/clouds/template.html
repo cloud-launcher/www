@@ -4,22 +4,53 @@
        class="cloud">
     <div class="cloud-header"
          ng-click="hideClusters[cloud.id] = !hideClusters[cloud.id]">
-      <div class="cloud-id">{{cloud.id}} ({{cloud.clusterCount}}) Cluster{{cloud.clusterCount > 1 ? 's' : ''}}</div>
-      <button ng-click="forgetCloud(cloud); $event.stopPropagation()" title="Clouds remains running, but is removed from GUI">Forget Cloud</button>
+         <span class="cloud-id" title="This is your cloud's name!">{{cloud.id}}</span>
+         <span class="cluster-count">({{cloud.clusterCount}}) Cluster{{cloud.clusterCount > 1 ? 's' : ''}}</span>
+      <button ng-click="forgetCloud(cloud); $event.stopPropagation()" title="Cloud remains running, but is removed from GUI">Forget Cloud</button>
       <button ng-click="destroyCloud(cloud); $event.stopPropagation()">Destroy Cloud</button>
     </div>
     <div ng-if="!hideClusters[cloud.id]"
          class="clusters">
       <div ng-repeat="(clusterID, cluster) in cloud.clusters"
            class="cluster">
-        <div class="cluster-header">{{cluster.provider}} {{cluster.location}} {{clusterID}} ({{cluster.machineCount}}) Machine{{cluster.machineCount > 1 ? 's' : ''}}</div>
-        <div ng-repeat="(machineID, machine) in cluster.machines">
-          {{::machine.roleName}} {{::machine.size}} {{::machine.image}} {{::machine.id}} {{::machine.generatedAt}}
-          {{machine.providerData}}
+        <div class="cluster-header"
+             ng-click="hideMachines[clusterID] = !hideMachines[clusterID]; $event.stopPropagation();">
+          <span class="cluster-id" title="This is your cluster's name!">{{::clusterID}}</span
+          <a ng-href="{{::providers[cluster.provider].dashboardUrl}}"
+             target="_blank"
+             class="provider-name">{{::cluster.provider}}</a>
+          <span class="location">{{::cluster.location}}</span>
+          <span class="machine-count">({{cluster.machineCount}}) Machine{{cluster.machineCount > 1 ? 's' : ''}}</span>
+          <button ng-click="destroyCluster(cluster)">Destroy Cluster</button>
         </div>
-       <!--  <button ng-click="destroyCluster(cluster)">Destroy Cluster</button> -->
+        <div ng-if="!hideMachines[clusterID]"
+             class="machines">
+          <div ng-repeat="(machineID, machine) in cluster.machines"
+               class="machine">
+            <span ng-class="{
+                              'status': true,
+                              'active': machine.status === 'active',
+                              'new': machine.status === 'new'
+                            }"
+                  title="{{machine.status}}">{{machine.status}}</span>
+            <span class="machine-id" title="This is your machine's name!">{{::machine.id}}</span>
+            <span class="role-name">{{::machine.roleName}}</span>
+            <span class="size">{{::machine.size}}</span>
+            <span class="image">{{::machine.image}}</span>
+            <span class="generated-at">{{::machine.generatedAt | date : 'y-M-d h:mm:s a'}}</span>
+            <span class="created-at">{{machine.createdAt}}</span>
+
+            <div ng-repeat="(networkType, networks) in machine.networks">
+              {{networkType}}
+              <div ng-repeat="network in networks">
+              {{network.ipAddress}}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<provider-statuses></provider-statuses>
 <button class="return" ng-click="returnToLaunchStatus()">↓ Return to Launch Status ↓</button>

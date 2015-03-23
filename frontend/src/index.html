@@ -89,11 +89,12 @@
 
   <header class="page-header grow">
     <div ng-if="clouds.length > 0"
-         ng-class="{'clouds': true, 'selected': stage === 'clouds'}"
+         ng-class="{'clouds': true, 'selected': stage.current === 'clouds'}"
          ng-click="toggleClouds()">
-      <span class="text">Clouds</span>
+      <span class="text">My Clouds</span>
       <span class="count">({{clouds.length}})</span>
     </div>
+    <div class="about"><a href="#about">About</a></div>
     <div class="cl-brand">
       <span class="cloud-launcher">{╯°□°}╯彡{益}</span>
       <span class="deploy-everywhere">Deploy Everywhere<span class="disclaimer" title="Where There Is A Provider">*</span></span>
@@ -103,10 +104,10 @@
   </header>
 
   <div class="scene grow">
-    <launch-pad ng-class="{'in-launch-status': stage === 'launchstatus', 'in-clouds': stage === 'clouds'}"></launch-pad>
-    <launch-status ng-if="launchStatusVisible"
-                   ng-class="{'in-clouds': stage === 'clouds'}"></launch-status>
-    <clouds ng-if="cloudsVisible"></clouds>
+    <launch-pad ng-class="{'in-launch-status': stage.current === 'launchstatus', 'in-clouds': stage.current === 'clouds'}"></launch-pad>
+    <launch-status ng-if="stage.launchStatusVisible"
+                   ng-class="{'in-clouds': stage.current === 'clouds'}"></launch-status>
+    <clouds ng-if="stage.cloudsVisible"></clouds>
   </div>
 
   <footer class="grow">

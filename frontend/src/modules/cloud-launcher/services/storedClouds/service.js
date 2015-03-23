@@ -7,7 +7,8 @@ module.exports = ['localStorageService', localStorage => {
   return {
     getClouds,
     addCloud,
-    removeCloud
+    removeCloud,
+    saveClouds
   };
 
   function getClouds() {
@@ -27,5 +28,12 @@ module.exports = ['localStorageService', localStorage => {
       clouds.splice(index, 1);
       localStorage.set(keyName, clouds);
     }
+  }
+
+  // There's a more efficient way to store these
+  // Store a list of cloud ids
+  // Store each cloud independently, key'd by id
+  function saveClouds() {
+    localStorage.set(keyName, clouds);
   }
 }];

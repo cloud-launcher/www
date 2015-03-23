@@ -67,21 +67,21 @@ body {
 
     flex: 0 0 auto;
 
-    padding: 1em 1em;
+    padding: 1em;
 
-    background: linear-gradient(#003, #669, #003);
+    background: linear-gradient(#66b, #99f, #66b);
 
     font-weight: bold;
     font-size: 1.1em;
 
-    &:hover {
-      background: linear-gradient(#339, #99b, #339);
+    cursor: pointer;
 
-      cursor: pointer;
+    &:hover {
+      background: linear-gradient(#003, #11b, #003);
     }
 
     &.selected {
-      background: linear-gradient(#003, #669, #003);
+      background: linear-gradient(#003, #11b, #003);
     }
 
     .count {
@@ -91,15 +91,41 @@ body {
     }
   }
 
-  .name {
+  .about {
     flex: 0 0 auto;
 
-    font-size: 1.5em;
+    padding: 1em;
+
     font-weight: bold;
+    font-size: 1.1em;
+
+    background: linear-gradient(#993, #bb9, #993);
+
+    cursor: pointer;
+
+    &:hover {
+      background: linear-gradient(#330, #cc1, #330);
+    }
+
+    &.selected {
+      background: linear-gradient(#330, #cc1, #330);
+    }
+
+    a {
+      color: #fff;
+
+      text-decoration: none;
+
+      &:visited {
+        color: #fff;
+      }
+    }
   }
 
   .cl-brand {
-    flex: 0 0 auto;
+    flex: 1 0 auto;
+
+    text-align: center;
 
     .cloud-launcher {
       font-size: 1.5em;

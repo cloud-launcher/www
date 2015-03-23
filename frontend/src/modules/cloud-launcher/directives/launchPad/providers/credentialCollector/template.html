@@ -1,16 +1,20 @@
-<label ng-repeat="(name, part) in provider.credentialSchema"
-       class="part">
-  <div class="label">
-    <span class="name">{{::part.header}}</span>
-    <span class="help">What's This?</span>
-    <span ng-if="part.link" class="create"><a href="{{::part.link}}" target="_blank">Create</a></span>
-  </div>
+<div class="prompt">
+Please Enter Your {{provider.profile.name}} Credentials
+</div>
+<div class="collector">
+  <label ng-repeat="(name, part) in provider.credentialSchema"
+         class="part">
+    <div class="label">
+      <span class="name">{{::part.header}} <span class="help">What's This?</span></span>
+      <span ng-if="part.link" class="create"><a href="{{::part.link}}" target="_blank">Create New</a></span>
+    </div>
 
-  <input type="text" ng-model="provider.credentials[name]" ng-change="credentialsChanged($event)">
-</label>
+    <input type="text" ng-model="provider.credentials[name]" ng-change="credentialsChanged($event)">
+  </label>
 
-<label class="save"
-       title="Your credentials are {{save ? 'SAVED' : 'NOT SAVED'}} in your browser's local storage. Your credentials are NEVER transmitted to cloud-launcher or any party other than this provider.">
-  <span class="save-header">Save In Local Storage</span>
-  <input type="checkbox" ng-model="provider.saveCredentials" ng-change="handleSave($event)">
-</label>
+  <label class="save"
+         title="Your credentials are NEVER transmitted to cloud-launcher or any party other than this provider.">
+    <span class="save-header">Save In Local Storage</span>
+    <input type="checkbox" ng-model="provider.saveCredentials" ng-change="handleSave($event)">
+  </label>
+</div>

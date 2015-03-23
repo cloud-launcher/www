@@ -1,3 +1,7 @@
-<div ng-repeat="(status, providerName) in providerStatuses">
-  {{providerName}} {{status}}
+<span class="limits-header">API LIMITS</span>
+<div class="limits">
+  <div ng-repeat="(providerName, status) in providerStatuses"
+       class="status">
+       <div ng-if="status && status.limit > 0"><span class="name">{{providerName}}</span> <span class="remaining">{{status.remaining}}</span> / <span class="limit">{{status.limit}}</span></div>
+  </div>
 </div>

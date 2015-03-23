@@ -15,7 +15,7 @@
            class="cluster">
         <div class="cluster-header"
              ng-click="hideMachines[clusterID] = !hideMachines[clusterID]; $event.stopPropagation();">
-          <span class="cluster-id" title="This is your cluster's name!">{{::clusterID}}</span
+          <span class="cluster-id" title="This is your cluster's name!">{{::clusterID}}</span>
           <a ng-href="{{::providers[cluster.provider].dashboardUrl}}"
              target="_blank"
              class="provider-name">{{::cluster.provider}}</a>

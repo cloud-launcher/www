@@ -10,7 +10,9 @@ module.exports = () => {
       const {providers} = launchCloud,
             clouds = storedClouds.getClouds();
 
-      $scope.showClusters = {};
+      $scope.destroyLog = {};
+      $scope.destroyStatus = {};
+      $scope.hideClusters = {};
       $scope.hideMachines = {};
       $scope.clouds = clouds;
 
@@ -39,6 +41,10 @@ module.exports = () => {
         const {id} = cloud;
         console.log('destroying cloud', id);
 
+        $scope.hideClusters[cloud.id] = false;
+        $scope.destroyLog[cloud.id] = [];
+        $scope.destroyStatus[cloud.id] = 'Destroying';
+
         launchCloud
           .destroy(cloud, destroyLog(cloud, providers))
           .then(
@@ -47,6 +53,8 @@ module.exports = () => {
               storedClouds.removeCloud(cloud);
 
               if ($scope.clouds.length === 0) $scope.gotoStage('launchpad');
+
+              delete $scope.destroyLog[cloud.id];
 
               $scope.$apply();
             },
@@ -64,6 +72,24 @@ module.exports = () => {
 
       $scope.returnToLaunchStatus = () => {
         $scope.gotoStage('launchstatus');
+      };
+
+      $scope.getMachineProviderDashboardUrl = machine => {
+        console.log(machine);
+        return `http://cloud.digitalocean.com/droplets/${machine.providerData.id}`;
+      };
+
+      $scope.getMachineEstimatedCost = (cluster, machine) => {
+        const now = new Date(),
+              {createdAt, size} = machine,
+              {provider} = cluster,
+              {profile} = providers[provider],
+              currentLife = Math.ceil((now - new Date(createdAt)) / 1000 / 60 / 60),
+              estimatedCost = currentLife * profile.sizes[size].price_hourly;
+
+        console.log(profile, currentLife, estimatedCost);
+
+        return estimatedCost;
       };
 
       function updateMachines(providerName, machines) {
@@ -95,7 +121,7 @@ module.exports = () => {
 
       function destroyLog(cloud, providers) {
         return event => {
-          console.log(event);
+          $scope.destroyLog[cloud.id].push(event);
         };
       }
     }]

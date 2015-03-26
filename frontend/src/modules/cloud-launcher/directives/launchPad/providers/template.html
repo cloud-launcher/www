@@ -1,7 +1,7 @@
 <div ng-repeat="(name, provider) in providers" class="provider {{::name}}">
   <div class="header">
     <span class="help">?</span>
-    <span class="name">{{::provider.profile.name}} <span ng-if="provider.profile.brand" class="brand">| {{::provider.profile.brand}}</span></span>
+    <span class="name"><a href="{{::provider.referralUrl}}" target="_blank" title="{{::provider.referralTeaser}}">{{::provider.profile.name}} <span ng-if="provider.profile.brand" class="brand">| {{::provider.profile.brand}}</span></a></span>
     <span ng-class="{'key': true, 'has-credential': provider.hasCredentials}"
           ng-if="!provider.profile.comingsoon"
           ng-click="showCredentialCollector[name] = !showCredentialCollector[name]"

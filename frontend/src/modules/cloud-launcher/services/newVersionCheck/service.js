@@ -1,5 +1,6 @@
 // We don't want everyone to be synchronized, so add a random amount to the interval
 const NEW_VERSION_INTERVAL = (10 + Math.random() * 5) * 60 * 1000;
+// const NEW_VERSION_INTERVAL = 5000; // For debuggins
 module.exports = ['$interval', '$http', '$rootScope', ($interval, $http, $rootScope) => {
   let ignoreNewVersion = false;
 
@@ -7,6 +8,10 @@ module.exports = ['$interval', '$http', '$rootScope', ($interval, $http, $rootSc
     ignoreNewVersion = true;
     $rootScope.newVersionAvailable = false;
     $interval.cancel(versionCheck);
+  };
+
+  $rootScope.loadNewVersion = () => {
+    window.location.search = 'cacheBust';
   };
 
   let versionCheck = $interval(checkForNewVersion, NEW_VERSION_INTERVAL);

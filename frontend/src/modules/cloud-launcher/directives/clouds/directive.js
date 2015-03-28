@@ -17,18 +17,29 @@ module.exports = () => {
       $scope.clouds = clouds;
 
       $scope.$watchCollection('clouds', clouds => {
-        console.log(clouds);
         const providers = _.unique(
                             _.flatten(
                               _.map(
                                 clouds,
                                 cloud => _.map(cloud.clusters, cluster => { return cluster.provider; }))));
 
-
-        console.log(providers);
-
         _.each(providers, provider => providerMonitor.monitor(provider, 15000, updateMachines));
       });
+
+      let currentHoveredCloud;
+      $scope.cloudHovered = cloud => {
+        if (currentHoveredCloud != cloud) {
+          currentHoveredCloud = cloud;
+
+          $scope.showCloudPoints(cloud);
+        }
+      };
+
+      $scope.cloudNotHovered = cloud => {
+        if (currentHoveredCloud === cloud) {
+          currentHoveredCloud = undefined;
+        }
+      };
 
       $scope.destroyCluster = cluster => {
         const {id} = cluster;
@@ -39,7 +50,6 @@ module.exports = () => {
 
       $scope.destroyCloud = cloud => {
         const {id} = cloud;
-        console.log('destroying cloud', id);
 
         $scope.hideClusters[cloud.id] = false;
         $scope.destroyLog[cloud.id] = [];
@@ -75,7 +85,6 @@ module.exports = () => {
       };
 
       $scope.getMachineProviderDashboardUrl = machine => {
-        console.log(machine);
         return `http://cloud.digitalocean.com/droplets/${machine.providerData.id}`;
       };
 
@@ -86,8 +95,6 @@ module.exports = () => {
               {profile} = providers[provider],
               currentLife = Math.ceil((now - new Date(createdAt)) / 1000 / 60 / 60),
               estimatedCost = currentLife * profile.sizes[size].price_hourly;
-
-        console.log(profile, currentLife, estimatedCost);
 
         return estimatedCost;
       };

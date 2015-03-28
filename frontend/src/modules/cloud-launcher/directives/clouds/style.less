@@ -20,218 +20,330 @@ clouds {
     transform: scale(1);
   }
 
-  .clouds {
+  .display-container {
     display: flex;
-    flex-direction: column;
 
-    justify-content: center;
+    justify-content: stretch;
 
-    flex: 1 0 auto;
+    flex: 1 1 auto;
 
-    padding: 0 0.5em;
-
-    overflow-y: auto;
-
-    .cloud {
-      position: relative;
+    .clouds-container {
       display: flex;
-      flex-direction: column;
 
-      flex: 0 0 auto;
+      width: 66.66%;
 
-      margin: 0.5em 0;
+      flex: 5 1 auto;
 
-      background-color: rgba(128, 128, 128, 0.5);
-      border: solid 1px #000;
+      overflow-y: auto;
 
-      box-shadow: 0px 0px 2px 2px #000;
-
-      .destroy-log {
-        position: absolute;
-
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-
-        background-color: rgba(0, 0, 0, 0.8);
-      }
-
-      .cloud-header {
+      .clouds {
         display: flex;
+        flex-direction: column;
+
         justify-content: center;
-        flex-wrap: wrap;
 
-        padding: 0.25em;
+        flex: 1 1 auto;
 
-        font-size: 1.5em;
+        padding: 0 0.5em;
 
-        cursor: pointer;
+        overflow-y: auto;
 
-        .cloud-id {
+        .cloud {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+
           flex: 0 0 auto;
-        }
 
-        .cluster-count {
-          flex: 1 0 auto;
+          margin: 0.5em 0;
 
-          padding: 0 0.25em;
+          background-color: rgba(128, 128, 128, 0.1);
+          border: solid 1px #000;
 
-          text-align: right;
-        }
-      }
+          box-shadow: 0px 0px 2px 2px #000;
 
-      .clusters {
-        .cluster {
-          margin: 0.25em;
-          padding: 0.25em;
+          .destroy-log {
+            position: absolute;
 
-          background-color: rgba(0, 0, 0, 0.5);
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
 
-          border: solid 1px #663;
-
-          box-shadow: 0px 0px 1px 1px #000;
-
-          &:hover {
-            background-color: rgba(128, 128, 128, 0.5);
+            background-color: rgba(0, 0, 0, 0.8);
           }
 
-          .cluster-header {
+          .cloud-header {
             display: flex;
-
-            justify-content: flex-start;
-
+            // justify-content: center;
             flex-wrap: wrap;
+
+            padding: 0.25em;
+
+            // font-size: 1.5em;
 
             cursor: pointer;
 
-            a, span {
-              flex: 0 0 auto;
+            .info {
+              display: flex;
+              flex-direction: column;
 
-              padding: 0.25em 0.5em;
-            }
+              align-items: flex-start;
 
-            .cluster-id {
-              font-weight: bold;
-            }
+              flex: 1 1 auto;
 
-            .provider-name {
-              text-decoration: none;
+              .cloud-id {
+                flex: 0 0 auto;
 
-              background-color: #000;
+                font-size: 1.2em;
+                font-weight: bold;
+              }
 
-              &:visited {
-                color: #fff;
+              .cluster-count {
+                flex: 1 0 auto;
+
+                padding: 0 0.25em;
               }
             }
 
-            .location {
-              background-color: #006;
-            }
+            .actions {
+              display: flex;
 
-            .machine-count {
-              flex: 1 0 auto;
+              justify-content: flex-end;
 
-              text-align: right;
+              flex: 1 1 auto;
 
-              font-weight: bold;
+              button {
+                flex: 1 1 auto;
+
+                font-size: 1.25em;
+                color: #fff;
+
+                cursor: pointer;
+
+                background: rgba(128, 0, 0, 0.1);
+
+                border: solid 1px #300;
+
+                &:hover {
+                  background-color: rgba(128, 0, 0, 0.5);
+                }
+              }
             }
           }
 
-          .machines {
-            margin: 0.25em;
-
-            .machine {
-              display: flex;
-              flex-direction: row;
-              flex-wrap: wrap;
-
-              align-items: center;
-
+          .clusters {
+            .cluster {
               margin: 0.25em;
+              padding: 0.25em;
 
-              // border: solid 1px #200;
+              background-color: rgba(0, 0, 0, 0.6);
+
+              border: solid 1px #663;
 
               box-shadow: 0px 0px 1px 1px #000;
 
-              cursor: pointer;
-
               &:hover {
-                background-color: rgba(0, 0, 0, 0.5);
+                background-color: rgba(128, 128, 128, 0.5);
               }
 
-              span {
-                padding: 0 0.25em;
-              }
+              .cluster-header {
+                display: flex;
 
-              .status {
-                width: 1em;
-                height: 1em;
+                justify-content: flex-start;
 
-                color: #000;
+                flex-wrap: wrap;
 
-                cursor: default;
+                cursor: pointer;
 
-                &.active {
-                  background-color: #0f0;
-                  color: #0f0;
-                }
+                .info {
+                  display: flex;
+                  flex-direction: column;
 
-                &.new {
-                  background-color: #ff0;
-                }
-              }
+                  flex: 1 1 auto;
 
-              .machine-id {
-                a {
-                  color: #fff;
+                  .cluster-id {
+                    font-weight: bold;
+                  }
 
-                  &:visited {
-                    color: #fff;
+                  .machine-count {
+                    flex: 1 0 auto;
+
+                    padding: 0 0.25em;
                   }
                 }
-              }
 
-              .role-name {
-                background-color: #000;
+                .location-info {
+                  flex: 0 0 auto;
 
-                font-weight: bold;
-              }
+                  a, span {
+                    flex: 0 0 auto;
 
-              .size {
-                background-color: #960;
+                    padding: 0.25em 0.5em;
+                  }
 
-                font-weight: bold;
-              }
+                  .provider-name {
+                    text-decoration: none;
 
-              .image {
-
-              }
-
-              .networks {
-                .network {
-                  a {
-                    color: #ccf;
+                    background-color: #000;
 
                     &:visited {
-                      color: #ccf;
+                      color: #fff;
+                    }
+                  }
+
+                  .location {
+                    background-color: #006;
+                  }
+                }
+
+                .actions {
+                  flex: 0 0 auto;
+
+                  button {
+                    flex: 1 1 auto;
+
+                    // font-size: 1.25em;
+                    color: #fff;
+
+                    cursor: pointer;
+
+                    background: rgba(128, 0, 0, 0.1);
+
+                    border: solid 1px #300;
+
+                    &:hover {
+                      background-color: rgba(128, 0, 0, 0.5);
                     }
                   }
                 }
               }
 
-              .generated-at {
+              .machines {
+                margin: 0.25em;
 
-              }
+                .machine {
+                  display: flex;
+                  flex-direction: row;
+                  flex-wrap: wrap;
 
-              .created-at {
+                  justify-content: space-between;
 
+                  align-items: center;
+
+                  margin: 0.25em;
+
+                  // border: solid 1px #200;
+                  background-color: rgba(128, 128, 128, 0.5);
+                  box-shadow: 0px 0px 1px 1px #222;
+
+                  color: #ccc;
+
+                  cursor: pointer;
+
+                  &:hover {
+                    background-color: rgba(0, 0, 0, 0.5);
+                  }
+
+                  span {
+                    flex: 1 0 auto;
+                    padding: 0 0.25em;
+                  }
+
+                  .status {
+                    width: 1em;
+                    height: 1em;
+
+                    color: #000;
+
+                    cursor: default;
+
+                    &.active {
+                      background-color: #0f0;
+                      color: #0f0;
+                    }
+
+                    &.new {
+                      background-color: #ff0;
+                    }
+                  }
+
+                  .machine-id {
+                    a {
+                      color: #fff;
+
+                      &:visited {
+                        color: #fff;
+                      }
+                    }
+                  }
+
+                  .role-name {
+                    background-color: #000;
+
+                    font-weight: bold;
+                  }
+
+                  .size {
+                    background-color: #960;
+
+                    font-weight: bold;
+                  }
+
+                  .image {
+
+                  }
+
+                  .networks {
+                    .network {
+                      a {
+                        color: #ccf;
+
+                        &:visited {
+                          color: #ccf;
+                        }
+                      }
+                    }
+                  }
+
+                  .generated-at {
+
+                  }
+
+                  .created-at {
+
+                  }
+                }
               }
             }
           }
         }
       }
     }
+
+    .cloud-info {
+      display: flex;
+      flex-direction: column;
+
+      flex: 1 1 auto;
+
+      width: 33.33%;
+      max-width: 33.33%;
+
+      globe {
+        position: relative;
+
+        flex: 1 1 auto;
+      }
+
+      .details {
+        flex: 1 1 auto;
+      }
+    }
+  }
+
+  provider-statuses {
+    flex: 0 0 auto;
   }
 
   .return {

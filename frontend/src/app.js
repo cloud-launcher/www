@@ -14,6 +14,7 @@ module.exports = {
     .service('storedCredentials',         require('./modules/cloud-launcher/services/storedCredentials/service'))
 
     .directive('clouds',                  require('./modules/cloud-launcher/directives/clouds/directive'))
+      .directive('globe',                 require('./modules/cloud-launcher/directives/clouds/globe/directive'))
 
     .directive('launchPad',               require('./modules/cloud-launcher/directives/launchPad/directive'))
       .directive('description',           require('./modules/cloud-launcher/directives/launchPad/description/directive'))

@@ -42,10 +42,11 @@ module.exports = function(container, opts) {
         'varying vec3 vNormal;',
         'varying vec2 vUv;',
         'void main() {',
+          'vec3 base = vec3(1.0, 2.0, 6.0);',
           'vec3 diffuse = texture2D( texture, vUv ).xyz;',
           'float intensity = 1.05 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) );',
-          'vec3 atmosphere = vec3( 1.0, 1.0, 1.0 ) * pow( intensity, 3.0 );',
-          'gl_FragColor = vec4( diffuse + atmosphere, 1.0 );',
+          'vec3 atmosphere = vec3( 0.2, 0.2, 0.8 ) * pow( intensity, 3.0 );',
+          'gl_FragColor = vec4( base * diffuse + atmosphere, 1.0 );',
         '}'
       ].join('\n')
     },
@@ -62,7 +63,7 @@ module.exports = function(container, opts) {
         'varying vec3 vNormal;',
         'void main() {',
           'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 12.0 );',
-          'gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 ) * intensity;',
+          'gl_FragColor = vec4( 0.2, 0.2, 0.8, 0.5 ) * intensity;',
         '}'
       ].join('\n')
     }
@@ -81,7 +82,7 @@ module.exports = function(container, opts) {
       target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
       targetOnDown = { x: 0, y: 0 };
 
-  var distance = 100000, distanceTarget = 100000;
+  var distance = 100000, distanceTarget = 1500;
   var padding = 40;
   var PI_HALF = Math.PI / 2;
 
@@ -150,7 +151,7 @@ module.exports = function(container, opts) {
 
     container.addEventListener('mousedown', onMouseDown, false);
 
-    container.addEventListener('mousewheel', onMouseWheel, false);
+    container.addEventListener('wheel', onMouseWheel, false);
 
     document.addEventListener('keydown', onDocumentKeyDown, false);
 
@@ -315,7 +316,9 @@ module.exports = function(container, opts) {
   function onMouseWheel(event) {
     event.preventDefault();
     if (overRenderer) {
-      zoom(event.wheelDeltaY * 0.3);
+      let {deltaY} = event;
+      if (Math.abs(deltaY) < 10) deltaY *= 20;
+      zoom(deltaY * 0.3);
     }
     return false;
   }
@@ -341,7 +344,7 @@ module.exports = function(container, opts) {
 
   function zoom(delta) {
     distanceTarget -= delta;
-    distanceTarget = distanceTarget > 1500 ? 1500 : distanceTarget;
+    distanceTarget = distanceTarget > 2000 ? 2000 : distanceTarget;
     distanceTarget = distanceTarget < 350 ? 350 : distanceTarget;
   }
 

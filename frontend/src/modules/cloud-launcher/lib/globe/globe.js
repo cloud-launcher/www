@@ -21,7 +21,7 @@ module.exports = function(container, opts) {
     c.setHSL( ( 0.6 - ( x * 0.5 ) ), 1.0, 0.5 );
     return c;
   };
-  var imgDir = opts.imgDir || '/modules/cloud-launcher/lib/globe/';
+  var imgDir = opts.imgFile || '/modules/cloud-launcher/lib/globe/world.jpg';
 
   var Shaders = {
     'earth' : {
@@ -104,7 +104,7 @@ module.exports = function(container, opts) {
     shader = Shaders['earth'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-    uniforms['texture'].value = THREE.ImageUtils.loadTexture(imgDir+'world.jpg');
+    uniforms['texture'].value = THREE.ImageUtils.loadTexture(imageFile);
 
     material = new THREE.ShaderMaterial({
 

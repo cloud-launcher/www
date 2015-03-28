@@ -80,8 +80,10 @@
   <div ng-if="newVersionAvailable"
        ng-cloak
        class="new-version ng-cloak">
-    <span ng-click="loadNewVersion()"
-          class="notice">Excuse me, there is a new version. Click here to load.</span>
+    <div ng-click="loadNewVersion()" class="notice">
+      <div>Excuse me, there is a new version. Click here to load it.</div>
+      <div class="will-save">Your current configuration will be saved.</div>
+    </div>
     <span class="close"
           ng-click="ignoreNewVersion()"
           title="Ignore This Version">X</span>

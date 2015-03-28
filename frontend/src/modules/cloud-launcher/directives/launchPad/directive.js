@@ -1,8 +1,8 @@
 const _ = require('lodash');
 
 module.exports = [
-  'launchCloud', 'newVersionCheck', 'storedClouds', 'storedCredentials', 'stageManager',
-  (launchCloud, newVersionCheck, storedClouds, storedCredentials, stageManager) => {
+  'launchCloud', 'newVersionCheck', 'storedClouds', 'storedConfiguration', 'storedCredentials', 'stageManager',
+  (launchCloud, newVersionCheck, storedClouds, storedConfiguration, storedCredentials, stageManager) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
@@ -20,7 +20,7 @@ module.exports = [
         return provider.api.status;
       });
 
-      $scope.configuration = {
+      $scope.configuration = storedConfiguration.getConfiguration() || {
         locations: {
           digitalocean: [ "sfo1" ]
         },
@@ -41,6 +41,8 @@ module.exports = [
         },
         authorizations: [ "40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98" ]
       };
+
+      storedConfiguration.removeConfiguration();
 
 
       _.each(providers, provider => {

@@ -10,6 +10,7 @@ module.exports = {
     .service('providerMonitor',           require('./modules/cloud-launcher/services/providerMonitor/service'))
     .service('stageManager',              require('./modules/cloud-launcher/services/stageManager/service'))
     .service('storedClouds',              require('./modules/cloud-launcher/services/storedClouds/service'))
+    .service('storedConfiguration',       require('./modules/cloud-launcher/services/storedConfiguration/service'))
     .service('storedCredentials',         require('./modules/cloud-launcher/services/storedCredentials/service'))
 
     .directive('clouds',                  require('./modules/cloud-launcher/directives/clouds/directive'))

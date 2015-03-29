@@ -11,7 +11,11 @@ module.exports = () => {
     link: ($scope, element, attributes) => {
       globe = new Globe(element[0]);
 
-      globe.animate();
+      globe.startAnimation();
+
+      $scope.$on('$destroy', () => {
+        globe.destroy();
+      });
     },
     controller: ['$scope', $scope => {
       $scope.showCloudPoints = cloud => {

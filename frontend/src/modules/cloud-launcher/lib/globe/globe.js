@@ -74,6 +74,9 @@ module.exports = function(container, opts) {
 
   var overRenderer;
 
+  let continueAnimation = true,
+      isAnimating;
+
   var mouse = { x: 0, y: 0 }, mouseOnDown = { x: 0, y: 0 };
   var rotation = { x: 0, y: 0 },
       target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
@@ -266,6 +269,8 @@ module.exports = function(container, opts) {
       point.updateMatrix();
     }
     subgeo.merge(point.geometry, point.matrix);
+
+    shouldAnimate();
   }
 
   function onMouseDown(event) {
@@ -295,6 +300,8 @@ module.exports = function(container, opts) {
 
     target.y = target.y > PI_HALF ? PI_HALF : target.y;
     target.y = target.y < - PI_HALF ? - PI_HALF : target.y;
+
+    shouldAnimate();
   }
 
   function onMouseUp(event) {
@@ -337,23 +344,40 @@ module.exports = function(container, opts) {
     camera.aspect = container.offsetWidth / container.offsetHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( container.offsetWidth, container.offsetHeight );
+
+    shouldAnimate();
   }
 
   function zoom(delta) {
     distanceTarget -= delta;
     distanceTarget = distanceTarget > 2000 ? 2000 : distanceTarget;
     distanceTarget = distanceTarget < 350 ? 350 : distanceTarget;
+
+    shouldAnimate();
   }
 
   function animate() {
-    requestAnimationFrame(animate);
-    render();
+    if (continueAnimation) {
+      requestAnimationFrame(animate);
+      render();
+    }
+  }
+
+  function shouldAnimate() {
+    if (isAnimating && !continueAnimation) {
+      continueAnimation = true;
+      animate();
+    }
   }
 
   function render() {
-    rotation.x += (target.x - rotation.x) * 0.1;
-    rotation.y += (target.y - rotation.y) * 0.1;
-    distance += (distanceTarget - distance) * 0.3;
+    var dx = target.x - rotation.x,
+        dy = target.y - rotation.y,
+        dd = distanceTarget - distance;
+
+    rotation.x += dx * 0.1;
+    rotation.y += dy * 0.1;
+    distance += dd * 0.3;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);
     camera.position.y = distance * Math.sin(rotation.y);
@@ -362,11 +386,27 @@ module.exports = function(container, opts) {
     camera.lookAt(mesh.position);
 
     renderer.render(scene, camera);
+
+    if (Math.abs(dx) < 0.0001 && Math.abs(dy) < 0.0001 && Math.abs(dd) < 0.0001) {
+      continueAnimation = false;
+    }
+  }
+
+  function startAnimation() {
+    isAnimating = true;
+    continueAnimation = true;
+    animate();
+  }
+
+  function destroy() {
+    continueAnimation = false;
+
+    document.removeEventListener('keydown', onDocumentKeyDown);
+
+    window.removeEventListener('resize', onWindowResize);
   }
 
   init();
-  this.animate = animate;
-
 
   this.__defineGetter__('time', function() {
     return this._time || 0;
@@ -401,6 +441,8 @@ module.exports = function(container, opts) {
   this.renderer = renderer;
   this.scene = scene;
   this.resize = onWindowResize;
+  this.startAnimation = startAnimation;
+  this.destroy = destroy;
 
   return this;
 

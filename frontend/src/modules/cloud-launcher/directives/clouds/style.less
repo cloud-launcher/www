@@ -40,7 +40,7 @@ clouds {
         display: flex;
         flex-direction: column;
 
-        justify-content: center;
+        // justify-content: center;
 
         flex: 1 1 auto;
 
@@ -58,9 +58,13 @@ clouds {
           margin: 0.5em 0;
 
           background-color: rgba(128, 128, 128, 0.1);
-          border: solid 1px #000;
+          // border: solid 1px #000;
 
-          box-shadow: 0px 0px 2px 2px #000;
+          box-shadow: 0px 0px 2px 1px #000;
+
+          &:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+          }
 
           .destroy-log {
             position: absolute;
@@ -110,23 +114,41 @@ clouds {
               display: flex;
 
               justify-content: flex-end;
+              // align-items: flex-start;
 
               flex: 1 1 auto;
 
               button {
                 flex: 1 1 auto;
 
-                font-size: 1.25em;
+                font-size: 0.8em;
+                font-weight: bold;
+
                 color: #fff;
 
                 cursor: pointer;
 
-                background: rgba(128, 0, 0, 0.1);
+                background: transparent;
+                border: none;
 
-                border: solid 1px #300;
+                // background: rgba(128, 0, 0, 0.1);
 
-                &:hover {
-                  background-color: rgba(128, 0, 0, 0.5);
+                // border: solid 1px #300;
+
+                &.forget {
+                  color: #ff0;
+
+                  &:hover {
+                    background-color: rgba(64, 64, 0, 0.5);
+                  }
+                }
+
+                &.destroy {
+                  color: #f00;
+
+                  &:hover {
+                    background-color: rgba(64, 0, 0, 0.5);
+                  }
                 }
               }
             }
@@ -200,8 +222,12 @@ clouds {
                 .actions {
                   flex: 0 0 auto;
 
+                  margin: 0 0.25em;
+
                   button {
                     flex: 1 1 auto;
+
+                    padding: 0.25em 0.5em;
 
                     // font-size: 1.25em;
                     color: #fff;
@@ -210,7 +236,7 @@ clouds {
 
                     background: rgba(128, 0, 0, 0.1);
 
-                    border: solid 1px #300;
+                    border: none;
 
                     &:hover {
                       background-color: rgba(128, 0, 0, 0.5);
@@ -227,7 +253,7 @@ clouds {
                   flex-direction: row;
                   flex-wrap: wrap;
 
-                  justify-content: space-between;
+                  justify-content: stretch;
 
                   align-items: center;
 
@@ -237,7 +263,7 @@ clouds {
                   background-color: rgba(128, 128, 128, 0.5);
                   box-shadow: 0px 0px 1px 1px #222;
 
-                  color: #ccc;
+                  color: #fff;
 
                   cursor: pointer;
 
@@ -245,53 +271,72 @@ clouds {
                     background-color: rgba(0, 0, 0, 0.5);
                   }
 
-                  span {
-                    flex: 1 0 auto;
-                    padding: 0 0.25em;
-                  }
+                  .info {
+                    display: flex;
+                    flex-wrap: wrap;
 
-                  .status {
-                    width: 1em;
-                    height: 1em;
+                    flex: 1 1 auto;
 
-                    color: #000;
+                    align-items: center;
+                    // justify-content: space-between;
 
-                    cursor: default;
-
-                    &.active {
-                      background-color: #0f0;
-                      color: #0f0;
+                    span {
+                      flex: 0 0 auto;
+                      padding: 0 0.25em;
                     }
 
-                    &.new {
-                      background-color: #ff0;
-                    }
-                  }
+                    .status {
+                      width: 1em;
+                      height: 1em;
 
-                  .machine-id {
-                    a {
-                      color: #fff;
+                      color: #000;
 
-                      &:visited {
-                        color: #fff;
+                      cursor: default;
+
+                      &.active {
+                        background-color: #0f0;
+                        color: #0f0;
+                      }
+
+                      &.new {
+                        background-color: #ff0;
                       }
                     }
-                  }
 
-                  .role-name {
-                    background-color: #000;
+                    .machine-id {
+                      flex: 1 0 auto;
 
-                    font-weight: bold;
-                  }
+                      text-align: right;
 
-                  .size {
-                    background-color: #960;
+                      font-family: monospace;
+                      // font-size: 1.2em;
+                      font-weight: bold;
 
-                    font-weight: bold;
-                  }
+                      a {
+                        color: #fff;
 
-                  .image {
+                        &:visited {
+                          color: #fff;
+                        }
+                      }
+                    }
 
+                    .role-name {
+                      background-color: #000;
+
+                      font-weight: bold;
+                    }
+
+                    .size {
+                      background-color: #960;
+
+                      font-weight: bold;
+                    }
+
+                    .image {
+                      background-color: #069;
+                      font-weight: bold;
+                    }
                   }
 
                   .networks {

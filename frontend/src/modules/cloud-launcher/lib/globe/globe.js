@@ -74,9 +74,6 @@ module.exports = function(container, opts) {
 
   var overRenderer;
 
-  var curZoomSpeed = 0;
-  var zoomSpeed = 50;
-
   var mouse = { x: 0, y: 0 }, mouseOnDown = { x: 0, y: 0 };
   var rotation = { x: 0, y: 0 },
       target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
@@ -354,8 +351,6 @@ module.exports = function(container, opts) {
   }
 
   function render() {
-    zoom(curZoomSpeed);
-
     rotation.x += (target.x - rotation.x) * 0.1;
     rotation.y += (target.y - rotation.y) * 0.1;
     distance += (distanceTarget - distance) * 0.3;

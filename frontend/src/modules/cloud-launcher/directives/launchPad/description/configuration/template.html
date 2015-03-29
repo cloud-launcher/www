@@ -1,5 +1,10 @@
 <div ng-class="{'status': true, 'ok': configurationOK}">
   <div class="pre-alpha"><span>PRE-ALPHA</span></div>
+  <div ng-if="::isSimulator"
+       class="simulation-mode">
+    <div>SIMULATION</div>
+    <div>MODE</div>
+  </div>
   <div class="configuration-text"
        contenteditable
        spellcheck="false"

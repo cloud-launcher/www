@@ -41,7 +41,7 @@
 
     <link rel="stylesheet" href="app.css" onerror="styleError()">
   </head>
-  <body>
+  <body ng-class="::{'is-simulator': isSimulator}">
 
   <script>
     // We detect FF because some features (animations, mostly) cause severe performance issues on that platform

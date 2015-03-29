@@ -8,9 +8,11 @@ module.exports = [
     template: require('./template.html'),
     controller: ['$scope', $scope => {
 
-      const {providers} = launchCloud;
+      const {providers, isSimulator} = launchCloud;
 
       $scope.providers = providers;
+      $scope.isSimulator = isSimulator;
+
       $scope.clouds = storedClouds.getClouds();
 
       $scope.stage = stageManager.stage;

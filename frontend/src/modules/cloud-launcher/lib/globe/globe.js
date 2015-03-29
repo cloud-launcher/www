@@ -318,7 +318,7 @@ module.exports = function(container, opts) {
     if (overRenderer) {
       let {deltaY} = event;
       if (Math.abs(deltaY) < 10) deltaY *= 20;
-      zoom(deltaY * 0.3);
+      zoom(-deltaY * 0.3);
     }
     return false;
   }

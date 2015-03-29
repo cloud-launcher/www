@@ -82,7 +82,7 @@ module.exports = function(container, opts) {
       target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
       targetOnDown = { x: 0, y: 0 };
 
-  var distance = 100000, distanceTarget = 1500;
+  var distance = 100000, distanceTarget = 1000;
   var padding = 40;
   var PI_HALF = Math.PI / 2;
 

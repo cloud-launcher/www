@@ -68,7 +68,7 @@ module.exports = ['$rootScope', '$location', ($scope, $location) => {
     else if (newStage === states.clouds) {
       stage.current = states.clouds;
       stage.launchPadVisible = true;
-      // stage.launchStatusVisible = true;
+      stage.launchStatusVisible = old === states.launchstatus;
       stage.cloudsVisible = true;
     }
     else throw new Error(`Unknown stage: ${newStage}`);

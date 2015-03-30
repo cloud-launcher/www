@@ -94,4 +94,5 @@
   </div>
 </div>
 <provider-statuses></provider-statuses>
-<button class="return" ng-click="returnToLaunchStatus()">↓ Return to Launch Status ↓</button>
+<button ng-if="stage.launchStatusVisible" class="return" ng-click="gotoStage('launchstatus')">↓ Return to Launch Status ↓</button>
+<button ng-if="!stage.launchStatusVisible" class="return" ng-click="gotoStage('launchpad')">↓ Return to Launch Pad ↓</button>

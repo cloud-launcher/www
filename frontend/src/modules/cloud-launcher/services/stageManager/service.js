@@ -40,14 +40,7 @@ module.exports = ['$rootScope', '$location', ($scope, $location) => {
   };
 
   $scope.toggleClouds = () => {
-    if (stage.current === states.clouds) {
-      stage.current = states.launchpad;
-      stage.cloudsVisible = false;
-    }
-    else {
-      stage.current = states.clouds;
-      stage.cloudsVisible = true;
-    }
+    $scope.gotoStage(stage.current === states.clouds ? states.launchpad : states.clouds);
   };
 
   $scope.gotoStage = newStage => {

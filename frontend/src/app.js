@@ -5,6 +5,7 @@ require('angular-local-storage');
 
 module.exports = {
   'cloud-launcher': angular.module('cloud-launcher', ['ngAnimate', 'ngResource', 'LocalStorageModule'])
+    .service('configurationLoader',       require('./modules/cloud-launcher/services/configurationLoader/service'))
     .service('launchCloud',               require('./modules/cloud-launcher/services/launchCloud/service'))
     .service('newVersionCheck',           require('./modules/cloud-launcher/services/newVersionCheck/service'))
     .service('providerMonitor',           require('./modules/cloud-launcher/services/providerMonitor/service'))

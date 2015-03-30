@@ -1,8 +1,8 @@
 const _ = require('lodash');
 
 module.exports = [
-  'launchCloud', 'newVersionCheck', 'storedClouds', 'storedConfiguration', 'storedCredentials', 'stageManager',
-  (launchCloud, newVersionCheck, storedClouds, storedConfiguration, storedCredentials, stageManager) => {
+  'configurationLoader', 'launchCloud', 'newVersionCheck', 'storedClouds', 'storedConfiguration', 'storedCredentials', 'stageManager',
+  (configurationLoader, launchCloud, newVersionCheck, storedClouds, storedConfiguration, storedCredentials, stageManager) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
@@ -39,6 +39,13 @@ module.exports = [
           },
           "benchmark-viewer": {
             container: "cloudlauncher/benchmark-viewer",
+            environment: {
+              ETCD_HOST: "172.17.42.1"
+            },
+            ports: {
+              80: 2771,
+              4001: true
+            },
             options: "-p 4001 -p 80:2771 -e ETCD_HOST=172.17.42.1"
           },
           "fleet-ui": {

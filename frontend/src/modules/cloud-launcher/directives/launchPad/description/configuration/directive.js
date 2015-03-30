@@ -26,24 +26,31 @@ module.exports = () => {
         debouncedParse();
       };
 
-      const debouncedParse = _.debounce(() => $scope.$apply(() => {
+      const debouncedParse = _.debounce(() => $scope.$apply(parse), 500);
+
+      function parse() {
         const {textContent} = editor;
 
         try {
           const configuration = hjson.parse(textContent);
-
-          if (validateConfiguration(configuration)) {
-            $scope.configuration = configuration;
-            $scope.configurationOK = true;
-            $scope.$broadcast('configurationModified', $scope.configuration);
-          }
+          setConfiguration(configuration);
         }
         catch (e) {
           console.log('parse error', e);
           $scope.configurationOK = false;
         }
-      }), 500);
+      }
 
+      // This function is duplicated in the controller...
+      function setConfiguration(configuration) {
+        if (validateConfiguration(configuration)) {
+          $scope.configuration = configuration;
+          $scope.configurationOK = true;
+          $scope.$broadcast('configurationModified', $scope.configuration);
+        }
+      }
+
+      // This function is duplicated in the controller
       function validateConfiguration(configuration) {
         return true;
       }
@@ -64,6 +71,10 @@ module.exports = () => {
     },
     controller: ['$scope', '$sce', ($scope, $sce) => {
       $scope.configurationOK = true;
+
+      $scope.setConfiguration = configuration => {
+        setConfiguration(configuration);
+      };
 
       $scope.$on('containerModified', ($event, name, selected) => {
         console.log('containerModified', $event, name, selected);
@@ -126,6 +137,19 @@ module.exports = () => {
       setText();
       $scope.$broadcast('configurationModified', $scope.configuration);
 
+      function setConfiguration(configuration) {
+        if (validateConfiguration(configuration)) {
+          $scope.configuration = configuration;
+          $scope.configurationOK = true;
+          setText();
+          $scope.$broadcast('configurationModified', $scope.configuration);
+        }
+      }
+
+      function validateConfiguration(configuration) {
+        return true;
+      }
+
       function setText() {
         $scope.configurationHtml = $sce.trustAsHtml(stringify($scope.configuration));
       }
@@ -158,6 +182,7 @@ module.exports = () => {
           case 'number': return `<span class="number">${value}</span>`;
           case 'object': return `<span>{</span>${renderKeys(value, indent)}<span>${indent}}</span>`;
           case 'array':  return `<span>[</span> ${renderArray(value)} <span>]</span>`;
+          case 'boolean':return `<span class="boolean">${value}</span>`;
         }
         return `wut is this: ${type}`;
       }

@@ -55,16 +55,16 @@
               <div ng-repeat="(machineID, machine) in cluster.machines"
                    class="machine">
                 <div class="info">
+                  <span class="machine-id" title="Goto {{::providers[cluster.provider].profile.name}}'s Dashboard For This Machine"><a href="{{getMachineProviderDashboardUrl(machine)}}" target="_blank">{{::machineID}}</a></span>
+                  <span class="role-name">{{::machine.roleName}}</span>
+                  <span class="image">{{::machine.image}}</span>
+                  <span class="size">{{::machine.size}}</span>
                   <div ng-class="{
                                     'status': true,
                                     'active': machine.status === 'active',
                                     'new': machine.status === 'new'
                                  }"
                         title="{{machine.status}}"></div>
-                  <span class="size">{{::machine.size}}</span>
-                  <span class="image">{{::machine.image}}</span>
-                  <span class="role-name">{{::machine.roleName}}</span>
-                  <span class="machine-id" title="Goto {{::providers[cluster.provider].profile.name}}'s Dashboard For This Machine"><a href="{{getMachineProviderDashboardUrl(machine)}}" target="_blank">{{::machineID}}</a></span>
                 </div>
 
                 <div class="details">

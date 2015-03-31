@@ -20,6 +20,8 @@ module.exports = [
 
     let versionCheck = $interval(checkForNewVersion, NEW_VERSION_INTERVAL);
 
+    checkForNewVersion();
+
     function checkForNewVersion() {
       $http
         .get('currentVersion?' + new Date().getTime())

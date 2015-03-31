@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-module.exports = ['localStorageService', localStorage => {
-  const keyName = 'clouds',
+module.exports = ['launchCloud', 'localStorageService', (launchCloud, localStorage) => {
+  const keyName = launchCloud.isSimulator ? 'simulatorClouds' : 'clouds',
         clouds = localStorage.get(keyName) || [];
 
   return {

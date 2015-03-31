@@ -14,7 +14,7 @@ fi
 gulpur build \
   && REV=`git rev-parse HEAD` \
   && cd ../../cloud-launcher.github.io \
-  && git rm -r * \
+  # && git rm -r * \
   && cp -r -v ../www/frontend/.dist/* ./ \
   && echo "www.cloud-launcher.io" > CNAME \
   && git add . --all \

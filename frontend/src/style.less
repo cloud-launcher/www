@@ -8,6 +8,14 @@ html, body {
   min-height: 100%;
 }
 
+a {
+  text-decoration: none;
+
+  &:visited {
+    color: #fff;
+  }
+}
+
 body {
   color: #fff;
 
@@ -120,12 +128,22 @@ body {
 
     a {
       color: #fff;
+    }
+  }
 
-      text-decoration: none;
+  .simulator {
+    flex: 0 0 auto;
 
-      &:visited {
-        color: #fff;
-      }
+    a {
+      display: block;
+      padding: 0em 1em;
+
+      font-weight: bold;
+
+      color: #fff;
+      background-color: #66f;
+      border: solid 2px #66f;
+      border-radius: 2px;
     }
   }
 

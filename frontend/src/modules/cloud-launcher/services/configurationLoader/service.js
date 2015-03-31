@@ -6,7 +6,7 @@ module.exports = [
     $scope.$on('$locationChangeSuccess', () => {
       const matches = $location.path().match(/^\/config=(.*)$/);
 
-      if (matches.length > 0) {
+      if (matches && matches.length > 0) {
         const [path, repo] = matches;
 
         let cloudFile = repo.endsWith('json') ? repo : (repo + '/master/cloud.hjson');

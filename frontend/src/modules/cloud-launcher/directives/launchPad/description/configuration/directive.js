@@ -6,7 +6,6 @@ module.exports = () => {
     restrict: 'E',
     template: require('./template.html'),
     link: ($scope, element, attributes) => {
-      console.log(element);
       const status = element[0].children[0],
             editor = status.children[1];
 
@@ -28,33 +27,6 @@ module.exports = () => {
 
       const debouncedParse = _.debounce(() => $scope.$apply(parse), 500);
 
-      function parse() {
-        const {textContent} = editor;
-
-        try {
-          const configuration = hjson.parse(textContent);
-          setConfiguration(configuration);
-        }
-        catch (e) {
-          console.log('parse error', e);
-          $scope.configurationOK = false;
-        }
-      }
-
-      // This function is duplicated in the controller...
-      function setConfiguration(configuration) {
-        if (validateConfiguration(configuration)) {
-          $scope.configuration = configuration;
-          $scope.configurationOK = true;
-          $scope.$broadcast('configurationModified', $scope.configuration);
-        }
-      }
-
-      // This function is duplicated in the controller
-      function validateConfiguration(configuration) {
-        return true;
-      }
-
       function insertTextAtCursor(text) {
         if (window.getSelection) {
           const selection = window.getSelection();
@@ -68,13 +40,31 @@ module.exports = () => {
           document.selection.createRange().text = text;
         }
       }
+
+      function parse() {
+        const {textContent} = editor;
+
+        try {
+          const configuration = hjson.parse(textContent);
+          if (validateConfiguration(configuration)) {
+            $scope.configuration = configuration;
+            $scope.configurationOK = true;
+            $scope.$broadcast('configurationModified', $scope.configuration);
+          }
+        }
+        catch (e) {
+          console.log('parse error', e);
+          $scope.configurationOK = false;
+        }
+      }
+
+      // This function is duplicated in the controller
+      function validateConfiguration(configuration) {
+        return true;
+      }
     },
     controller: ['$scope', '$sce', ($scope, $sce) => {
       $scope.configurationOK = true;
-
-      $scope.setConfiguration = configuration => {
-        setConfiguration(configuration);
-      };
 
       $scope.$on('containerModified', ($event, name, selected) => {
         console.log('containerModified', $event, name, selected);
@@ -106,12 +96,13 @@ module.exports = () => {
           }
         }
 
-        setText();
-        $scope.$broadcast('configurationModified', configuration);
+        configurationChanged();
       });
 
       $scope.$on('locationModified', ($event, provider, location, selected) => {
         const {configuration} = $scope;
+
+        configuration.locations = configuration.locations || {};
 
         if (selected) {
           let locations = configuration.locations[provider] = configuration.locations[provider] || [];
@@ -130,46 +121,51 @@ module.exports = () => {
           }
         }
 
-        setText();
-        $scope.$broadcast('configurationModified', configuration);
+        configurationChanged();
       });
 
-      setText();
-      $scope.$broadcast('configurationModified', $scope.configuration);
+      configurationChanged();
 
-      function setConfiguration(configuration) {
+      $scope.setConfiguration = configuration => {
         if (validateConfiguration(configuration)) {
           $scope.configuration = configuration;
           $scope.configurationOK = true;
-          setText();
-          $scope.$broadcast('configurationModified', $scope.configuration);
+          configurationChanged();
         }
+      };
+
+      function configurationChanged() {
+        const {configuration} = $scope;
+
+        setText(configuration);
+
+        $scope.$broadcast('configurationModified', configuration);
       }
 
       function validateConfiguration(configuration) {
         return true;
       }
 
-      function setText() {
-        $scope.configurationHtml = $sce.trustAsHtml(stringify($scope.configuration));
+      function setText(configuration) {
+        $scope.configurationHtml = $sce.trustAsHtml(stringify(configuration));
       }
 
       function stringify(obj) {
-        return `${open()}${renderKeys(obj)}${close()}`;
+        return `${open()}${renderKeys(obj, '', ['locations', 'configuration', 'roles', 'containers', 'authorizations'])}${close()}`;
       }
 
       function open() { return '<div class="open">{</div>'; }
       function close() { return '<div class="close">}</div>'; }
 
-      function renderKeys(obj, indent) {
-        const keys = _.keys(obj),
+      function renderKeys(obj, indent, keyOrder) {
+        const keys = keyOrder ? _.intersection(keyOrder, _.keys(obj)) : _.keys(obj),
               {length} = keys,
               last = keys[length - 1];
 
         indent = indent || '';
         indent += '  ';
 
-        return _.map(obj, (value, key) => `<div class="key key-${key}">${indent}${key}: ${renderValue(value, indent)}${key === last ? '' : ','}</div>`).join('');
+        return _.map(keys, key => `<div class="key key-${key}">${indent}${key}: ${renderValue(obj[key], indent)}${key === last ? '' : ','}</div>`).join('');
       }
 
       function renderValue(value, indent) {

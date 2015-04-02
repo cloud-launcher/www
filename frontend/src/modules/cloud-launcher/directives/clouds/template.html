@@ -72,8 +72,19 @@
                        class="networks">
                     <div ng-repeat="network in networks"
                          class="network">
-                      <a href="http://{{network.ipAddress}}" target="_blank">{{network.ipAddress}}</a>
+                      IP{{networkType}} <a href="http://{{network.ipAddress}}" target="_blank">{{network.ipAddress}}</a>
                       <a href="ssh://core@{{network.ipAddress}}">ssh</a>
+
+                      <div class="containers">
+                        <div ng-repeat="container in getMachineContainers(cloud, machine)"
+                             class="container">
+                          {{container.container}}
+                          <span ng-repeat="(to, from) in container.ports"
+                                 class="port">
+                                 <a href="http://{{network.ipAddress}}:{{to}}" target="_blank">{{to}}</a>:{{from}}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
 

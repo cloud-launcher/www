@@ -7,7 +7,6 @@ module.exports = [
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
-
       const {providers, isSimulator} = launchCloud;
 
       $scope.providers = providers;
@@ -35,7 +34,16 @@ module.exports = [
         },
         containers: {
           cadvisor: {
-            container: "google/cadvisor"
+            container: "google/cadvisor",
+            ports: {
+              8080: 8080
+            },
+            volumes: {
+              "/": "/rootfs:ro",
+              "/var/run": "/var/run:rw",
+              "/sys": "/sys:ro",
+              "/var/lib/docker": "/var/lib/docker:ro"
+            }
           },
           "benchmark-viewer": {
             container: "cloudlauncher/benchmark-viewer",
@@ -45,12 +53,19 @@ module.exports = [
             ports: {
               80: 2771,
               4001: true
-            },
-            options: "-p 4001 -p 80:2771 -e ETCD_HOST=172.17.42.1"
+            }
           },
           "fleet-ui": {
             container: "purpleworks/fleet-ui",
-            options: "-p 3000:3000 -e ETCD_PEER=172.17.42.1 -v /home/core/.ssh/id_rsa:/root/id_rsa"
+            environment: {
+              ETCD_PEER: "172.17.42.1"
+            },
+            ports: {
+              3000: 3000
+            },
+            volumes: {
+              "/home/core/.ssh/id_rsa": "/root/id_rsa"
+            }
           }
         },
         authorizations: [ "40:85:f0:9b:28:ad:5d:25:b5:51:2e:ad:f3:b3:31:98" ]

@@ -45,9 +45,6 @@ module.exports = () => {
 
         globe.addData(_.flatten(points), {format: 'magnitude'});
         globe.createPoints();
-        // globe.animate();
-
-        console.log('showing', locations, points, providers);
       };
     }]
   };

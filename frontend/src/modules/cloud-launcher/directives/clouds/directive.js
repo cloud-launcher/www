@@ -16,6 +16,8 @@ module.exports = () => {
         $scope.hideMachines = {};
         $scope.clouds = clouds;
 
+        console.log(clouds);
+
         $scope.$watchCollection('clouds', clouds => {
           const providers = _.unique(
                               _.flatten(
@@ -86,6 +88,15 @@ module.exports = () => {
 
         $scope.getMachineProviderDashboardUrl = machine => {
           return `http://cloud.digitalocean.com/droplets/${machine.providerData.id}`;
+        };
+
+        $scope.getMachineContainers = (cloud, machine) => {
+          console.log(cloud);
+          const {definition: {containers, roles}} = cloud,
+                {roleName} = machine,
+                machineContainers = _.pick(containers, (roles.$all || []).concat(roles[roleName] || []));
+
+          return machineContainers;
         };
 
         $scope.getMachineEstimatedCost = (cluster, machine) => {

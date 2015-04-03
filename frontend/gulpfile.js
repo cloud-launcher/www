@@ -27,9 +27,13 @@ const {dependencies} = require('./package.json'),
         sequence,
         sourcemaps,
         template,
+        tasks,
         uglify,
         util
       } = require('gulp-load-plugins')();
+
+const result = tasks(gulp, require);
+if (typeof result === 'string') console.log(result);
 
 let p = name => print(file => console.log(name, file));
 

@@ -90,6 +90,26 @@ module.exports = () => {
           return `http://cloud.digitalocean.com/droplets/${machine.providerData.id}`;
         };
 
+        $scope.getMachineAge = machine => {
+          let age = currentAge(machine),
+              [millisecondsTotal, milliseconds] = [age / 1000, Math.floor(age % 1000)],
+              [secondsTotal, seconds] = [millisecondsTotal / 60, Math.floor(millisecondsTotal % 60)],
+              [minutesTotal, minutes] = [secondsTotal / 60, Math.floor(secondsTotal % 60)],
+              [hoursTotal, hours] = [minutesTotal / 60, Math.floor(minutesTotal % 60)],
+              [daysTotal, days] = [hoursTotal / 24, Math.floor(hoursTotal % 24)],
+              [yearsTotal, years] = [daysTotal / 365, Math.floor(daysTotal % 365)];
+
+          return _.compact(
+                  [
+                    years > 0 ? `${years} years` : undefined,
+                    days > 0 ? `${days} days` : undefined,
+                    hours > 0 ? `${hours} hours` : undefined,
+                    minutes > 0 ? `${minutes} minutes` : undefined,
+                    seconds > 0 ? `${seconds} seconds` : undefined
+                  ]
+                 ).join(' ');
+        };
+
         $scope.getMachineContainers = (cloud, machine) => {
           console.log(cloud);
           const {definition: {containers, roles}} = cloud,
@@ -100,15 +120,22 @@ module.exports = () => {
         };
 
         $scope.getMachineEstimatedCost = (cluster, machine) => {
-          const now = new Date(),
-                {createdAt, size} = machine,
+          const {createdAt, size} = machine,
                 {provider} = cluster,
                 {profile} = providers[provider],
-                currentLife = Math.ceil((now - new Date(createdAt)) / 1000 / 60 / 60),
+                currentLife = Math.ceil(currentAge(machine) / 1000 / 60 / 60),
                 estimatedCost = currentLife * profile.sizes[size].price_hourly;
 
           return estimatedCost;
         };
+
+        function currentAge(machine) {
+          const now = new Date(),
+                {createdAt} = machine,
+                age = now - new Date(createdAt);
+
+          return age;
+        }
 
         function updateMachines(providerName, machines) {
           let gotNew = false;

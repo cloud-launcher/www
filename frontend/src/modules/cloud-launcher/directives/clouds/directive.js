@@ -90,6 +90,7 @@ module.exports = () => {
           return `http://cloud.digitalocean.com/droplets/${machine.providerData.id}`;
         };
 
+        // Make a filter?
         $scope.getMachineAge = machine => {
           let age = currentAge(machine),
               [millisecondsTotal, milliseconds] = [age / 1000, Math.floor(age % 1000)],

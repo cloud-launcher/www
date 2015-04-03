@@ -1,77 +1,48 @@
 import _ from 'lodash';
 
-module.exports = ['$rootScope', '$location', ($scope, $location) => {
+module.exports = () => {
   const states = {
+    clouds: 'clouds',
     launchpad: 'launchpad',
-    launchstatus: 'launchstatus',
-    clouds: 'clouds'
+    launchstatus: 'launchstatus'
   };
-
-  // const states = {
-  //   launchpad: {
-  //     launchPadVisible: true,
-  //     launchStatusVisible: false,
-  //     cloudsVisible: false
-  //   },
-  //   launchstatus: {
-  //     launchPadVisible: true,
-  //     launchStatusVisible: true,
-  //     cloudsVisible: false
-  //   },
-  //   clouds: {
-  //     launchPadVisible: true,
-  //     launchStatusVisible: false,
-  //     cloudsVisible: true
-  //   }
-  // };
 
   const stage = {
     current: states.launchpad,
+    cloudsVisible: false,
     launchPadVisible: true,
-    launchStatusVisible: false,
-    cloudsVisible: false
+    launchStatusVisible: false
   };
 
-  $scope.returnToLaunchpad = () => {
-    stage.launching = false;
-    stage.current = states.launchpad;
-    stage.launchStatusVisible = false;
-    stage.cloudsVisible = false;
-  };
+  function toggleClouds() {
+    gotoStage(stage.current === states.clouds ? states.launchpad : states.clouds);
+  }
 
-  $scope.toggleClouds = () => {
-    $scope.gotoStage(stage.current === states.clouds ? states.launchpad : states.clouds);
-  };
-
-  $scope.gotoStage = newStage => {
+  function gotoStage(newStage) {
     const {current: old} = stage;
 
     if (newStage === states.launchpad) {
       stage.current = states.launchpad;
+      stage.cloudsVisible = false;
       stage.launchPadVisible = true;
       stage.launchStatusVisible = false;
-      stage.cloudsVisible = false;
     }
     else if (newStage === states.launchstatus) {
       stage.current = states.launchstatus;
+      stage.cloudsVisible = false;
       stage.launchPadVisible = true;
       stage.launchStatusVisible = true;
-      stage.cloudsVisible = false;
     }
     else if (newStage === states.clouds) {
       stage.current = states.clouds;
+      stage.cloudsVisible = true;
       stage.launchPadVisible = true;
       stage.launchStatusVisible = old === states.launchstatus;
-      stage.cloudsVisible = true;
     }
     else throw new Error(`Unknown stage: ${newStage}`);
 
     stage.cameFrom = old;
-  };
+  }
 
-  $scope.$on('$locationChangeStart', ($event, newUrl, oldUrl) => {
-    console.log($event, newUrl, oldUrl);
-  });
-
-  return {stage};
-}];
+  return {stage, toggleClouds, gotoStage};
+};

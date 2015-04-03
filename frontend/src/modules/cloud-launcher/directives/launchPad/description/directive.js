@@ -15,7 +15,7 @@ module.exports = ['$timeout', 'launchCloud', 'storedClouds', ($timeout, launchCl
           $scope.launchError = undefined;
           $scope.missingCredentials = undefined;
 
-          $scope.gotoStage('launchstatus');
+          $scope.stageManager.gotoStage('launchstatus');
 
           const {configuration, providers} = $scope;
           const cloud = _.cloneDeep(configuration);
@@ -29,7 +29,7 @@ module.exports = ['$timeout', 'launchCloud', 'storedClouds', ($timeout, launchCl
                   $scope.$apply(() => {
                     storedClouds.addCloud(cloud);
                     $scope.launchStatus = 'Launched!';
-                    $scope.gotoStage('clouds');
+                    $scope.stageManager.gotoStage('clouds');
                     $scope.launching = false;
                   });
                 })

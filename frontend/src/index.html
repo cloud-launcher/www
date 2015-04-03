@@ -92,7 +92,7 @@
   <header class="page-header grow">
     <div ng-if="clouds.length > 0"
          ng-class="{'clouds': true, 'selected': stage.current === 'clouds'}"
-         ng-click="toggleClouds()">
+         ng-click="stageManager.toggleClouds()">
       <span class="text">My Clouds</span>
       <span class="count">({{clouds.length}})</span>
     </div>

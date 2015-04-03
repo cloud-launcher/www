@@ -14,6 +14,7 @@ module.exports = [
 
       $scope.clouds = storedClouds.getClouds();
 
+      $scope.stageManager = stageManager;
       $scope.stage = stageManager.stage;
 
       $scope.providerStatuses = _.mapValues(providers, (provider, providerName) => {

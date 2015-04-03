@@ -64,7 +64,7 @@ module.exports = () => {
                 console.log('destroyed', cloud);
                 storedClouds.removeCloud(cloud);
 
-                if ($scope.clouds.length === 0) $scope.gotoStage('launchpad');
+                if ($scope.clouds.length === 0) $scope.stageManager.gotoStage('launchpad');
 
                 delete $scope.destroyLog[cloud.id];
 
@@ -79,7 +79,7 @@ module.exports = () => {
         $scope.forgetCloud = cloud => {
           storedClouds.removeCloud(cloud);
 
-          if ($scope.clouds.length === 0) $scope.gotoStage('launchpad');
+          if ($scope.clouds.length === 0) $scope.stageManager.gotoStage('launchpad');
         };
 
         $scope.returnToLaunchStatus = () => {

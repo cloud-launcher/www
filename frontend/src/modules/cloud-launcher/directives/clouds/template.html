@@ -112,5 +112,5 @@
   </div>
 </div>
 <provider-statuses></provider-statuses>
-<button ng-if="stage.launchStatusVisible" class="return" ng-click="gotoStage('launchstatus')">↓ Return to Launch Status ↓</button>
-<button ng-if="!stage.launchStatusVisible" class="return" ng-click="gotoStage('launchpad')">↓ Return to Launch Pad ↓</button>
+<button ng-if="stage.launchStatusVisible" class="return" ng-click="stageManager.gotoStage('launchstatus')">↓ Return to Launch Status ↓</button>
+<button ng-if="!stage.launchStatusVisible" class="return" ng-click="stageManager.gotoStage('launchpad')">↓ Return to Launch Pad ↓</button>

@@ -24,8 +24,6 @@ module.exports = ['$timeout', 'launchCloud', 'storedClouds', ($timeout, launchCl
             () =>
               launchCloud.launch(cloud, launchLog(cloud, providers))
                .then(cloud => {
-                  console.log('launched', cloud);
-
                   $scope.$apply(() => {
                     storedClouds.addCloud(cloud);
                     $scope.launchStatus = 'Launched!';
@@ -34,8 +32,6 @@ module.exports = ['$timeout', 'launchCloud', 'storedClouds', ($timeout, launchCl
                   });
                 })
                .catch(error => {
-                  console.log('launch error', error);
-
                   if (error.type === 'Credentials') {
                     $scope.missingCredentials = error.missing;
                   }

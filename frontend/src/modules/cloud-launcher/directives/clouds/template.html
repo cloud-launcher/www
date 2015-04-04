@@ -67,10 +67,11 @@
                         title="{{machine.status}}"></div>
                 </div>
                 <div class="time">
-                  <span class="cost">Estimated Cost: {{getMachineEstimatedCost(cluster, machine) | currency : '$' : 5}}</span>
                   <span class="age">{{getMachineAge(machine)}} old</span>
+                  <span class="show-details" ng-click="showDetails[machineID] = !showDetails[machineID]">{{showDetails[machineID] ? 'Hide Details' : '↓ Show Details ↓'}}</span>
+                  <span class="cost">Estimated Cost: {{getMachineEstimatedCost(cluster, machine) | currency : '$' : 5}}</span>
                 </div>
-                <div class="details">
+                <div ng-if="showDetails[machineID]" class="details">
                   <div ng-repeat="(networkType, networks) in machine.networks"
                        class="networks">
                     <div ng-repeat="network in networks"

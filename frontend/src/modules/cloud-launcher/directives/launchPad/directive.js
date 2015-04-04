@@ -18,7 +18,6 @@ module.exports = [
       $scope.stage = stageManager.stage;
 
       $scope.providerStatuses = _.mapValues(providers, (provider, providerName) => {
-        console.log(provider, providerName);
         return provider.api.status;
       });
 

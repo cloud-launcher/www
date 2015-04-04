@@ -14,6 +14,7 @@ module.exports = () => {
         $scope.destroyStatus = {};
         $scope.hideClusters = {};
         $scope.hideMachines = {};
+        $scope.showDetails = {};
         $scope.clouds = clouds;
 
         console.log(clouds);
@@ -112,7 +113,6 @@ module.exports = () => {
         };
 
         $scope.getMachineContainers = (cloud, machine) => {
-          console.log(cloud);
           const {definition: {containers, roles}} = cloud,
                 {roleName} = machine,
                 machineContainers = _.pick(containers, (roles.$all || []).concat(roles[roleName] || []));

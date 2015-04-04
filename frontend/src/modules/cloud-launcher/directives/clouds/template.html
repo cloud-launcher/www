@@ -68,7 +68,7 @@
                 </div>
                 <div class="time">
                   <span class="age">{{getMachineAge(machine)}} old</span>
-                  <span class="show-details" ng-click="showDetails[machineID] = !showDetails[machineID]">{{showDetails[machineID] ? 'Hide Details' : '↓ Show Details ↓'}}</span>
+                  <span class="show-details" ng-click="showDetails[machineID] = !showDetails[machineID]">{{showDetails[machineID] ? '↑ Hide Details ↑' : '↓ Show Details ↓'}}</span>
                   <span class="cost">Estimated Cost: {{getMachineEstimatedCost(cluster, machine) | currency : '$' : 5}}</span>
                 </div>
                 <div ng-if="showDetails[machineID]" class="details">

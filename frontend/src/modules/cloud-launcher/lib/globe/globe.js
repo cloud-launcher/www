@@ -273,6 +273,11 @@ module.exports = function(container, opts) {
     shouldAnimate();
   }
 
+  function clearPoints() {
+    console.log(scene);
+    scene.remove(this.points);
+  }
+
   function onMouseDown(event) {
     event.preventDefault();
 
@@ -398,6 +403,11 @@ module.exports = function(container, opts) {
     animate();
   }
 
+  function setTarget(lat, lng) {
+    target.x = lat + (Math.PI * 3 / 2);
+    target.y = lng - (Math.PI / 12);
+  }
+
   function destroy() {
     continueAnimation = false;
 
@@ -438,10 +448,12 @@ module.exports = function(container, opts) {
 
   this.addData = addData;
   this.createPoints = createPoints;
+  this.clearPoints = clearPoints;
   this.renderer = renderer;
   this.scene = scene;
   this.resize = onWindowResize;
   this.startAnimation = startAnimation;
+  this.setTarget = setTarget;
   this.destroy = destroy;
 
   return this;

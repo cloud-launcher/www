@@ -96,7 +96,8 @@
       <span class="text">My Clouds</span>
       <span class="count">({{clouds.length}})</span>
     </div>
-    <div class="about"><a href="#about">About</a></div>
+    <div ng-class="{'about': true, 'selected': stage.current === 'about'}"
+         ng-click="stageManager.toggleAbout()">About</div>
     <div class="simulator"><a href="{{::(isSimulator ? '?' : '?simulator')}}">{{::(isSimulator ? 'Exit The Simulator' : 'Try The Simulator!')}}</a></div>
     <div class="cl-brand">
       <span class="cloud-launcher">{╯°□°}╯彡{益}</span>
@@ -107,10 +108,16 @@
   </header>
 
   <div class="scene grow">
-    <launch-pad ng-class="{'in-launch-status': stage.current === 'launchstatus', 'in-clouds': stage.current === 'clouds'}"></launch-pad>
-    <launch-status ng-if="stage.launchStatusVisible"
-                   ng-class="{'in-clouds': stage.current === 'clouds'}"></launch-status>
-    <clouds ng-if="stage.cloudsVisible"></clouds>
+    <div ng-class="{'main-stage': true, 'in-about': stage.current === 'about'}">
+      <launch-pad ng-class="{
+        'in-launch-status': stage.current === 'launchstatus',
+        'in-clouds': stage.current === 'clouds'
+      }"></launch-pad>
+      <launch-status ng-if="stage.launchStatusVisible"
+                     ng-class="{'in-clouds': stage.current === 'clouds'}"></launch-status>
+      <clouds ng-if="stage.cloudsVisible"></clouds>
+    </div>
+    <about ng-if="stage.aboutVisible"></about>
   </div>
 
   <footer class="grow">

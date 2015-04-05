@@ -1,0 +1,104 @@
+about {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  overflow-y: auto;
+
+  flex: 1 0 auto;
+
+  display: flex;
+
+  align-items: stretch;
+
+  background-color: rgba(0, 0, 0, 0.8);
+
+  transform: scale(1) translateZ(0em) translateY(0%) rotateX(0deg);
+  transition: transform 0.66s cubic-bezier(0, 1, 0.25, 1);
+
+  &.ng-enter, &.ng-leave.ng-leave-active {
+    transform: scale(0) translateZ(0em) translateY(0%) rotateX(0deg);
+  }
+
+  &.ng-leave, &.ng-enter.ng-enter-active {
+    transform: scale(1) translateZ(0em) translateY(0%) rotateX(0deg);
+  }
+
+  .teaser {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: stretch;
+
+    flex: 1 1 auto;
+
+    // padding: 0.5em 1.5vw;
+
+    &>* {
+      display: flex;
+      flex-direction: column;
+
+      // align-items: center;
+      justify-content: center;
+
+      flex: 1 0 auto;
+
+      padding: 0 1.5vw;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(128, 128, 128, 0.5);
+      }
+    }
+
+    .anchor {
+      font-size: 2em;
+      font-weight: bold;
+
+
+    }
+
+    .build {
+
+    }
+
+    .launch {
+
+    }
+
+    .share {
+
+    }
+
+    .collaborate {
+
+    }
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+
+    flex: 1 1 auto;
+
+    max-width: 50%;
+
+    padding: 0.5em;
+
+    font-size: 1.5em;
+    font-weight: bold;
+
+    color: #000;
+
+    background-color: rgba(255, 255, 255, 0.8);
+
+    overflow-y: auto;
+  }
+}

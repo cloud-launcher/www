@@ -1,18 +1,20 @@
 const _ = require('lodash');
 
-module.exports = ['$resource', '$http', 'dockerHubApiRoot', ($resource, $http, dockerHubApiRoot) => {
+module.exports = ['$resource', '$http', 'launchCloud', ($resource, $http, launchCloud) => {
   return {
     restrict: 'E',
     template: require('./template.html'),
     controller: ['$scope', $scope => {
       const docker = {
-              query: '',
-              results: [],
-              showLimit: 20,
-              limitStep: 20,
-              sortBy: 'stars',
-              sortFn: sortFns.stars
-            };
+        query: '',
+        results: [],
+        showLimit: 20,
+        limitStep: 20,
+        sortBy: 'stars',
+        sortFn: sortFns.stars
+      };
+
+      const {proxies: {dockerHubApiRoot}} = launchCloud;
 
       const registry = $resource(`${dockerHubApiRoot}/v1/search?q=:query&n=:count&page=:page`);
       // let registry = getDockerHubApiResource(),

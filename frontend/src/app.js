@@ -30,8 +30,4 @@ module.exports = {
 
     .directive('launchStatus',            require('./modules/cloud-launcher/directives/launchStatus/directive'))
       .directive('providerStatuses',      require('./modules/cloud-launcher/directives/launchStatus/providerStatuses/directive'))
-
-
-    // .value('dockerHubApiRoots', ['https://index.docker.io', 'http://localhost:3408'])
-    .value('dockerHubApiRoot', 'http://104.154.35.244')
 };

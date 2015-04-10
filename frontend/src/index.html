@@ -12,144 +12,125 @@
 
     <link rel="shortcut icon" href="favicon.ico">
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
     <script>
-    var clVersion = '<%= version %>';
-    var wasReload = false;
+      var clVersion = '<%= version %>';
+      var wasReload = false;
 
-    if (location.search.indexOf('?cacheBust') === 0) {
-      wasReload = true;
-      location.search = '';
-    }
-
-    function styleError() {
-      checkAndReload();
-    }
-
-    function scriptError() {
-      checkAndReload();
-    }
-
-    function checkAndReload() {
-      if (wasReload) alert('There appears to be a problem loading the site. Please try again soon!');
-      else {
-        location.search = 'cacheBust' + new Date().getTime();
+      if (location.search.indexOf('?cacheBust') === 0) {
+        wasReload = true;
+        location.search = '';
       }
-    }
+
+      function styleError() {
+        checkAndReload();
+      }
+
+      function scriptError() {
+        checkAndReload();
+      }
+
+      function checkAndReload() {
+        if (wasReload) alert('There appears to be a problem loading the site. Please try again soon!');
+        else {
+          location.search = 'cacheBust' + new Date().getTime();
+        }
+      }
     </script>
 
     <link rel="stylesheet" href="app.css" onerror="styleError()">
   </head>
   <body ng-class="::{'is-simulator': isSimulator}">
 
-  <script>
-    // We detect FF because some features (animations, mostly) cause severe performance issues on that platform
-    if (navigator.userAgent.match(/firefox\//i)) {
-      document.body.className = 'ff';
-    }
-  </script>
-
-  <style type="text/css">
-  .ng-cloak {
-    display: none !important;
-  }
-  </style>
-
-  <teaser>
-    <div class="question">
-      <div class="center">
-        <span class="q1">How</span>
-        <span class="q2">can</span>
-        <span class="q3">you</span>
-        <span class="q4">change</span>
-        <span class="q5">the</span>
-        <span class="q6">world,</span>
-        <span class="q7">unless</span>
-        <span class="q8">you</span>
-        <span class="q9">can</span>
-        <span class="q10">deploy</span>
-        <span class="q11">everywhere?</span>
-      </div>
-    </div>
-    <span class="container">
-      <span class="flip"><span class="launcher"><span class="arm"><span class="right-arm">╯</span></span><span class="body">{<span class="face">°□°</span>}</span><span class="arm"><span class="left-arm">╯</span></span></span></span><span class="swoosh">彡</span><span class="cloud">{益}</span>
-    </span>
-  </teaser>
-
-  <div ng-if="newVersionAvailable"
-       ng-cloak
-       class="new-version ng-cloak">
-    <div ng-click="loadNewVersion()" class="notice">
-      <div>Excuse me, there is a new version. Click here to load it.</div>
-      <div class="will-save">Your current configuration will be saved.</div>
-    </div>
-    <span class="close"
-          ng-click="ignoreNewVersion()"
-          title="Ignore This Version">X</span>
-  </div>
-
-  <header class="page-header grow">
-    <div ng-if="clouds.length > 0"
-         ng-class="{'clouds': true, 'selected': stage.current === 'clouds'}"
-         ng-click="stageManager.toggleClouds()">
-      <span class="text">My Clouds</span>
-      <span class="count">({{clouds.length}})</span>
-    </div>
-    <div ng-class="{'about': true, 'selected': stage.current === 'about'}"
-         ng-click="stageManager.toggleAbout()">About</div>
-    <div class="simulator"><a href="{{::(isSimulator ? '?' : '?simulator')}}">{{::(isSimulator ? 'Exit The Simulator' : 'Try The Simulator!')}}</a></div>
-    <div class="cl-brand">
-      <span class="cloud-launcher">{╯°□°}╯彡{益}</span>
-      <span class="deploy-everywhere">Deploy Everywhere<span class="disclaimer" title="Where There Is A Provider">*</span></span>
-    </div>
-
-    <span class="fork-it"><a href="https://github.com/cloud-launcher"><span class="fork">fork</span> cloud-launcher <span class="github">on github</span></a></span>
-  </header>
-
-  <div class="scene grow">
-    <div ng-class="{'main-stage': true, 'in-about': stage.current === 'about'}">
-      <launch-pad ng-class="{
-        'in-launch-status': stage.current === 'launchstatus',
-        'in-clouds': stage.current === 'clouds'
-      }"></launch-pad>
-      <launch-status ng-if="stage.launchStatusVisible"
-                     ng-class="{'in-clouds': stage.current === 'clouds'}"></launch-status>
-      <clouds ng-if="stage.cloudsVisible"></clouds>
-    </div>
-    <about ng-if="stage.aboutVisible"></about>
-  </div>
-
-  <footer class="grow">
-    <div class="method git">
-      <div class="line">git clone https://github.com/cloud-launcher/launch-cloud</div>
-      <div class="line">cd launch-cloud && ./launch-cloud ~/your_cloud.json</div>
-    </div>
-    <div class="method docker">
-      <div class="line">cat your_cloud.json | docker run -i cloudlauncher/launch-cloud</div>
-    </div>
-    <div class="method npm">
-      <div class="line">npm install -g launch-cloud</div>
-      <div class="line">launch-cloud your_cloud.json</div>
-    </div>
-  </footer>
-
-<!--<script>
-    // This is supposed to hide Android/iOS address bars, but in my experience: doesn't
-    function hideAddressBar(){
-      console.log('hiding');
-      if(document.documentElement.scrollHeight <
-          (window.outerHeight / window.devicePixelRatio)) {
-
-        document.documentElement.style.height=(window.outerHeight/window.devicePixelRatio)+'px';
-
-        console.log(document.documentElement.style.height);
+    <script>
+      // We detect FF because some features (animations, mostly) cause severe performance issues on that platform
+      if (navigator.userAgent.match(/firefox\//i)) {
+        document.body.className = 'ff';
       }
-      setTimeout(window.scrollTo(1,1),0);
+    </script>
+
+    <style type="text/css">
+    .ng-cloak {
+      display: none !important;
     }
-    window.addEventListener("load",function(){hideAddressBar();});
-    window.addEventListener("orientationchange",function(){hideAddressBar();});
-    </script> -->
+    </style>
+
+    <teaser>
+      <div class="question">
+        <div class="center">
+          <span class="q1">How</span>
+          <span class="q2">can</span>
+          <span class="q3">you</span>
+          <span class="q4">change</span>
+          <span class="q5">the</span>
+          <span class="q6">world,</span>
+          <span class="q7">unless</span>
+          <span class="q8">you</span>
+          <span class="q9">can</span>
+          <span class="q10">deploy</span>
+          <span class="q11">everywhere?</span>
+        </div>
+      </div>
+      <span class="container">
+        <span class="flip"><span class="launcher"><span class="arm"><span class="right-arm">╯</span></span><span class="body">{<span class="face">°□°</span>}</span><span class="arm"><span class="left-arm">╯</span></span></span></span><span class="swoosh">彡</span><span class="cloud">{益}</span>
+      </span>
+    </teaser>
+
+    <div ng-if="newVersionAvailable"
+         ng-cloak
+         class="new-version ng-cloak">
+      <div ng-click="loadNewVersion()" class="notice">
+        <div>Excuse me, there is a new version. Click here to load it.</div>
+        <div class="will-save">Your current configuration will be saved.</div>
+      </div>
+      <span class="close"
+            ng-click="ignoreNewVersion()"
+            title="Ignore This Version">X</span>
+    </div>
+
+    <header class="page-header grow">
+      <div ng-if="clouds.length > 0"
+           ng-class="{'clouds': true, 'selected': stage.current === 'clouds'}"
+           ng-click="stageManager.toggleClouds()">
+        <span class="text">My Clouds</span>
+        <span class="count">({{clouds.length}})</span>
+      </div>
+      <div ng-class="{'about': true, 'selected': stage.current === 'about'}"
+           ng-click="stageManager.toggleAbout()">About</div>
+      <div class="simulator"><a href="{{::(isSimulator ? '?' : '?simulator')}}">{{::(isSimulator ? 'Exit The Simulator' : 'Try The Simulator!')}}</a></div>
+      <div class="cl-brand">
+        <span class="cloud-launcher">{╯°□°}╯彡{益}</span>
+        <span class="deploy-everywhere">Deploy Everywhere<span class="disclaimer" title="Where There Is A Provider">*</span></span>
+      </div>
+
+      <span class="fork-it"><a href="https://github.com/cloud-launcher"><span class="fork">fork</span> cloud-launcher <span class="github">on github</span></a></span>
+    </header>
+
+    <div class="scene grow">
+      <div ng-class="{'main-stage': true, 'in-about': stage.current === 'about'}">
+        <launch-pad ng-class="{
+          'in-launch-status': stage.current === 'launchstatus',
+          'in-clouds': stage.current === 'clouds'
+        }"></launch-pad>
+        <launch-status ng-if="stage.launchStatusVisible"
+                       ng-class="{'in-clouds': stage.current === 'clouds'}"></launch-status>
+        <clouds ng-if="stage.cloudsVisible"></clouds>
+      </div>
+      <about ng-if="stage.aboutVisible"></about>
+    </div>
+
+    <footer class="grow">
+      <div class="method git">
+        <div class="line">git clone https://github.com/cloud-launcher/launch-cloud</div>
+        <div class="line">cd launch-cloud && ./launch-cloud ~/your_cloud.json</div>
+      </div>
+      <div class="method docker">
+        <div class="line">cat your_cloud.json | docker run -i cloudlauncher/launch-cloud</div>
+      </div>
+      <div class="method npm">
+        <div class="line">npm install -g launch-cloud</div>
+        <div class="line">launch-cloud your_cloud.json</div>
+      </div>
+    </footer>
 
     <script src="vendor.js" onerror="scriptError()"></script>
     <script src="app.js" onerror="scriptError()"></script>

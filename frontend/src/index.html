@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Deploy Everywhere | cloud-launcher</title>
+    <title>cloud-launcher | Deploy Everywhere</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=yes">
 
     <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
@@ -88,21 +88,27 @@
     </div>
 
     <header class="page-header grow">
+
       <div ng-if="clouds.length > 0"
            ng-class="{'clouds': true, 'selected': stage.current === 'clouds'}"
            ng-click="stageManager.toggleClouds()">
         <span class="text">My Clouds</span>
         <span class="count">({{clouds.length}})</span>
       </div>
-      <div ng-class="{'about': true, 'selected': stage.current === 'about'}"
-           ng-click="stageManager.toggleAbout()">About</div>
+
       <div class="simulator"><a href="{{::(isSimulator ? '?' : '?simulator')}}">{{::(isSimulator ? 'Exit The Simulator' : 'Try The Simulator!')}}</a></div>
+
       <div class="cl-brand">
         <span class="cloud-launcher">{╯°□°}╯彡{益}</span>
-        <span class="deploy-everywhere">Deploy Everywhere<span class="disclaimer" title="Where There Is A Provider">*</span></span>
+        <div class="text">
+          <span class="deploy-everywhere">Deploy Everywhere<span class="disclaimer" title="Where There Is A Provider">*</span></span>
+          <span class="fork-it"><a href="https://github.com/cloud-launcher" target="_blank"><span class="fork">fork</span> cloud-launcher <span class="github">on github</span></a></span>
+        </div>
       </div>
 
-      <span class="fork-it"><a href="https://github.com/cloud-launcher"><span class="fork">fork</span> cloud-launcher <span class="github">on github</span></a></span>
+      <div ng-class="{'about': true, 'selected': stage.current === 'about'}"
+           ng-click="stageManager.toggleAbout()">About</div>
+
     </header>
 
     <div class="scene grow">

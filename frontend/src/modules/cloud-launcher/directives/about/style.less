@@ -54,6 +54,10 @@ about {
       &:hover {
         background-color: rgba(128, 128, 128, 0.5);
       }
+
+      &.selected {
+        background-color: rgba(128, 128, 128, 0.6);
+      }
     }
 
     .anchor {
@@ -80,15 +84,12 @@ about {
     }
   }
 
-  .copy {
+  .board {
     display: flex;
-    flex-direction: column;
 
-    justify-content: space-around;
+    flex: 1 0 auto;
 
-    flex: 1 1 auto;
-
-    max-width: 50%;
+    width: 50%;
 
     padding: 0.5em;
 
@@ -97,8 +98,19 @@ about {
 
     color: #000;
 
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
 
     overflow-y: auto;
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+
+      justify-content: space-around;
+
+      flex: 1 1 auto;
+
+      text-align: justify;
+    }
   }
 }

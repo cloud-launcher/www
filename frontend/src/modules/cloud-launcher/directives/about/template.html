@@ -1,27 +1,55 @@
 <div class="teaser">
-  <div>
+  <div ng-click="toggle('build')"
+       ng-class="{'selected': selectedCopy === 'build'}">
     <div class="anchor build">Build</div>
-    <div>system descriptions</div>
+    <div>destributed systems</div>
   </div>
 
-  <div>
+  <div ng-click="toggle('launch')"
+       ng-class="{'selected': selectedCopy === 'launch'}">
     <div class="anchor launch">Launch</div>
     <div>multi-cluster, distributed clouds across all providers, around the planet</div>
   </div>
 
-  <div>
+  <div ng-click="toggle('share')"
+       ng-class="{'selected': selectedCopy === 'share'}">
     <div class="anchor share">Share</div>
-    <div>your system descriptions with the world so that anyone can launch and run your system</div>
+    <div>your system descriptions with the world so that anyone can launch and run the  systems you design</div>
   </div>
 
-  <div>
+  <div ng-click="toggle('collaborate')"
+       ng-class="{'selected': selectedCopy === 'collaborate'}">
     <div class="anchor collaborate">Collaborate</div>
     <div>with others to produce world-class systems</div>
   </div>
 </div>
 
-<div class="copy">
-  <div>cloud-launcher is a set of free and open-source tools for designing, launching, and managing distributed computing systems on a global scale.</div>
+<div class="board"
+     ng-switch="selectedCopy">
+  <div class="copy intro"
+       ng-switch-default>
+    <div>cloud-launcher is a set of free and open-source tools for designing, launching, and managing distributed computing systems on a global scale.</div>
 
-  <div>cloud-launcher aims to integrate with every provider on the planet to not only free you from reliance on a single provider, but to allow you to run across any and all providers to create real high-availability systems that can survive in all but the most catastrophic scenarios.</div>
+    <div>cloud-launcher aims to integrate with every provider on the planet to not only free you from reliance on a single provider, but to allow you to run across any and all providers to create truely high-availabile systems that can survive in all but the most catastrophic scenarios.</div>
+  </div>
+
+  <div class="copy build"
+       ng-switch-when="build">
+    Build
+  </div>
+
+  <div class="copy launch"
+       ng-switch-when="launch">
+    Launch
+  </div>
+
+  <div class="copy share"
+       ng-switch-when="share">
+    Share
+  </div>
+
+  <div class="copy collaborate"
+       ng-switch-when="collaborate">
+    Collaborate
+  </div>
 </div>

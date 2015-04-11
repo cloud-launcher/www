@@ -16,34 +16,16 @@ module.exports = () => {
       $scope.$on('$destroy', () => {
         globe.destroy();
       });
+
+      $scope.$emit('globe ready');
     },
     controller: ['$scope', $scope => {
-      $scope.showCloudPoints = cloud => {
-        console.log('show points');
-        const {clusters} = cloud,
-              locations = {};
 
-        _.each(clusters, cluster => {
-          const provider = locations[cluster.provider] = locations[cluster.provider] || {};
-
-          provider[cluster.location] = true;
+      $scope.showLocations = locations => {
+        const points = _.map(locations, location => {
+          const {lat, lon} = location;
+          return [lat, lon + (lon < 0 ? (Math.PI / 12) : (-Math.PI / 12)), 0.5];
         });
-
-        const {providers} = $scope,
-              points = [];
-
-        _.each(locations, (locations, provider) => {
-          const profile = providers[provider].profile;
-
-          _.each(locations, (exists, locationName) => {
-            const location = profile.locations[locationName],
-                  {physicalLocation} = location,
-                  {lat, lon} = physicalLocation;
-
-            points.push([lat, lon + (lon < 0 ? (Math.PI / 12) : (-Math.PI / 12)), 0.5]);
-          });
-        });
-
         globe.clearPoints();
 
         const midpoint = calculateMidpoint(points);

@@ -274,7 +274,6 @@ module.exports = function(container, opts) {
   }
 
   function clearPoints() {
-    console.log(scene);
     scene.remove(this.points);
   }
 

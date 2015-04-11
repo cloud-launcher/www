@@ -11,17 +11,20 @@ module.exports = () => {
         const {providers} = launchCloud,
               clouds = storedClouds.getClouds();
 
-        $scope.destroyLog = {};
-        $scope.destroyStatus = {};
-        $scope.showDestroyConfirmation = {};
-        $scope.showForgetConfirmation = {};
-        $scope.showWarning = {};
-        $scope.hideClusters = {};
-        $scope.hideMachines = {};
-        $scope.showDetails = {};
-        $scope.clouds = clouds;
+        $scope.$on('globe ready', () => $scope.showLocations(getAllLocations()));
 
-        $scope.stageManager = stageManager;
+        _.extend($scope, {
+          destroyLog: {},
+          destroyStatus: {},
+          showDestroyConfirmation: {},
+          showForgetConfirmation: {},
+          showWarning: {},
+          hideClusters: {},
+          hideMachines: {},
+          showDetails: {},
+          clouds,
+          stageManager
+        });
 
         $scope.$watchCollection('clouds', clouds => {
           const providers = _.unique(
@@ -38,7 +41,7 @@ module.exports = () => {
           if (currentHoveredCloud != cloud) {
             currentHoveredCloud = cloud;
 
-            $scope.showCloudPoints(cloud);
+            $scope.showLocations(getLocations(cloud));
           }
         };
 
@@ -46,6 +49,8 @@ module.exports = () => {
           if (currentHoveredCloud === cloud) {
             currentHoveredCloud = undefined;
           }
+
+          $scope.showLocations(getAllLocations());
         };
 
         $scope.destroyCluster = cluster => {
@@ -133,6 +138,25 @@ module.exports = () => {
 
           return estimatedCost;
         };
+
+        function getLocations(cloud) {
+          const {clusters} = cloud;
+
+          const locations = _.map(clusters, cluster => {
+            const {provider, location} = cluster,
+                  {profile} = providers[provider],
+                  {locations} = profile,
+                  {physicalLocation} = locations[location];
+
+            return physicalLocation;
+          });
+
+          return locations;
+        }
+
+        function getAllLocations() {
+          return _.flatten(_.map(clouds, getLocations));
+        }
 
         function currentAge(machine) {
           const now = new Date(),

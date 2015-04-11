@@ -4,20 +4,24 @@ module.exports = () => {
   return {
     restrict: 'E',
     template: require('./template.html'),
+    scope: true,
     controller: [
-      '$scope', 'launchCloud', 'providerMonitor', 'storedClouds',
-      ($scope, launchCloud, providerMonitor, storedClouds) => {
+      '$scope', 'launchCloud', 'providerMonitor', 'storedClouds', 'stageManager',
+      ($scope, launchCloud, providerMonitor, storedClouds, stageManager) => {
         const {providers} = launchCloud,
               clouds = storedClouds.getClouds();
 
         $scope.destroyLog = {};
         $scope.destroyStatus = {};
+        $scope.showDestroyConfirmation = {};
+        $scope.showForgetConfirmation = {};
+        $scope.showWarning = {};
         $scope.hideClusters = {};
         $scope.hideMachines = {};
         $scope.showDetails = {};
         $scope.clouds = clouds;
 
-        console.log(clouds);
+        $scope.stageManager = stageManager;
 
         $scope.$watchCollection('clouds', clouds => {
           const providers = _.unique(
@@ -65,7 +69,7 @@ module.exports = () => {
                 console.log('destroyed', cloud);
                 storedClouds.removeCloud(cloud);
 
-                if ($scope.clouds.length === 0) $scope.stageManager.gotoStage('launchpad');
+                if ($scope.clouds.length === 0) stageManager.gotoStage('launchpad');
 
                 delete $scope.destroyLog[cloud.id];
 

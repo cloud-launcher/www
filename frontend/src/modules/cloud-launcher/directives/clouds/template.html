@@ -6,6 +6,43 @@
            ng-mouseenter="cloudHovered(cloud)"
            ng-mouseleave="cloudNotHovered(cloud)"
            class="cloud">
+
+        <div ng-if="showDestroyConfirmation[cloud.id]"
+             class="destroy-confirmation">
+          <div class="question">
+            <span>Are you sure you want to destroy this cloud?</span>
+          </div>
+          <div class="options">
+            <button ng-click="destroyCloud(cloud); $event.stopPropagation()"
+                    ng-mouseenter="showWarning[cloud.id] = true"
+                    ng-mouseleave="showWarning[cloud.id] = false"
+                    class="yes">Yes</button>
+            <button ng-click="showDestroyConfirmation[cloud.id] = false; $event.stopPropgation()" class="no">No</button>
+          </div>
+          <div ng-if="showWarning[cloud.id]"
+               class="warning">
+            WARNING: This action is unrecoverable!
+          </div>
+        </div>
+
+        <div ng-if="showForgetConfirmation[cloud.id]"
+             class="destroy-confirmation">
+          <div class="question">
+            <span>Are you sure you want to forget this cloud?</span>
+          </div>
+          <div class="options">
+            <button ng-click="forgetCloud(cloud); $event.stopPropagation()"
+                    ng-mouseenter="showWarning[cloud.id] = true"
+                    ng-mouseleave="showWarning[cloud.id] = false"
+                    class="yes">Yes</button>
+            <button ng-click="showForgetConfirmation[cloud.id] = false; $event.stopPropgation()" class="no">No</button>
+          </div>
+          <div ng-if="showWarning[cloud.id]"
+               class="warning">
+            WARNING: This action is unrecoverable!
+          </div>
+        </div>
+
         <div ng-if="destroyLog[cloud.id]"
              class="destroy-log">
           <div class="destroy-status">{{destroyStatus[cloud.id]}}</div>
@@ -13,6 +50,7 @@
             {{::event}}
           </div>
         </div>
+
         <div class="cloud-header"
              ng-click="hideClusters[cloud.id] = !hideClusters[cloud.id]">
           <div class="info">
@@ -20,10 +58,10 @@
             <div class="cluster-count">{{cloud.clusterCount}} Cluster{{cloud.clusterCount > 1 ? 's' : ''}}</div>
           </div>
           <div class="actions">
-            <button ng-click="forgetCloud(cloud); $event.stopPropagation()"
+            <button ng-click="showForgetConfirmation[cloud.id] = true; $event.stopPropagation()"
                     class="forget"
                     title="Cloud remains running, but is removed from GUI.">Forget Cloud</button>
-            <button ng-click="destroyCloud(cloud); $event.stopPropagation()"
+            <button ng-click="showDestroyConfirmation[cloud.id] = true; $event.stopPropagation()"
                     class="destroy"
                     title="Completly destroy this cloud.">Destroy Cloud</button>
           </div>

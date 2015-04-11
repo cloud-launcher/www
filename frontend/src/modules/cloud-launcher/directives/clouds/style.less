@@ -70,6 +70,62 @@ clouds {
             background-color: rgba(128, 128, 128, 0.3);
           }
 
+          .destroy-confirmation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 1.5em;
+            font-weight: bolder;
+            text-transform: uppercase;
+
+            background-color: rgba(64, 0, 0, 0.6);
+
+            text-shadow: 0 0 5px #000;
+
+            .question {
+              text-align: center;
+            }
+
+            .options {
+              button {
+                // border: none;
+                padding: 0.25em 1em;
+                margin: 0 1em;
+                background: none;
+
+                font-size: 1.5em;
+
+                cursor: pointer;
+
+                text-shadow: 0 0 5px #000;
+              }
+
+              .yes {
+                color: #f00;
+
+                background-color: rgba(64, 0, 0, 0.9);
+              }
+
+              .no {
+                color: #0f0;
+
+                background-color: rgba(0, 64, 0, 0.9);
+              }
+            }
+
+            .warning {
+              color: #f00;
+            }
+          }
+
           .destroy-log {
             position: absolute;
 

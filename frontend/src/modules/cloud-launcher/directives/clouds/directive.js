@@ -103,12 +103,11 @@ module.exports = () => {
         // Make a filter?
         $scope.getMachineAge = machine => {
           let age = currentAge(machine),
-              [millisecondsTotal, milliseconds] = [age / 1000, Math.floor(age % 1000)],
-              [secondsTotal, seconds] = [millisecondsTotal / 60, Math.floor(millisecondsTotal % 60)],
-              [minutesTotal, minutes] = [secondsTotal / 60, Math.floor(secondsTotal % 60)],
-              [hoursTotal, hours] = [minutesTotal / 60, Math.floor(minutesTotal % 60)],
-              [daysTotal, days] = [hoursTotal / 24, Math.floor(hoursTotal % 24)],
-              [yearsTotal, years] = [daysTotal / 365, Math.floor(daysTotal % 365)];
+              secondsTotal = age / 1000,
+              [minutesTotal, seconds] = [secondsTotal / 60, Math.floor(secondsTotal % 60)],
+              [hoursTotal, minutes] = [minutesTotal / 60, Math.floor(minutesTotal % 60)],
+              [daysTotal, hours] = [hoursTotal / 24, Math.floor(hoursTotal % 24)],
+              [years, days] = [Math.floor(daysTotal / 365), Math.floor(daysTotal % 365)]; // won't handle leap years
 
           return _.compact(
                   [

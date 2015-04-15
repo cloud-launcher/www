@@ -58,10 +58,10 @@
             <div class="cluster-count">{{cloud.clusterCount}} Cluster{{cloud.clusterCount > 1 ? 's' : ''}}</div>
           </div>
           <div class="actions">
-            <button ng-click="showForgetConfirmation[cloud.id] = true; $event.stopPropagation()"
+            <button ng-click="showForgetConfirmation[cloud.id] = true; hideClusters[cloud.id] = false; $event.stopPropagation()"
                     class="forget"
                     title="Cloud remains running, but is removed from GUI.">Forget Cloud</button>
-            <button ng-click="showDestroyConfirmation[cloud.id] = true; $event.stopPropagation()"
+            <button ng-click="showDestroyConfirmation[cloud.id] = true; hideClusters[cloud.id] = false; $event.stopPropagation()"
                     class="destroy"
                     title="Completly destroy this cloud.">Destroy Cloud</button>
           </div>

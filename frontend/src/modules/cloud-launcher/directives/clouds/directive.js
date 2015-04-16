@@ -19,8 +19,8 @@ module.exports = () => {
           showDestroyConfirmation: {},
           showForgetConfirmation: {},
           showWarning: {},
-          hideClusters: {},
-          hideMachines: {},
+          showClusters: {},
+          showMachines: {},
           showDetails: {},
           clouds,
           stageManager
@@ -34,6 +34,26 @@ module.exports = () => {
                                   cloud => _.map(cloud.clusters, cluster => { return cluster.provider; }))));
 
           _.each(providers, provider => providerMonitor.monitor(provider, 15000, updateMachines));
+
+          _.each(clouds, cloud => {
+            const {id, clusterCount, clusters} = cloud;
+
+            if (clusterCount < 4) {
+              $scope.showClusters[id] = true;
+
+              _.each(clusters, cluster => {
+                const {id, machineCount, machines} = cluster;
+
+                if (machineCount < 3) {
+                  $scope.showMachines[id] = true;
+
+                  _.each(machines, (machine, id) => {
+                    $scope.showDetails[id] = true;
+                  });
+                }
+              });
+            }
+          });
         });
 
         let currentHoveredCloud;
@@ -63,7 +83,7 @@ module.exports = () => {
         $scope.destroyCloud = cloud => {
           const {id} = cloud;
 
-          $scope.hideClusters[cloud.id] = false;
+          $scope.showClusters[cloud.id] = true;
           $scope.destroyLog[cloud.id] = [];
           $scope.destroyStatus[cloud.id] = 'Destroying';
 
@@ -77,6 +97,7 @@ module.exports = () => {
                 if ($scope.clouds.length === 0) stageManager.gotoStage('launchpad');
 
                 delete $scope.destroyLog[cloud.id];
+                delete $scope.showClusters[cloud.id];
 
                 $scope.$apply();
               },

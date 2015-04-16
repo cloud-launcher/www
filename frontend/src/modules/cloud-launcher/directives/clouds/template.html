@@ -52,27 +52,27 @@
         </div>
 
         <div class="cloud-header"
-             ng-click="hideClusters[cloud.id] = !hideClusters[cloud.id]">
+             ng-click="showClusters[cloud.id] = !showClusters[cloud.id]">
           <div class="info">
             <div class="cloud-id" title="This is your cloud's name!">{{cloud.id}}</div>
             <div class="cluster-count">{{cloud.clusterCount}} Cluster{{cloud.clusterCount > 1 ? 's' : ''}}</div>
           </div>
           <div class="actions">
-            <button ng-click="showForgetConfirmation[cloud.id] = true; hideClusters[cloud.id] = false; $event.stopPropagation()"
+            <button ng-click="showForgetConfirmation[cloud.id] = true; showClusters[cloud.id] = true; $event.stopPropagation()"
                     class="forget"
                     title="Cloud remains running, but is removed from GUI.">Forget Cloud</button>
-            <button ng-click="showDestroyConfirmation[cloud.id] = true; hideClusters[cloud.id] = false; $event.stopPropagation()"
+            <button ng-click="showDestroyConfirmation[cloud.id] = true; showClusters[cloud.id] = true; $event.stopPropagation()"
                     class="destroy"
                     title="Completly destroy this cloud.">Destroy Cloud</button>
           </div>
         </div>
-        <div ng-if="!hideClusters[cloud.id]"
+        <div ng-if="showClusters[cloud.id]"
              class="clusters">
           <div ng-repeat="(clusterID, cluster) in cloud.clusters"
                class="cluster">
 
             <div class="cluster-header"
-                 ng-click="hideMachines[clusterID] = !hideMachines[clusterID]; $event.stopPropagation();">
+                 ng-click="showMachines[clusterID] = !showMachines[clusterID]; $event.stopPropagation();">
               <div class="info">
                 <div class="cluster-id" title="This is your cluster's ID!">{{::clusterID}}</div>
                 <div class="machine-count">{{cluster.machineCount}} Machine{{cluster.machineCount > 1 ? 's' : ''}}</div>
@@ -88,7 +88,7 @@
               </div>
             </div>
 
-            <div ng-if="!hideMachines[clusterID]"
+            <div ng-if="showMachines[clusterID]"
                  class="machines">
               <div ng-repeat="(machineID, machine) in cluster.machines"
                    class="machine">

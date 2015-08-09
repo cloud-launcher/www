@@ -34,7 +34,7 @@ module.exports = [
         },
         containers: {
           cadvisor: {
-            container: "google/cadvisor",
+            namespace: "google",
             ports: {
               8080: 8080
             },
@@ -46,7 +46,7 @@ module.exports = [
             }
           },
           "benchmark-viewer": {
-            container: "cloudlauncher/benchmark-viewer",
+            namespace: "cloudlauncher",
             environment: {
               ETCD_HOST: "172.17.42.1"
             },
@@ -56,7 +56,7 @@ module.exports = [
             }
           },
           "fleet-ui": {
-            container: "purpleworks/fleet-ui",
+            namespace: "purpleworks",
             environment: {
               ETCD_PEER: "172.17.42.1"
             },

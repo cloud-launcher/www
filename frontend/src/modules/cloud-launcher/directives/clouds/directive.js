@@ -123,20 +123,20 @@ module.exports = () => {
 
         // Make a filter?
         $scope.getMachineAge = machine => {
-          let age = currentAge(machine),
-              secondsTotal = age / 1000,
-              [minutesTotal, seconds] = [secondsTotal / 60, Math.floor(secondsTotal % 60)],
-              [hoursTotal, minutes] = [minutesTotal / 60, Math.floor(minutesTotal % 60)],
-              [daysTotal, hours] = [hoursTotal / 24, Math.floor(hoursTotal % 24)],
-              [years, days] = [Math.floor(daysTotal / 365), Math.floor(daysTotal % 365)]; // won't handle leap years
+          const age = currentAge(machine),
+                secondsTotal = age / 1000,
+                [minutesTotal, seconds] = [secondsTotal / 60, Math.floor(secondsTotal % 60)],
+                [hoursTotal, minutes] = [minutesTotal / 60, Math.floor(minutesTotal % 60)],
+                [daysTotal, hours] = [hoursTotal / 24, Math.floor(hoursTotal % 24)],
+                [years, days] = [Math.floor(daysTotal / 365), Math.floor(daysTotal % 365)]; // won't handle leap years
 
           return _.compact(
                   [
-                    years > 0 ? `${years} years` : undefined,
-                    days > 0 ? `${days} days` : undefined,
-                    hours > 0 ? `${hours} hours` : undefined,
-                    minutes > 0 ? `${minutes} minutes` : undefined,
-                    seconds > 0 ? `${seconds} seconds` : undefined
+                      years > 1 ? `${years} years` :      years > 0 ? `${years} year` : undefined,
+                       days > 1 ? `${days} days`   :       days > 0 ? `${days} day` : undefined,
+                      hours > 1 ? `${hours} hours` :      hours > 0 ? `${hours} hour` :undefined,
+                    minutes > 1 ? `${minutes} minutes` :minutes > 0 ? `${minutes} minute` : undefined,
+                    seconds > 1 ? `${seconds} seconds` :seconds > 0 ? `${seconds} second` : undefined
                   ]
                  ).join(' ');
         };

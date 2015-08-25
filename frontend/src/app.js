@@ -3,6 +3,8 @@ require('angular-animate');
 require('angular-resource');
 require('angular-local-storage');
 
+require('babel/polyfill');
+
 module.exports = {
   'cloud-launcher': angular.module('cloud-launcher', ['ngAnimate', 'ngResource', 'LocalStorageModule'])
     .service('configurationLoader',       require('./modules/cloud-launcher/services/configurationLoader/service'))

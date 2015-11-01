@@ -36,20 +36,19 @@ module.exports = () => {
           _.each(providers, provider => providerMonitor.monitor(provider, 15000, updateMachines));
 
           _.each(clouds, cloud => {
-            const {id, clusterCount, clusters} = cloud;
+            const {id, clusterCount, clusters} = cloud,
+                  {showClusters, showDetails, showMachines} = $scope;
 
             if (clusterCount < 4) {
-              $scope.showClusters[id] = true;
+              showClusters[id] = true;
 
               _.each(clusters, cluster => {
                 const {id, machineCount, machines} = cluster;
 
                 if (machineCount < 3) {
-                  $scope.showMachines[id] = true;
+                  showMachines[id] = true;
 
-                  _.each(machines, (machine, id) => {
-                    $scope.showDetails[id] = true;
-                  });
+                  _.each(machines, (machine, id) => showDetails[id] = true);
                 }
               });
             }

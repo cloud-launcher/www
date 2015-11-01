@@ -31,7 +31,7 @@ module.exports = () => {
                               _.flatten(
                                 _.map(
                                   clouds,
-                                  cloud => _.map(cloud.clusters, cluster => { return cluster.provider; }))));
+                                  ({clusters}) => _.map(clusters, ({provider}) => (provider)))));
 
           _.each(providers, provider => providerMonitor.monitor(provider, 15000, updateMachines));
 
